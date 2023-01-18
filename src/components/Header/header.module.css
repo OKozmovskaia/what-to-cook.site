@@ -1,0 +1,17 @@
+.img {
+  height: 3.5rem;
+  margin: auto;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div {
+  display: flex;
+  gap: 1em;
+}
