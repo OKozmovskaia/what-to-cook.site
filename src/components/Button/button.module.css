@@ -1,11 +1,27 @@
-.btn-lg {
+.button {
+  line-height: 1.5;
+  color: VAR(--white);
+  background-color: VAR(--yellow);
+  border: 1px solid transparent;
+  text-align: center;
+  cursor: pointer;
+}
+
+.large {
   font-size: 1.15rem;
   border-radius: 0.3rem;
   padding: 0.4rem 0.8rem;
 }
 
-.btn-sm {
+.small {
   font-size: 0.875rem;
   border-radius: 0.2rem;
   padding: 0.25rem 0.5rem;
+}
+
+.icon {
+  width: 2.1em;
+  height: 2.1em;
+  color: var(--yellow);
+  background-color: VAR(--white);
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import ListItem from "../ListItem/listItem";
+import ListItem from "../ListItem";
 // import styles from "./sidebar.module.css";
 
 export default function Sidebar() {

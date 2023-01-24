@@ -27,15 +27,6 @@ button {
   outline: none;
 }
 
-button {
-  line-height: 1.5;
-  color: VAR(--white);
-  background-color: VAR(--yellow);
-  border: 1px solid transparent;
-  text-align: center;
-  cursor: pointer;
-}
-
 h1 {
   font-size: 2.3em;
 }

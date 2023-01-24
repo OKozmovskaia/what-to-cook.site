@@ -12,8 +12,8 @@ const Header = () => {
         <h1>What to cook?</h1>
       </div>
       <div className={styles.div}>
-        <Button caption={"Log In"} className="btn-lg" />
-        <Button caption={"Sign Up"} className="btn-lg" />
+        <Button large>Log In</Button>
+        <Button large>Sign Up</Button>
       </div>
     </div>
   );

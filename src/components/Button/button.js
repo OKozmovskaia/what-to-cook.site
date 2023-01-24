@@ -1,6 +1,52 @@
 import React from "react";
 import styles from "./button.module.css";
+import cn from "classnames";
 
-export default function Button({ caption, className }) {
-  return <button className={styles[className]}>{caption}</button>;
-}
+import { ReactComponent as arrowBackIcon } from "../../icons/arrow-back.svg";
+import { ReactComponent as arrowUpIcon } from "../../icons/arrow-up.svg";
+import { ReactComponent as arrowForwardIcon } from "../../icons/arrow-forward.svg";
+import { ReactComponent as arrowDownIcon } from "../../icons/arrow-down.svg";
+import { ReactComponent as binIcon } from "../../icons/bin.svg";
+import { ReactComponent as penIcon } from "../../icons/edit.svg";
+import { ReactComponent as heartIcon } from "../../icons/heart.svg";
+import { ReactComponent as shoppingBagIcon } from "../../icons/shopping-bag.svg";
+
+const icons = {
+  arrowBack: arrowBackIcon,
+  arrowUp: arrowUpIcon,
+  arrowForward: arrowForwardIcon,
+  arrowDown: arrowDownIcon,
+  bin: binIcon,
+  pen: penIcon,
+  heart: heartIcon,
+  shopBag: shoppingBagIcon,
+};
+
+const Button = ({
+  icon,
+  iconStyle = false,
+  large = false,
+  small = false,
+  block = false,
+  children,
+  ...props
+}) => {
+  const Icon = icons[icon];
+
+  return (
+    <button
+      className={cn(styles.button, {
+        [styles.icon]: iconStyle,
+        [styles.large]: large,
+        [styles.small]: small,
+        [styles.block]: block,
+      })}
+      {...props}
+    >
+      {Icon && <Icon />}
+      {children}
+    </button>
+  );
+};
+
+export default Button;
