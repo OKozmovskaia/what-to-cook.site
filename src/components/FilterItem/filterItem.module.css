@@ -1,0 +1,23 @@
+.container {
+  margin-bottom: 1em;
+}
+
+.filterContent {
+  padding: 20px;
+  margin-top: 1em;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  background-color: var(--white);
+  position: relative;
+}
+
+.filterContent::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -12px;
+  left: calc(12px);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--white);
+}

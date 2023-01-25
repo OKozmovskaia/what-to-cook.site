@@ -7,7 +7,7 @@ function App() {
     <div>
       <Header />
       <Navbar />
-      <Sidebar />
+      <Sidebar title="Filter" />
     </div>
   );
 }

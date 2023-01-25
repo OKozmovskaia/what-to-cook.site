@@ -2,11 +2,18 @@
   text-decoration: none;
   border: 0.5px dotted var(--grey);
   border-width: 0 0 1px 0;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
   color: var(--grey);
   display: flex;
   align-items: center;
   gap: 0.8em;
+  transition: 0.5s;
+}
+
+.container:hover,
+.container:focus,
+.container:active {
+  background-color: var(--light-grey);
 }
 
 input[type="checkbox"] {
@@ -15,8 +22,8 @@ input[type="checkbox"] {
   margin: 0;
   font: inherit;
   color: currentColor;
-  width: 1.15em;
-  height: 1.15em;
+  width: 1em;
+  height: 1em;
   border: 0.15em solid currentColor;
   border-radius: 0.2em;
   transform: translateY(-0.075em);
