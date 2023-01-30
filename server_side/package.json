@@ -1,0 +1,20 @@
+{
+  "name": "server_side_what_to_cook",
+  "version": "1.0.0",
+  "description": "server side of what to cook web site",
+  "main": "index.js",
+  "scripts": {
+    "start": "supervisor index.js"
+  },
+  "author": "Olga Kozmovskaia",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.2.6",
+    "config": "^3.3.9",
+    "koa": "^2.14.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^12.0.0",
+    "qs": "^6.11.0",
+    "uuid": "^9.0.0"
+  }
+}
