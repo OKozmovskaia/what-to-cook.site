@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  padding: 0.5em;
+  border: 1px solid var(--yellow);
+  border-radius: 5px;
+}
+
+.container img {
+  width: 50%;
+  border-radius: 8px;
+}
+
+.content {
+  width: 50%;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1em;
+}
+
+.pageNumber {
+  text-align: right;
+  padding-right: 1em;
+}

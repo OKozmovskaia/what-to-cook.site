@@ -31,3 +31,32 @@ button {
 h1 {
   font-size: 2.3em;
 }
+
+input[type="text"] {
+  border: 1px solid #c4c5c6;
+  border-radius: 0.25em;
+  flex-grow: 1;
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: 300;
+  padding: 0.15em 0.75em;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.125rem var(--yellow);
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c4c5c6;
+  border-radius: 20px;
+}
