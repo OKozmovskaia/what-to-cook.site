@@ -4,7 +4,8 @@
   "description": "server side of what to cook web site",
   "main": "index.js",
   "scripts": {
-    "start": "supervisor index.js"
+    "start": "supervisor index.js",
+    "node": "nodemon index.js"
   },
   "author": "Olga Kozmovskaia",
   "license": "MIT",
@@ -16,5 +17,8 @@
     "koa-router": "^12.0.0",
     "qs": "^6.11.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

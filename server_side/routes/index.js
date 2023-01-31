@@ -1,7 +1,7 @@
 const Router = require("koa-router");
 const config = require("config");
 const axios = require("axios");
-const { stringify } = require("qs");
+const { stringify, parse } = require("qs");
 const { v4: uuid } = require("uuid");
 
 const router = new Router();
@@ -29,6 +29,7 @@ router.get("/find-recipes", async (ctx) => {
   const fetch = axios.create({
     paramsSerializer: {
       serialize: stringify,
+      encode: parse,
     },
   });
 
