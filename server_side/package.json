@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "supervisor index.js",
-    "node": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "author": "Olga Kozmovskaia",
   "license": "MIT",

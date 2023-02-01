@@ -1,11 +1,26 @@
 import React from "react";
+import { useState } from "react";
+import { connect } from "react-redux";
+import { loadRecipesByQuery } from "../redux/actions";
+
 import Button from "../components/Button";
 import Recipe from "../components/Recipe";
 import Sidebar from "../components/Sidebar";
 
 import styles from "./home-page.module.css";
 
-function HomePage() {
+function HomePage({ findRecipes }) {
+  const [inputQuery, setInputQuery] = useState("");
+
+  const handleInput = (e) => {
+    setInputQuery(e.target.value);
+  };
+
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    findRecipes(inputQuery);
+  };
+
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
@@ -13,8 +28,14 @@ function HomePage() {
       </aside>
       <main className={styles.mainContent}>
         <div className={styles.searchBarContainer}>
-          <input type="text" placeholder="Type products or name of recipe" />
-          <Button small>Search</Button>
+          <input
+            type="text"
+            placeholder="Type product or recipe name"
+            onChange={handleInput}
+          />
+          <Button small onClick={handleOnClick}>
+            Search
+          </Button>
         </div>
         <div className={styles.scrollContainer}>
           <Recipe />
@@ -26,4 +47,6 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default connect(null, (dispatch) => ({
+  findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
+}))(HomePage);
