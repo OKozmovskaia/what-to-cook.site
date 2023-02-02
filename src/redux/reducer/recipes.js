@@ -21,7 +21,9 @@ const recipes = (state = initialState, action) => {
     case LOAD_RECIPES + SUCCESS:
       return {
         ...state,
-        entities: data,
+        entities: data.recipes,
+        count: data.count,
+        loadMore: data.nextChunk,
         loading: false,
         loaded: true,
       };

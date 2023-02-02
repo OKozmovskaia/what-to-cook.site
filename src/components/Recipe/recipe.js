@@ -1,25 +1,26 @@
 import React from "react";
 import Button from "../Button";
-import Image from "../../images/empty-fridge.jpg";
 import styles from "./recipe.module.css";
 
-function Recipe() {
+function Recipe({ recipe, recipeNumber }) {
+  const { label, image, ingredientLines, totalTime } = recipe;
+
   return (
     <div className={styles.container}>
-      <img src={Image} alt="recipe-img" />
+      <img src={image} alt="recipe-img" />
       <div className={styles.content}>
-        <h2>Tasty Recipe</h2>
-        <p>30 min</p>
+        <h2>{label}</h2>
+        <p>{totalTime} min</p>
         <ul>
-          <li>Ingredient 1</li>
-          <li>Ingredient 2</li>
-          <li>Ingredient 3</li>
+          {ingredientLines.map((i, index) => (
+            <li key={index}>{i}</li>
+          ))}
         </ul>
         <div className={styles.buttonContainer}>
           <Button small>Read Recipe</Button>
           <Button small>Save Recipe</Button>
         </div>
-        <p className={styles.pageNumber}>1</p>
+        <p className={styles.pageNumber}>{recipeNumber}</p>
       </div>
     </div>
   );

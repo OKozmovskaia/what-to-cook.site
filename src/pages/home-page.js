@@ -1,7 +1,15 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { loadRecipesByQuery } from "../redux/actions";
+import {
+  recipesCountSelector,
+  recipesLoadedSelector,
+  recipesLoadingSelector,
+  recipesSelector,
+  recipesLoadMoreSelector,
+} from "../redux/selectors";
 
 import Button from "../components/Button";
 import Recipe from "../components/Recipe";
@@ -9,7 +17,7 @@ import Sidebar from "../components/Sidebar";
 
 import styles from "./home-page.module.css";
 
-function HomePage({ findRecipes }) {
+function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
   const [inputQuery, setInputQuery] = useState("");
 
   const handleInput = (e) => {
@@ -20,6 +28,13 @@ function HomePage({ findRecipes }) {
     e.preventDefault();
     findRecipes(inputQuery);
   };
+
+  useEffect(() => {
+    if (!loading && !loaded) findRecipes("carrot");
+  }, [loading, loaded, findRecipes]);
+
+  if (loading) return "Loader...";
+  if (!loaded) return "No data :(";
 
   return (
     <div className={styles.container}>
@@ -37,16 +52,30 @@ function HomePage({ findRecipes }) {
             Search
           </Button>
         </div>
+        <p>We found {count} recipes</p>
         <div className={styles.scrollContainer}>
-          <Recipe />
-          <Recipe />
-          <Recipe />
+          {recipes.map((item, index) => (
+            <Recipe
+              key={item.id}
+              recipe={item.recipe}
+              recipeNumber={index + 1}
+            />
+          ))}
         </div>
       </main>
     </div>
   );
 }
 
-export default connect(null, (dispatch) => ({
-  findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
-}))(HomePage);
+export default connect(
+  createStructuredSelector({
+    recipes: recipesSelector,
+    count: recipesCountSelector,
+    nextChunk: recipesLoadMoreSelector,
+    loading: recipesLoadingSelector,
+    loaded: recipesLoadedSelector,
+  }),
+  (dispatch) => ({
+    findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
+  })
+)(HomePage);

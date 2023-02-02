@@ -6,7 +6,7 @@ node_modules
 .pnp.js
 
 # variables
-/config
+config
 
 # testing
 /coverage
