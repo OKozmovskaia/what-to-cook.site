@@ -14,6 +14,7 @@ import {
 import Button from "../components/Button";
 import Recipe from "../components/Recipe";
 import Sidebar from "../components/Sidebar";
+import Loader from "../components/Loader/loader";
 
 import styles from "./home-page.module.css";
 
@@ -33,7 +34,7 @@ function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
     if (!loading && !loaded) findRecipes("carrot");
   }, [loading, loaded, findRecipes]);
 
-  if (loading) return "Loader...";
+  if (loading) return <Loader />;
   if (!loaded) return "No data :(";
 
   return (
