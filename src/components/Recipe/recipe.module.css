@@ -1,10 +1,46 @@
-.container {
+.mainContainer {
   display: flex;
   align-items: center;
   gap: 1.5em;
   padding: 0.5em;
   border: 1px solid var(--yellow);
   border-radius: 5px;
+}
+
+.previewWrapContainer {
+  position: relative;
+  height: 19em;
+}
+
+.previewContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--black);
+  padding: 1em;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  height: 19em;
+  overflow: hidden;
+  white-space: normal;
+  max-width: calc(300px + 2em);
+}
+
+.previewContainer img {
+  border-radius: 10px 10px 0 0;
+}
+
+.previewContainer h3 {
+  margin-top: 0;
+  padding: 0 1em;
+}
+
+.previewContainer:hover {
+  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  background-color: var(--white);
+  border: 1px solid var(--light-grey);
+  height: fit-content;
+  z-index: 4;
 }
 
 .container img {

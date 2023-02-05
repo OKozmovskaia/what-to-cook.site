@@ -29,6 +29,7 @@ const Button = ({
   small = false,
   dropDown = false,
   block = false,
+  noStyle = false,
   children,
   ...props
 }) => {
@@ -42,6 +43,7 @@ const Button = ({
         [styles.small]: small,
         [styles.dropDown]: dropDown,
         [styles.block]: block,
+        [styles.nostyle]: noStyle,
       })}
       {...props}
     >
