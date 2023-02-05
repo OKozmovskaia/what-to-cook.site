@@ -54,12 +54,8 @@ function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
         </div>
         <p>We found {count} recipes</p>
         <div className={styles.scrollContainer}>
-          {recipes.map((item, index) => (
-            <Recipe
-              key={item.id}
-              recipe={item.recipe}
-              recipeNumber={index + 1}
-            />
+          {recipes.map((item) => (
+            <Recipe key={item.id} recipe={item.recipe} />
           ))}
         </div>
       </main>

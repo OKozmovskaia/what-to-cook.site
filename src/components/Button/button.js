@@ -10,6 +10,7 @@ import { ReactComponent as binIcon } from "../../icons/bin.svg";
 import { ReactComponent as penIcon } from "../../icons/edit.svg";
 import { ReactComponent as heartIcon } from "../../icons/heart.svg";
 import { ReactComponent as shoppingBagIcon } from "../../icons/shopping-bag.svg";
+import { ReactComponent as cancelIcon } from "../../icons/cancel.svg";
 
 const icons = {
   arrowBack: arrowBackIcon,
@@ -20,6 +21,7 @@ const icons = {
   pen: penIcon,
   heart: heartIcon,
   shopBag: shoppingBagIcon,
+  cancel: cancelIcon,
 };
 
 const Button = ({
