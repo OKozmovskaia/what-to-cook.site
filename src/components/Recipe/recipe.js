@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../Button";
 import styles from "./recipe.module.css";
 
 function Recipe({ recipe }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [open]);
 
   const {
     label,
@@ -46,7 +54,7 @@ function Recipe({ recipe }) {
       {open ? (
         <div className={styles.mainWrapContainer}>
           <div className={styles.mainContainer}>
-            <Button icon="cancel" cancel iconStyle onClick={handleOpen} />
+            <Button icon="cancel" iconStyle onClick={handleOpen} />
             <div className={styles.flexBox}>
               <img src={image} alt="recipe-img" />
               <div className={styles.content}>

@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useRef } from "react";
-import useHandleClickOutside from "../../hooks/use-handleCkickOutside";
+import useHandleClickOutside from "../../../hooks/use-handleCkickOutside";
 
-import ListItem from "../ListItem";
-import Button from "../Button";
+import ListItem from "../../ListItem";
+import Button from "../../Button";
 
 import styles from "./filterItem.module.css";
 

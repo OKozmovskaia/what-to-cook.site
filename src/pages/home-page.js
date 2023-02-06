@@ -13,13 +13,17 @@ import {
 
 import Button from "../components/Button";
 import Recipe from "../components/Recipe";
-import Sidebar from "../components/Sidebar";
+import Filters from "../components/Filters/filters";
 import Loader from "../components/Loader/loader";
 
 import styles from "./home-page.module.css";
 
 function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
   const [inputQuery, setInputQuery] = useState("");
+
+  useEffect(() => {
+    if (!loading && !loaded) findRecipes("carrot");
+  }, [loading, loaded, findRecipes]);
 
   const handleInput = (e) => {
     setInputQuery(e.target.value);
@@ -30,23 +34,21 @@ function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
     findRecipes(inputQuery);
   };
 
-  useEffect(() => {
-    if (!loading && !loaded) findRecipes("carrot");
-  }, [loading, loaded, findRecipes]);
-
   if (loading) return <Loader />;
   if (!loaded) return "No data :(";
 
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
-        <Sidebar title="Filter" />
+        <Filters />
       </aside>
       <main className={styles.mainContent}>
         <div className={styles.searchBarContainer}>
           <input
             type="text"
-            placeholder="Type product or recipe name"
+            placeholder={
+              inputQuery ? inputQuery : "Type product or recipe name"
+            }
             onChange={handleInput}
           />
           <Button small onClick={handleOnClick}>

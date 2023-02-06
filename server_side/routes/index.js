@@ -16,7 +16,6 @@ router.get("/find-recipes", async (ctx) => {
       "image",
       "ingredientLines",
       "totalTime",
-      "healthLabels",
       "cuisineType",
       "mealType",
       "dishType",
