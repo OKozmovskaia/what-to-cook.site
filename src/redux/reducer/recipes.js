@@ -4,6 +4,7 @@ import {
   SUCCESS,
   FAILURE,
   ADD_FILTER,
+  REMOVE_FILTER,
   UPDATE_RECIPES,
 } from "../constants";
 
@@ -17,7 +18,7 @@ const initialState = {
 };
 
 const recipes = (state = initialState, action) => {
-  const { type, data, category, updateList, error } = action;
+  const { type, data, category, newFilters, updateList, error } = action;
   const { filters } = state;
 
   switch (type) {
@@ -51,6 +52,12 @@ const recipes = (state = initialState, action) => {
       return {
         ...state,
         filters: [...filters, ...category],
+      };
+
+    case REMOVE_FILTER:
+      return {
+        ...state,
+        filters: newFilters,
       };
 
     case UPDATE_RECIPES:

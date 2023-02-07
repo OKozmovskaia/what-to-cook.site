@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { addFilter, updateRecipes } from "../../redux/actions";
+import { addFilter, updateRecipes, removeFilter } from "../../redux/actions";
 
 import {
   dishTypeListSelector,
@@ -18,16 +18,27 @@ const Filters = ({
   cuisineTypeList,
   cookingTimeList,
   addFilter,
+  removeFilter,
   updateRecipes,
 }) => {
   const [category, setCategory] = useState([]);
+  const [isRemove, setIsRemove] = useState(false);
 
   useEffect(() => {
-    addFilter(category);
+    if (isRemove) {
+      removeFilter(category);
+    } else {
+      addFilter(category);
+    }
     updateRecipes();
-  }, [category, addFilter, updateRecipes]);
+  }, [category, isRemove, addFilter, removeFilter, updateRecipes]);
 
   const handleClickFilter = (e) => {
+    if (!e.target.checked) {
+      setIsRemove(true);
+    } else {
+      setIsRemove(false);
+    }
     setCategory([{ key: e.target.name, value: [e.target.value] }]);
   };
 
@@ -77,6 +88,7 @@ export default connect(
   }),
   (dispatch) => ({
     addFilter: (category) => dispatch(addFilter(category)),
+    removeFilter: (category) => dispatch(removeFilter(category)),
     updateRecipes: () => dispatch(updateRecipes()),
   })
 )(Filters);
