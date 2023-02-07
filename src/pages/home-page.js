@@ -5,9 +5,9 @@ import { createStructuredSelector } from "reselect";
 import { loadRecipesByQuery } from "../redux/actions";
 import {
   recipesCountSelector,
+  updateRecipesSelector,
   recipesLoadedSelector,
   recipesLoadingSelector,
-  recipesSelector,
   recipesLoadMoreSelector,
 } from "../redux/selectors";
 
@@ -68,7 +68,7 @@ function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
 
 export default connect(
   createStructuredSelector({
-    recipes: recipesSelector,
+    recipes: updateRecipesSelector,
     count: recipesCountSelector,
     nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,

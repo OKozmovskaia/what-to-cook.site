@@ -7,7 +7,7 @@ import Button from "../../Button";
 
 import styles from "./filterItem.module.css";
 
-const FilterItem = ({ category }) => {
+const FilterItem = ({ category, onChange }) => {
   const [open, setOpen] = useState(false);
   const dropDownMenu = useRef();
 
@@ -28,7 +28,15 @@ const FilterItem = ({ category }) => {
       {open ? (
         <ul className={styles.filterContent}>
           {filterContent.map((m, index) => {
-            return <ListItem checkBox title={m} key={index} />;
+            return (
+              <ListItem
+                checkBox
+                onChange={onChange}
+                title={m}
+                name={category.label}
+                key={index}
+              />
+            );
           })}
         </ul>
       ) : null}

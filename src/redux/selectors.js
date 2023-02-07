@@ -1,8 +1,10 @@
 import { createSelector } from "reselect";
 
-export const recipesSelector = (state) => state.recipes.entities;
+export const allRecipesSelector = (state) => state.recipes.entities;
+export const updateRecipesSelector = (state) => state.recipes.filtered;
 export const recipesCountSelector = (state) => state.recipes.count;
 export const recipesLoadMoreSelector = (state) => state.recipes.loadMore;
+export const filtersSelector = (state) => state.recipes.filters;
 
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;
@@ -19,7 +21,7 @@ function groupByCategory(recipes, category) {
 // FILTER CATEGORY - DISH TYPE
 
 export const recipesByDishTypeSelector = createSelector(
-  recipesSelector,
+  allRecipesSelector,
   (recipes) => groupByCategory(recipes, "dishType")
 );
 
@@ -31,7 +33,7 @@ export const dishTypeListSelector = createSelector(
 // FILTER CATEGORY - MEAL TYPE
 
 export const recipesByMealTypeSelector = createSelector(
-  recipesSelector,
+  allRecipesSelector,
   (recipes) => groupByCategory(recipes, "mealType")
 );
 
@@ -43,7 +45,7 @@ export const mealTypeListSelector = createSelector(
 // FILTER CATEGORY - CUISINE TYPE
 
 export const recipesByCuisineTypeSelector = createSelector(
-  recipesSelector,
+  allRecipesSelector,
   (recipes) => groupByCategory(recipes, "cuisineType")
 );
 
@@ -55,11 +57,24 @@ export const cuisineTypeListSelector = createSelector(
 // FILTER CATEGORY - COOKING TIME
 
 export const recipesByCookingTimeSelector = createSelector(
-  recipesSelector,
+  allRecipesSelector,
   (recipes) => groupByCategory(recipes, "totalTime")
 );
 
 export const cookingTimeListSelector = createSelector(
   recipesByCookingTimeSelector,
   Object.keys
+);
+
+export const filterRecipeSelector = createSelector(
+  allRecipesSelector,
+  filtersSelector,
+  (recipes, filters) =>
+    recipes.filter((item) =>
+      filters.every(
+        (category) =>
+          JSON.stringify(item.recipe[category.key]) ===
+          JSON.stringify(category.value)
+      )
+    )
 );

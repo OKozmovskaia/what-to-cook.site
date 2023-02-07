@@ -1,14 +1,24 @@
-import { LOAD_RECIPES, REQUEST, SUCCESS, FAILURE } from "../constants";
+import {
+  LOAD_RECIPES,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+  ADD_FILTER,
+  UPDATE_RECIPES,
+} from "../constants";
 
 const initialState = {
-  entities: {},
+  entities: [],
+  filtered: [],
+  filters: [],
   loading: false,
   loaded: false,
   error: null,
 };
 
 const recipes = (state = initialState, action) => {
-  const { type, data, error } = action;
+  const { type, data, category, updateList, error } = action;
+  const { filters } = state;
 
   switch (type) {
     case LOAD_RECIPES + REQUEST:
@@ -22,6 +32,7 @@ const recipes = (state = initialState, action) => {
       return {
         ...state,
         entities: data.recipes,
+        filtered: data.recipes,
         count: data.count,
         loadMore: data.nextChunk,
         loading: false,
@@ -34,6 +45,18 @@ const recipes = (state = initialState, action) => {
         loading: false,
         loaded: false,
         error,
+      };
+
+    case ADD_FILTER:
+      return {
+        ...state,
+        filters: [...filters, ...category],
+      };
+
+    case UPDATE_RECIPES:
+      return {
+        ...state,
+        filtered: updateList,
       };
     default:
       return state;
