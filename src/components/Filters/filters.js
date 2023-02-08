@@ -42,11 +42,13 @@ const Filters = ({
     setCategory([{ key: e.target.name, value: [e.target.value] }]);
   };
 
+  const cookingTimeListWithMin = cookingTimeList.map((i) => i + " min");
+
   const filterCategory = [
     {
       name: "Cooking time",
       label: "totalTime",
-      filterContent: cookingTimeList,
+      filterContent: cookingTimeListWithMin,
     },
     {
       name: "Cuisine",

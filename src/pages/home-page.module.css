@@ -26,3 +26,23 @@
   position: relative;
   padding: 0.5em;
 }
+
+.badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px dotted var(--yellow);
+  border-radius: 15px;
+  background-color: var(--yellow-light);
+  margin-right: 0.4em;
+  margin-bottom: 0.4em;
+  color: var(--grey);
+  font-size: 0.8em;
+}
+
+.badge > * {
+  vertical-align: text-bottom;
+}
+
+.badge button {
+  height: 20px;
+}

@@ -24,7 +24,7 @@
   width: 2.1em;
   height: 2.1em;
   color: var(--yellow);
-  background-color: VAR(--white);
+  background-color: transparent;
 }
 
 .dropDown {

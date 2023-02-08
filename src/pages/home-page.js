@@ -2,13 +2,18 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { loadRecipesByQuery } from "../redux/actions";
+import {
+  loadRecipesByQuery,
+  removeFilter,
+  updateRecipes,
+} from "../redux/actions";
 import {
   recipesCountSelector,
   updateRecipesSelector,
   recipesLoadedSelector,
   recipesLoadingSelector,
   recipesLoadMoreSelector,
+  filtersSelector,
 } from "../redux/selectors";
 
 import Button from "../components/Button";
@@ -18,7 +23,17 @@ import Loader from "../components/Loader/loader";
 
 import styles from "./home-page.module.css";
 
-function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
+function HomePage({
+  recipes,
+  updateRecipes,
+  count,
+  nextChunk,
+  loading,
+  loaded,
+  findRecipes,
+  filtersList,
+  removeFilter,
+}) {
   const [inputQuery, setInputQuery] = useState("");
 
   useEffect(() => {
@@ -29,9 +44,15 @@ function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
     setInputQuery(e.target.value);
   };
 
-  const handleOnClick = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     findRecipes(inputQuery);
+  };
+
+  const handleRemove = (key, value) => (e) => {
+    e.preventDefault();
+    removeFilter([{ key, value }]);
+    updateRecipes();
   };
 
   if (loading) return <Loader />;
@@ -51,11 +72,24 @@ function HomePage({ recipes, count, nextChunk, loading, loaded, findRecipes }) {
             }
             onChange={handleInput}
           />
-          <Button small onClick={handleOnClick}>
+          <Button small onClick={handleSearch}>
             Search
           </Button>
         </div>
-        <p>We found {count} recipes</p>
+        <div>
+          <p>We found {count} recipes</p>
+          {filtersList.map((i) => (
+            <div className={styles.badge} key={i.value}>
+              {i.value}
+              <Button
+                icon="cancel"
+                iconStyle
+                onClick={handleRemove(i.key, i.value)}
+              />
+            </div>
+          ))}
+        </div>
+
         <div className={styles.scrollContainer}>
           {recipes.map((item) => (
             <Recipe key={item.id} recipe={item.recipe} />
@@ -73,8 +107,11 @@ export default connect(
     nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,
     loaded: recipesLoadedSelector,
+    filtersList: filtersSelector,
   }),
   (dispatch) => ({
     findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
+    removeFilter: (category) => dispatch(removeFilter(category)),
+    updateRecipes: () => dispatch(updateRecipes()),
   })
 )(HomePage);

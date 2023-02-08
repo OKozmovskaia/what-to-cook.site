@@ -13,7 +13,7 @@ export const loadRecipesByQuery = (query) => ({
 
 export const addFilter = (category) => ({
   type: ADD_FILTER,
-  category,
+  newFilters: category,
 });
 
 export const removeFilter = (category) => async (dispatch, getState) => {
@@ -35,8 +35,7 @@ export const removeFilter = (category) => async (dispatch, getState) => {
 
 export const updateRecipes = () => async (dispatch, getState) => {
   const state = getState();
-  const updateList = filterRecipeSelector(state);
-  console.log("UPDATE LIST", updateList);
+  const newRecipesList = filterRecipeSelector(state);
 
-  await dispatch({ type: UPDATE_RECIPES, updateList });
+  await dispatch({ type: UPDATE_RECIPES, newRecipesList });
 };

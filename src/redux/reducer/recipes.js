@@ -18,7 +18,7 @@ const initialState = {
 };
 
 const recipes = (state = initialState, action) => {
-  const { type, data, category, newFilters, updateList, error } = action;
+  const { type, data, newFilters, newRecipesList, error } = action;
   const { filters } = state;
 
   switch (type) {
@@ -51,7 +51,7 @@ const recipes = (state = initialState, action) => {
     case ADD_FILTER:
       return {
         ...state,
-        filters: [...filters, ...category],
+        filters: [...filters, ...newFilters],
       };
 
     case REMOVE_FILTER:
@@ -63,7 +63,7 @@ const recipes = (state = initialState, action) => {
     case UPDATE_RECIPES:
       return {
         ...state,
-        filtered: updateList,
+        filtered: newRecipesList,
       };
     default:
       return state;
