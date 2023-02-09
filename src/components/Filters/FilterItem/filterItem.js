@@ -19,22 +19,28 @@ const FilterItem = ({ category, onChange }) => {
     setOpen(!open);
   };
 
-  const filterContent = category.filterContent;
   return (
     <div className={styles.container} ref={dropDownMenu}>
       <Button icon="arrowDown" dropDown onClick={handleOpen}>
-        {category.name}
+        {Object.values(category)[0].name}
       </Button>
       {open ? (
         <ul className={styles.filterContent}>
-          {filterContent.map((m, index) => {
+          {Object.entries(category).map((i) => {
+            const value = i[1].value
+              .replace(/[[\]"']+/g, "")
+              .replace(/,+/g, ", ")
+              .replace(/\/+/g, ", ");
+
             return (
               <ListItem
                 checkBox
                 onChange={onChange}
-                title={m}
-                name={category.label}
-                key={index}
+                title={value}
+                value={value}
+                name={i[1].label}
+                key={i[0]}
+                data-id={i[0]}
               />
             );
           })}

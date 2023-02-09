@@ -12,6 +12,12 @@ const initialState = {
   entities: [],
   filtered: [],
   filters: [],
+  categories: [
+    { name: "Dish", label: "dishType" },
+    { name: "Daytime", label: "mealType" },
+    { name: "Cuisine", label: "cuisineType" },
+    { name: "Cooking time", label: "totalTime" },
+  ],
   loading: false,
   loaded: false,
   error: null,
