@@ -8,12 +8,12 @@ import {
   updateRecipes,
 } from "../redux/actions";
 import {
+  recipesListSelector,
   recipesCountSelector,
-  updateRecipesSelector,
   recipesLoadedSelector,
   recipesLoadingSelector,
   recipesLoadMoreSelector,
-  filtersSelector,
+  userFiltersSelector,
 } from "../redux/selectors";
 
 import Button from "../components/Button";
@@ -31,14 +31,14 @@ function HomePage({
   loading,
   loaded,
   findRecipes,
-  filtersList,
+  userFilters,
   removeFilter,
 }) {
   const [inputQuery, setInputQuery] = useState("");
 
   useEffect(() => {
-    if (!loading && !loaded) findRecipes("carrot");
-  }, [loading, loaded, findRecipes]);
+    findRecipes("carrot");
+  }, []);
 
   const handleInput = (e) => {
     setInputQuery(e.target.value);
@@ -55,15 +55,19 @@ function HomePage({
     updateRecipes();
   };
 
+  const handleLoadMore = () => {};
+
   if (loading) return <Loader />;
   if (!loaded) return "No data :(";
 
   return (
     <div className={styles.container}>
+      {/* ASIDE FILTERS */}
       <aside className={styles.sidebar}>
         <Filters />
       </aside>
       <main className={styles.mainContent}>
+        {/* SEARCH BAR */}
         <div className={styles.searchBarContainer}>
           <input
             type="text"
@@ -78,7 +82,8 @@ function HomePage({
         </div>
         <div>
           <p>We found {count} recipes</p>
-          {filtersList.map((i) => (
+          {/* FILTERS BADGES */}
+          {userFilters.map((i) => (
             <div className={styles.badge} key={i.value}>
               {i.value}
               <Button
@@ -90,10 +95,18 @@ function HomePage({
           ))}
         </div>
 
+        {/* LIST OF RECIPES */}
         <div className={styles.scrollContainer}>
           {recipes.map((item) => (
-            <Recipe key={item.id} recipe={item.recipe} />
+            <Recipe key={item[0]} id={item[0]} />
           ))}
+        </div>
+
+        {/* LOAD MORE BUTTON */}
+        <div>
+          <Button large onClick={handleLoadMore}>
+            Load More
+          </Button>
         </div>
       </main>
     </div>
@@ -102,12 +115,12 @@ function HomePage({
 
 export default connect(
   createStructuredSelector({
-    recipes: updateRecipesSelector,
+    recipes: recipesListSelector,
     count: recipesCountSelector,
     nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,
     loaded: recipesLoadedSelector,
-    filtersList: filtersSelector,
+    userFilters: userFiltersSelector,
   }),
   (dispatch) => ({
     findRecipes: (query) => dispatch(loadRecipesByQuery(query)),

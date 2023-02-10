@@ -7,11 +7,10 @@ import {
   REMOVE_FILTER,
   UPDATE_RECIPES,
 } from "../constants";
+import { idAsKey } from "../utils/idAsKey";
 
 const initialState = {
-  entities: [],
-  filtered: [],
-  filters: [],
+  entities: {},
   categories: [
     { name: "Dish", label: "dishType" },
     { name: "Daytime", label: "mealType" },
@@ -24,8 +23,8 @@ const initialState = {
 };
 
 const recipes = (state = initialState, action) => {
-  const { type, data, newFilters, newRecipesList, error } = action;
-  const { filters } = state;
+  const { type, data, newFilter, newRecipesList, error } = action;
+  const { userFilters } = state;
 
   switch (type) {
     case LOAD_RECIPES + REQUEST:
@@ -38,10 +37,7 @@ const recipes = (state = initialState, action) => {
     case LOAD_RECIPES + SUCCESS:
       return {
         ...state,
-        entities: data.recipes,
-        filtered: data.recipes,
-        count: data.count,
-        loadMore: data.nextChunk,
+        entities: idAsKey(data.recipes),
         loading: false,
         loaded: true,
       };
@@ -57,13 +53,13 @@ const recipes = (state = initialState, action) => {
     case ADD_FILTER:
       return {
         ...state,
-        filters: [...filters, ...newFilters],
+        userFilters: { ...userFilters, ...newFilter },
       };
 
     case REMOVE_FILTER:
       return {
         ...state,
-        filters: newFilters,
+        userFilters: newFilter,
       };
 
     case UPDATE_RECIPES:

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { recipesSelector } from "../../redux/selectors";
 import Button from "../Button";
 import styles from "./recipe.module.css";
 
-function Recipe({ recipe }) {
+const Recipe = ({ id, recipes }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -21,7 +24,7 @@ function Recipe({ recipe }) {
     cuisineType,
     mealType,
     dishType,
-  } = recipe;
+  } = recipes[id];
 
   const handleOpen = () => {
     setOpen(!open);
@@ -88,6 +91,10 @@ function Recipe({ recipe }) {
       ) : null}
     </div>
   );
-}
+};
 
-export default Recipe;
+export default connect(
+  createStructuredSelector({
+    recipes: recipesSelector,
+  })
+)(Recipe);
