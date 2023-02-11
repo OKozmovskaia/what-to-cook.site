@@ -8,7 +8,7 @@ import {
   updateRecipes,
 } from "../redux/actions";
 import {
-  recipesListSelector,
+  updateRecipesSelector,
   recipesCountSelector,
   recipesLoadedSelector,
   recipesLoadingSelector,
@@ -38,7 +38,7 @@ function HomePage({
 
   useEffect(() => {
     findRecipes("carrot");
-  }, []);
+  }, [findRecipes]);
 
   const handleInput = (e) => {
     setInputQuery(e.target.value);
@@ -56,7 +56,7 @@ function HomePage({
   };
 
   const handleLoadMore = () => {};
-
+  console.log(recipes);
   if (loading) return <Loader />;
   if (!loaded) return "No data :(";
 
@@ -81,7 +81,7 @@ function HomePage({
           </Button>
         </div>
         <div>
-          <p>We found {count} recipes</p>
+          <p>We found {recipes.length} recipes</p>
           {/* FILTERS BADGES */}
           {userFilters.map((i) => (
             <div className={styles.badge} key={i.value}>
@@ -97,7 +97,7 @@ function HomePage({
 
         {/* LIST OF RECIPES */}
         <div className={styles.scrollContainer}>
-          {recipes.map((item) => (
+          {Object.entries(recipes).map((item) => (
             <Recipe key={item[0]} id={item[0]} />
           ))}
         </div>
@@ -115,7 +115,7 @@ function HomePage({
 
 export default connect(
   createStructuredSelector({
-    recipes: recipesListSelector,
+    recipes: updateRecipesSelector,
     count: recipesCountSelector,
     nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,

@@ -4,38 +4,31 @@ import {
   REMOVE_FILTER,
   UPDATE_RECIPES,
 } from "./constants";
-import { filterRecipeSelector, filtersSelector } from "./selectors";
+import { filtredRecipesSelector, userFiltersSelector } from "./selectors";
 
 export const loadRecipesByQuery = (query) => ({
   type: LOAD_RECIPES,
   callAPI: `/find-recipes?q=${query}`,
 });
 
-export const addFilter = (category) => ({
+export const addFilter = (id) => ({
   type: ADD_FILTER,
-  newFilters: category,
+  newFilter: id,
 });
 
-export const removeFilter = (category) => async (dispatch, getState) => {
-  const state = getState();
-  const filtersList = filtersSelector(state);
-  const copyFiltersList = [...filtersList];
-  copyFiltersList.splice(
-    copyFiltersList.findIndex(
-      (el) => JSON.stringify(el.value) === JSON.stringify(category[0].value),
-      1
-    )
-  );
+export const removeFilter = (id) => async (dispatch, getState) => {
+  const userFilters = userFiltersSelector(getState());
+  const newFilter = userFilters.filter((i) => i !== id);
 
   await dispatch({
     type: REMOVE_FILTER,
-    newFilters: copyFiltersList,
+    newFilter,
   });
 };
 
 export const updateRecipes = () => async (dispatch, getState) => {
-  const state = getState();
-  const newRecipesList = filterRecipeSelector(state);
+  const updateRecipes = filtredRecipesSelector(getState());
+  console.log(updateRecipes);
 
-  await dispatch({ type: UPDATE_RECIPES, newRecipesList });
+  await dispatch({ type: UPDATE_RECIPES, updateRecipes });
 };

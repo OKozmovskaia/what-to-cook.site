@@ -66,15 +66,19 @@ export const cookingTimeListSelector = createSelector(filtersSelector, (list) =>
   }, {})
 );
 
-export const filterRecipeSelector = createSelector(
+export const filtredRecipesSelector = createSelector(
   recipesSelector,
+  filtersSelector,
   userFiltersSelector,
-  (recipes, filters) =>
-    recipes.filter((item) =>
-      filters.every(
-        (category) =>
-          JSON.stringify(item.recipe[category.key]) ===
-          JSON.stringify(category.value)
-      )
-    )
+  (recipes, filters, userFilters) =>
+    Object.entries(recipes).reduce((acc, [id, recipe]) => {
+      const hasFilter = userFilters.filter(
+        (j) =>
+          JSON.stringify(recipe.cuisineType) === filters[j].value ||
+          JSON.stringify(recipe.dishType) === filters[j].value ||
+          JSON.stringify(recipe.mealType) === filters[j].value
+      );
+
+      return hasFilter.length > 0 ? { ...acc, [id]: recipe } : acc;
+    }, {})
 );

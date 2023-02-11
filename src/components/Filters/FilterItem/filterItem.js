@@ -7,7 +7,7 @@ import Button from "../../Button";
 
 import styles from "./filterItem.module.css";
 
-const FilterItem = ({ category, onChange }) => {
+const FilterItem = ({ category }) => {
   const [open, setOpen] = useState(false);
   const dropDownMenu = useRef();
 
@@ -27,22 +27,9 @@ const FilterItem = ({ category, onChange }) => {
       {open ? (
         <ul className={styles.filterContent}>
           {Object.entries(category).map((i) => {
-            const value = i[1].value
-              .replace(/[[\]"']+/g, "")
-              .replace(/,+/g, ", ")
-              .replace(/\/+/g, ", ");
+            const id = i[0];
 
-            return (
-              <ListItem
-                checkBox
-                onChange={onChange}
-                title={value}
-                value={value}
-                name={i[1].label}
-                key={i[0]}
-                data-id={i[0]}
-              />
-            );
+            return <ListItem checkBox key={id} id={id} />;
           })}
         </ul>
       ) : null}

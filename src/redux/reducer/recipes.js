@@ -11,6 +11,7 @@ import { idAsKey } from "../utils/idAsKey";
 
 const initialState = {
   entities: {},
+  userFilters: [],
   categories: [
     { name: "Dish", label: "dishType" },
     { name: "Daytime", label: "mealType" },
@@ -23,7 +24,7 @@ const initialState = {
 };
 
 const recipes = (state = initialState, action) => {
-  const { type, data, newFilter, newRecipesList, error } = action;
+  const { type, data, newFilter, updateRecipes, error } = action;
   const { userFilters } = state;
 
   switch (type) {
@@ -38,6 +39,7 @@ const recipes = (state = initialState, action) => {
       return {
         ...state,
         entities: idAsKey(data.recipes),
+        filtered: idAsKey(data.recipes),
         loading: false,
         loaded: true,
       };
@@ -53,7 +55,7 @@ const recipes = (state = initialState, action) => {
     case ADD_FILTER:
       return {
         ...state,
-        userFilters: { ...userFilters, ...newFilter },
+        userFilters: [...userFilters, newFilter],
       };
 
     case REMOVE_FILTER:
@@ -65,7 +67,7 @@ const recipes = (state = initialState, action) => {
     case UPDATE_RECIPES:
       return {
         ...state,
-        filtered: newRecipesList,
+        filtered: updateRecipes,
       };
     default:
       return state;
