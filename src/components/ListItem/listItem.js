@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { addFilter, updateRecipes, removeFilter } from "../../redux/actions";
-import { filtersSelector } from "../../redux/selectors";
+import { filtersSelector, userFiltersSelector } from "../../redux/selectors";
 import { cleanString } from "../../redux/utils/cleanString";
+import { toHoursAndMin } from "../../redux/utils/toHoursAndMin";
 
 import styles from "./listItem.module.css";
 
@@ -12,12 +13,13 @@ const ListItem = ({
   children,
   id,
   filters,
+  userFilters,
   addFilter,
   removeFilter,
   updateRecipes,
 }) => {
-  const [isChecked, setIsChecked] = useState(false);
-  console.log(isChecked);
+  const defaultCheck = userFilters.includes(id) ? true : false;
+  const [isChecked, setIsChecked] = useState(defaultCheck);
   const { label, value } = filters[id];
 
   const handleClickFilter = (e) => {
@@ -43,11 +45,9 @@ const ListItem = ({
           data-id={id}
           value={value}
           onChange={handleClickFilter}
-          className={isChecked ? "checked" : ""}
         />
       )}
-      {cleanString(value)}
-      {label === "totalTime" && <span>min</span>}
+      {label === "totalTime" ? toHoursAndMin(value) : cleanString(value)}
       {children}
     </li>
   );
@@ -56,6 +56,7 @@ const ListItem = ({
 export default connect(
   createStructuredSelector({
     filters: filtersSelector,
+    userFilters: userFiltersSelector,
   }),
   (dispatch) => ({
     addFilter: (id) => dispatch(addFilter(id)),

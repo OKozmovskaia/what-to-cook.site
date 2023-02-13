@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { cleanString } from "../redux/utils/cleanString";
+import { toHoursAndMin } from "../redux/utils/toHoursAndMin";
 import {
   loadRecipesByQuery,
   removeFilter,
@@ -86,8 +87,9 @@ function HomePage({
           {/* FILTERS BADGES */}
           {userFilters.map((id) => (
             <div className={styles.badge} key={id}>
-              {cleanString(filters[id].value)}
-              {filters[id].label === "totalTime" && <span> min</span>}
+              {filters[id].label === "totalTime"
+                ? toHoursAndMin(filters[id].value)
+                : cleanString(filters[id].value)}
               <Button icon="cancel" iconStyle onClick={handleRemove(id)} />
             </div>
           ))}

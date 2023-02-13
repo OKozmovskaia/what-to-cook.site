@@ -28,7 +28,6 @@ export const removeFilter = (id) => async (dispatch, getState) => {
 
 export const updateRecipes = () => async (dispatch, getState) => {
   const updateRecipes = filtredRecipesSelector(getState());
-  console.log(updateRecipes);
 
   await dispatch({ type: UPDATE_RECIPES, updateRecipes });
 };
