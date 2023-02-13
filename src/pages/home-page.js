@@ -8,6 +8,7 @@ import {
   loadRecipesByQuery,
   removeFilter,
   updateRecipes,
+  removeAllFilters,
 } from "../redux/actions";
 import {
   recipesListSelector,
@@ -24,12 +25,14 @@ import Filters from "../components/Filters/filters";
 import Loader from "../components/Loader/loader";
 
 import styles from "./home-page.module.css";
+import cn from "classnames";
 
 function HomePage({
   recipes,
   filters,
   userFilters,
   removeFilter,
+  removeAllFilters,
   updateRecipes,
   nextChunk,
   loading,
@@ -54,6 +57,12 @@ function HomePage({
   const handleRemove = (id) => (e) => {
     e.preventDefault();
     removeFilter(id);
+    updateRecipes();
+  };
+
+  const handleRemoveAll = (e) => {
+    e.preventDefault();
+    removeAllFilters();
     updateRecipes();
   };
 
@@ -85,14 +94,24 @@ function HomePage({
         <div>
           <p>We found {recipes.length} recipes</p>
           {/* FILTERS BADGES */}
-          {userFilters.map((id) => (
-            <div className={styles.badge} key={id}>
-              {filters[id].label === "totalTime"
-                ? toHoursAndMin(filters[id].value)
-                : cleanString(filters[id].value)}
-              <Button icon="cancel" iconStyle onClick={handleRemove(id)} />
+          {userFilters.length > 0 ? (
+            <div>
+              <Button noStyle onClick={handleRemoveAll}>
+                <span className={cn(styles.badge, styles.pinkBadge)}>
+                  Clear Filters
+                </span>
+              </Button>
+
+              {userFilters.map((id) => (
+                <div className={styles.badge} key={id}>
+                  {filters[id].label === "totalTime"
+                    ? toHoursAndMin(filters[id].value)
+                    : cleanString(filters[id].value)}
+                  <Button icon="cancel" iconStyle onClick={handleRemove(id)} />
+                </div>
+              ))}
             </div>
-          ))}
+          ) : null}
         </div>
 
         {/* LIST OF RECIPES */}
@@ -125,6 +144,7 @@ export default connect(
   (dispatch) => ({
     findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
     removeFilter: (category) => dispatch(removeFilter(category)),
+    removeAllFilters: () => dispatch(removeAllFilters()),
     updateRecipes: () => dispatch(updateRecipes()),
   })
 )(HomePage);

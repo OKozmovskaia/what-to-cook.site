@@ -46,3 +46,8 @@
 .badge button {
   height: 20px;
 }
+
+.pinkBadge {
+  background-color: var(--pink);
+  border: 1px dotted var(--deep-pink);
+}

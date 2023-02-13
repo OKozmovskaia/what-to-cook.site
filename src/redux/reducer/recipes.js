@@ -6,6 +6,7 @@ import {
   ADD_FILTER,
   REMOVE_FILTER,
   UPDATE_RECIPES,
+  REMOVE_ALL_FILTERS,
 } from "../constants";
 import { idAsKey } from "../utils/idAsKey";
 
@@ -60,6 +61,12 @@ const recipes = (state = initialState, action) => {
       };
 
     case REMOVE_FILTER:
+      return {
+        ...state,
+        userFilters: newFilter,
+      };
+
+    case REMOVE_ALL_FILTERS:
       return {
         ...state,
         userFilters: newFilter,

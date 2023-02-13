@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { recipesSelector } from "../../redux/selectors";
+import { cleanString } from "../../redux/utils/cleanString";
+import { toHoursAndMin } from "../../redux/utils/toHoursAndMin";
+
 import Button from "../Button";
 import styles from "./recipe.module.css";
 
@@ -30,6 +33,11 @@ const Recipe = ({ id, recipes }) => {
     setOpen(!open);
   };
 
+  const dish = cleanString(JSON.stringify(dishType));
+  const meal = cleanString(JSON.stringify(mealType));
+  const cuisine = cleanString(JSON.stringify(cuisineType));
+  const time = toHoursAndMin(totalTime);
+
   return (
     <div>
       {/* RECIPE PREVIEW */}
@@ -39,12 +47,12 @@ const Recipe = ({ id, recipes }) => {
             <img src={image} alt="recipe-img" height="300" width="300" />
             <h4>{label}</h4>
             <p>
-              {cuisineType} {dishType}
+              {cuisine} {dish}
             </p>
             <p>
               Cook time:
               {totalTime > 0 ? (
-                <span> {totalTime} min</span>
+                <span> {time}</span>
               ) : (
                 <span> not mentioned</span>
               )}
@@ -63,14 +71,14 @@ const Recipe = ({ id, recipes }) => {
               <div className={styles.content}>
                 <h2>{label}</h2>
                 <p>
-                  <span className={styles.badge}>{cuisineType}</span>
-                  <span className={styles.badge}>{dishType}</span>
-                  <span className={styles.badge}>{mealType}</span>
+                  <span className={styles.badge}>{cuisine}</span>
+                  <span className={styles.badge}>{dish}</span>
+                  <span className={styles.badge}>{meal}</span>
                 </p>
                 <p>
                   Cook time:
                   {totalTime > 0 ? (
-                    <span> {totalTime} min</span>
+                    <span> {toHoursAndMin(totalTime)}</span>
                   ) : (
                     <span> not mentioned</span>
                   )}

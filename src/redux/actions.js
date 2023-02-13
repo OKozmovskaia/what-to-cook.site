@@ -2,6 +2,7 @@ import {
   LOAD_RECIPES,
   ADD_FILTER,
   REMOVE_FILTER,
+  REMOVE_ALL_FILTERS,
   UPDATE_RECIPES,
 } from "./constants";
 import { filtredRecipesSelector, userFiltersSelector } from "./selectors";
@@ -25,6 +26,11 @@ export const removeFilter = (id) => async (dispatch, getState) => {
     newFilter,
   });
 };
+
+export const removeAllFilters = () => ({
+  type: REMOVE_ALL_FILTERS,
+  newFilter: [],
+});
 
 export const updateRecipes = () => async (dispatch, getState) => {
   const updateRecipes = filtredRecipesSelector(getState());

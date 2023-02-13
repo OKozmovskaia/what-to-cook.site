@@ -38,6 +38,7 @@
 }
 
 .nostyle {
+  display: contents;
   color: transparent;
   background-color: transparent;
   line-height: inherit;
