@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { addFilter, updateRecipes, removeFilter } from "../../redux/actions";
 import { filtersSelector } from "../../redux/selectors";
+import { cleanString } from "../../redux/utils/cleanString";
 
 import styles from "./listItem.module.css";
 
@@ -16,7 +17,7 @@ const ListItem = ({
   updateRecipes,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
-
+  console.log(isChecked);
   const { label, value } = filters[id];
 
   const handleClickFilter = (e) => {
@@ -42,9 +43,11 @@ const ListItem = ({
           data-id={id}
           value={value}
           onChange={handleClickFilter}
+          className={isChecked ? "checked" : ""}
         />
       )}
-      {value}
+      {cleanString(value)}
+      {label === "totalTime" && <span>min</span>}
       {children}
     </li>
   );

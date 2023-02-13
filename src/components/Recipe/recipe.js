@@ -16,8 +16,6 @@ const Recipe = ({ id, recipes }) => {
     }
   }, [open]);
 
-  console.log(recipes[id]);
-
   const {
     label,
     image,

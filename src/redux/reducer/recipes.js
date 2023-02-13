@@ -11,6 +11,7 @@ import { idAsKey } from "../utils/idAsKey";
 
 const initialState = {
   entities: {},
+  filtered: {},
   userFilters: [],
   categories: [
     { name: "Dish", label: "dishType" },

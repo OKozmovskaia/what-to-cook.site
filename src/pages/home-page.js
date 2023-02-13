@@ -2,18 +2,19 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { cleanString } from "../redux/utils/cleanString";
 import {
   loadRecipesByQuery,
   removeFilter,
   updateRecipes,
 } from "../redux/actions";
 import {
-  updateRecipesSelector,
-  recipesCountSelector,
+  recipesListSelector,
   recipesLoadedSelector,
   recipesLoadingSelector,
   recipesLoadMoreSelector,
   userFiltersSelector,
+  filtersSelector,
 } from "../redux/selectors";
 
 import Button from "../components/Button";
@@ -25,14 +26,14 @@ import styles from "./home-page.module.css";
 
 function HomePage({
   recipes,
+  filters,
+  userFilters,
+  removeFilter,
   updateRecipes,
-  count,
   nextChunk,
   loading,
   loaded,
   findRecipes,
-  userFilters,
-  removeFilter,
 }) {
   const [inputQuery, setInputQuery] = useState("");
 
@@ -49,14 +50,14 @@ function HomePage({
     findRecipes(inputQuery);
   };
 
-  const handleRemove = (key, value) => (e) => {
+  const handleRemove = (id) => (e) => {
     e.preventDefault();
-    removeFilter([{ key, value }]);
+    removeFilter(id);
     updateRecipes();
   };
 
   const handleLoadMore = () => {};
-  console.log(recipes);
+
   if (loading) return <Loader />;
   if (!loaded) return "No data :(";
 
@@ -83,21 +84,18 @@ function HomePage({
         <div>
           <p>We found {recipes.length} recipes</p>
           {/* FILTERS BADGES */}
-          {userFilters.map((i) => (
-            <div className={styles.badge} key={i.value}>
-              {i.value}
-              <Button
-                icon="cancel"
-                iconStyle
-                onClick={handleRemove(i.key, i.value)}
-              />
+          {userFilters.map((id) => (
+            <div className={styles.badge} key={id}>
+              {cleanString(filters[id].value)}
+              {filters[id].label === "totalTime" && <span> min</span>}
+              <Button icon="cancel" iconStyle onClick={handleRemove(id)} />
             </div>
           ))}
         </div>
 
         {/* LIST OF RECIPES */}
         <div className={styles.scrollContainer}>
-          {Object.entries(recipes).map((item) => (
+          {recipes.map((item) => (
             <Recipe key={item[0]} id={item[0]} />
           ))}
         </div>
@@ -115,8 +113,8 @@ function HomePage({
 
 export default connect(
   createStructuredSelector({
-    recipes: updateRecipesSelector,
-    count: recipesCountSelector,
+    recipes: recipesListSelector,
+    filters: filtersSelector,
     nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,
     loaded: recipesLoadedSelector,

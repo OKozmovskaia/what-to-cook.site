@@ -10,8 +10,9 @@ export const userFiltersSelector = (state) => state.recipes.userFilters;
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;
 
-export const recipesListSelector = createSelector(recipesSelector, (recipes) =>
-  Object.entries(recipes)
+export const recipesListSelector = createSelector(
+  updateRecipesSelector,
+  (recipes) => Object.entries(recipes)
 );
 
 // FILTERS SELECTORS
@@ -66,19 +67,26 @@ export const cookingTimeListSelector = createSelector(filtersSelector, (list) =>
   }, {})
 );
 
+// Recipe always has 1 value for every possible category
+// User filter always has category-name and value
+// get all unique categories from user filters and check their values with recipe
+
 export const filtredRecipesSelector = createSelector(
   recipesSelector,
   filtersSelector,
   userFiltersSelector,
   (recipes, filters, userFilters) =>
     Object.entries(recipes).reduce((acc, [id, recipe]) => {
-      const hasFilter = userFilters.filter(
-        (j) =>
-          JSON.stringify(recipe.cuisineType) === filters[j].value ||
-          JSON.stringify(recipe.dishType) === filters[j].value ||
-          JSON.stringify(recipe.mealType) === filters[j].value
-      );
+      const categories = userFilters.map((i) => filters[i].label);
+      const uniqueSet = [...new Set(categories)];
+      const values = userFilters.map((i) => filters[i].value);
 
-      return hasFilter.length > 0 ? { ...acc, [id]: recipe } : acc;
+      const hasFilter = uniqueSet.map((i) => {
+        return values.includes(JSON.stringify(recipe[i]));
+      });
+
+      return hasFilter.every((i) => i === true)
+        ? { ...acc, [id]: recipe }
+        : acc;
     }, {})
 );

@@ -39,7 +39,7 @@
   font-size: 0.8em;
 }
 
-.badge > * {
+.badge button {
   vertical-align: text-bottom;
 }
 
