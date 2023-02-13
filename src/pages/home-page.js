@@ -14,13 +14,12 @@ import {
   recipesListSelector,
   recipesLoadedSelector,
   recipesLoadingSelector,
-  recipesLoadMoreSelector,
   userFiltersSelector,
   filtersSelector,
 } from "../redux/selectors";
 
 import Button from "../components/Button";
-import Recipe from "../components/Recipe";
+import Recipes from "../components/Recipes";
 import Filters from "../components/Filters/filters";
 import Loader from "../components/Loader/loader";
 
@@ -34,7 +33,6 @@ function HomePage({
   removeFilter,
   removeAllFilters,
   updateRecipes,
-  nextChunk,
   loading,
   loaded,
   findRecipes,
@@ -66,10 +64,8 @@ function HomePage({
     updateRecipes();
   };
 
-  const handleLoadMore = () => {};
-
   if (loading) return <Loader />;
-  if (!loaded) return "No data :(";
+  if (!loaded) return "No recepies that match your request";
 
   return (
     <div className={styles.container}>
@@ -114,19 +110,7 @@ function HomePage({
           ) : null}
         </div>
 
-        {/* LIST OF RECIPES */}
-        <div className={styles.scrollContainer}>
-          {recipes.map((item) => (
-            <Recipe key={item[0]} id={item[0]} />
-          ))}
-        </div>
-
-        {/* LOAD MORE BUTTON */}
-        <div>
-          <Button large onClick={handleLoadMore}>
-            Load More
-          </Button>
-        </div>
+        <Recipes />
       </main>
     </div>
   );
@@ -136,7 +120,6 @@ export default connect(
   createStructuredSelector({
     recipes: recipesListSelector,
     filters: filtersSelector,
-    nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,
     loaded: recipesLoadedSelector,
     userFilters: userFiltersSelector,

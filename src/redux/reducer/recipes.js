@@ -1,5 +1,6 @@
 import {
   LOAD_RECIPES,
+  LOAD_MORE_RECIPES,
   REQUEST,
   SUCCESS,
   FAILURE,
@@ -27,7 +28,7 @@ const initialState = {
 
 const recipes = (state = initialState, action) => {
   const { type, data, newFilter, updateRecipes, error } = action;
-  const { userFilters } = state;
+  const { entities, userFilters } = state;
 
   switch (type) {
     case LOAD_RECIPES + REQUEST:
@@ -42,11 +43,37 @@ const recipes = (state = initialState, action) => {
         ...state,
         entities: idAsKey(data.recipes),
         filtered: idAsKey(data.recipes),
+        loadMore: data.nextChunk,
         loading: false,
         loaded: true,
       };
 
     case LOAD_RECIPES + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error,
+      };
+
+    case LOAD_MORE_RECIPES + REQUEST:
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+        error: null,
+      };
+
+    case LOAD_MORE_RECIPES + SUCCESS:
+      return {
+        ...state,
+        entities: { ...entities, ...idAsKey(data.recipes) },
+        loadMore: data.nextChunk,
+        loading: false,
+        loaded: true,
+      };
+
+    case LOAD_MORE_RECIPES + FAILURE:
       return {
         ...state,
         loading: false,

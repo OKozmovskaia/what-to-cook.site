@@ -36,7 +36,22 @@ router.get("/find-recipes", async (ctx) => {
   const recipes = data.hits.map((item) => ({ id: uuid(), ...item }));
 
   const chunkRecipes = {
-    count: data.count,
+    nextChunk: data._links.next,
+    recipes,
+  };
+
+  ctx.body = chunkRecipes;
+});
+
+router.post("/load-more", async (ctx) => {
+  const link = ctx.request.body.href;
+  const response = await axios.get(link);
+
+  const data = response.data;
+
+  const recipes = data.hits.map((item) => ({ id: uuid(), ...item }));
+
+  const chunkRecipes = {
     nextChunk: data._links.next,
     recipes,
   };

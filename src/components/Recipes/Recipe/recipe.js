@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { recipesSelector } from "../../redux/selectors";
-import { cleanString } from "../../redux/utils/cleanString";
-import { toHoursAndMin } from "../../redux/utils/toHoursAndMin";
+import { recipesSelector } from "../../../redux/selectors";
+import { cleanString } from "../../../redux/utils/cleanString";
+import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
 
-import Button from "../Button";
+import Button from "../../Button";
 import styles from "./recipe.module.css";
 
 const Recipe = ({ id, recipes }) => {
