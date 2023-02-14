@@ -53,6 +53,8 @@ const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes }) => {
         />
       )}
 
+      <p>We found {recipes.length} recipes</p>
+
       <div
         className={styles.outerRecipes}
         onScroll={toggleVisible}

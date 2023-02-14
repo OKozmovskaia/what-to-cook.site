@@ -12,16 +12,6 @@
   width: 70%;
 }
 
-.searchBarContainer {
-  display: flex;
-  gap: 0.5em;
-  margin-bottom: 1em;
-}
-
-.badgesContainer {
-  padding-bottom: 0.8em;
-}
-
 .badge {
   display: inline-block;
   padding: 2px 7px;

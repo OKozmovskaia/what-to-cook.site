@@ -1,17 +1,15 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { cleanString } from "../redux/utils/cleanString";
 import { toHoursAndMin } from "../redux/utils/toHoursAndMin";
 import {
-  loadRecipesByQuery,
   removeFilter,
   updateRecipes,
   removeAllFilters,
+  loadRecipesByQuery,
 } from "../redux/actions";
 import {
-  recipesListSelector,
   recipesLoadedSelector,
   recipesLoadingSelector,
   userFiltersSelector,
@@ -20,14 +18,15 @@ import {
 
 import Button from "../components/Button";
 import Recipes from "../components/Recipes";
-import Filters from "../components/Filters/filters";
-import Loader from "../components/Loader/loader";
+import Filters from "../components/Filters";
+import Loader from "../components/Loader";
+import SearchBar from "../components/SearchBar";
 
 import styles from "./home-page.module.css";
 import cn from "classnames";
 
 function HomePage({
-  recipes,
+  findRecipes,
   filters,
   userFilters,
   removeFilter,
@@ -35,21 +34,14 @@ function HomePage({
   updateRecipes,
   loading,
   loaded,
-  findRecipes,
 }) {
-  const [inputQuery, setInputQuery] = useState("");
-
   useEffect(() => {
     findRecipes("carrot");
   }, [findRecipes]);
 
-  const handleInput = (e) => {
-    setInputQuery(e.target.value);
-  };
-
-  const handleSearch = (e) => {
+  const handleSearch = (query) => (e) => {
     e.preventDefault();
-    findRecipes(inputQuery);
+    findRecipes(query);
   };
 
   const handleRemove = (id) => (e) => {
@@ -74,21 +66,8 @@ function HomePage({
         <Filters />
       </aside>
       <main className={styles.mainContent}>
-        {/* SEARCH BAR */}
-        <div className={styles.searchBarContainer}>
-          <input
-            type="text"
-            placeholder={
-              inputQuery ? inputQuery : "Type product or recipe name"
-            }
-            onChange={handleInput}
-          />
-          <Button small onClick={handleSearch}>
-            Search
-          </Button>
-        </div>
-        <div className={styles.badgesContainer}>
-          <p>We found {recipes.length} recipes</p>
+        <div>
+          <SearchBar handleSearch={handleSearch} />
           {/* FILTERS BADGES */}
           {userFilters.length > 0 ? (
             <div>
@@ -118,7 +97,6 @@ function HomePage({
 
 export default connect(
   createStructuredSelector({
-    recipes: recipesListSelector,
     filters: filtersSelector,
     loading: recipesLoadingSelector,
     loaded: recipesLoadedSelector,
