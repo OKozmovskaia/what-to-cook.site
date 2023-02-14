@@ -87,7 +87,7 @@ function HomePage({
             Search
           </Button>
         </div>
-        <div>
+        <div className={styles.badgesContainer}>
           <p>We found {recipes.length} recipes</p>
           {/* FILTERS BADGES */}
           {userFilters.length > 0 ? (

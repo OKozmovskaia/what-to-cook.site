@@ -1,4 +1,14 @@
 .scrollContainer {
+  height: 22em;
+  position: relative;
+}
+
+.outerRecipes {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.recipesContainer {
   display: grid;
   grid-template-columns: repeat(2, minmax(10em, 1fr));
   grid-auto-rows: 21em;
@@ -10,4 +20,18 @@
 .loadMoreButtonContainer {
   text-align: center;
   margin-top: 3em;
+}
+
+.buttonToTop {
+  width: 3em;
+  height: 3em;
+  color: var(--white);
+  background-color: var(--yellow);
+  border-radius: 50%;
+  border: 1px solid transparent;
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  z-index: 3;
+  cursor: pointer;
 }

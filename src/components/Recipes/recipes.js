@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadMoreRecipes, updateRecipes } from "../../redux/actions";
@@ -14,6 +14,9 @@ import Recipe from "./Recipe";
 import styles from "./recipes.module.css";
 
 const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const divScroll = useRef(null);
+
   useEffect(() => {
     updateRecipes();
   }, [loadMore, updateRecipes]);
@@ -23,18 +26,49 @@ const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes }) => {
     loadMore(link);
   };
 
-  return (
-    <div>
-      <div className={styles.scrollContainer}>
-        {recipes.map((item) => (
-          <Recipe key={item[0]} id={item[0]} />
-        ))}
-      </div>
+  const toggleVisible = (e) => {
+    const scrolled = e.currentTarget.scrollTop;
+    if (scrolled > 200) {
+      setIsVisible(true);
+    } else if (scrolled <= 200) {
+      setIsVisible(false);
+    }
+  };
 
-      <div className={styles.loadMoreButtonContainer}>
-        <Button large onClick={handleLoadMore(nextChunk)}>
-          Load More
-        </Button>
+  const scrollToTop = () => {
+    divScroll.current.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <div className={styles.scrollContainer}>
+      {isVisible && (
+        <Button
+          iconStyle
+          icon="arrowUp"
+          onClick={scrollToTop}
+          className={styles.buttonToTop}
+        />
+      )}
+
+      <div
+        className={styles.outerRecipes}
+        onScroll={toggleVisible}
+        ref={divScroll}
+      >
+        <div className={styles.recipesContainer}>
+          {recipes.map((item) => (
+            <Recipe key={item[0]} id={item[0]} />
+          ))}
+        </div>
+
+        <div className={styles.loadMoreButtonContainer}>
+          <Button large onClick={handleLoadMore(nextChunk)}>
+            Load More
+          </Button>
+        </div>
       </div>
     </div>
   );

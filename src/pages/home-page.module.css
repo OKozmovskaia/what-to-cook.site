@@ -18,6 +18,10 @@
   margin-bottom: 1em;
 }
 
+.badgesContainer {
+  padding-bottom: 0.8em;
+}
+
 .badge {
   display: inline-block;
   padding: 2px 7px;
