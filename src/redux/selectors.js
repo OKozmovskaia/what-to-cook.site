@@ -5,6 +5,7 @@ export const recipesSelector = (state) => state.recipes.entities;
 export const updateRecipesSelector = (state) => state.recipes.filtered;
 export const recipesCountSelector = (state) => state.recipes.count;
 export const recipesLoadMoreSelector = (state) => state.recipes.loadMore;
+export const searchQuerySelector = (state) => state.recipes.searchQuery;
 export const userFiltersSelector = (state) => state.recipes.userFilters;
 
 export const recipesLoadingSelector = (state) => state.recipes.loading;

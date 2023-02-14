@@ -6,9 +6,11 @@ const { v4: uuid } = require("uuid");
 const router = new Router();
 
 router.get("/find-recipes", async (ctx) => {
+  const q = ctx.request.query.q;
+
   const queryParams = {
     type: "public",
-    q: ctx.request.query.q,
+    q,
     ingr: "5-10",
     field: [
       "label",
@@ -36,6 +38,7 @@ router.get("/find-recipes", async (ctx) => {
   const recipes = data.hits.map((item) => ({ id: uuid(), ...item }));
 
   const chunkRecipes = {
+    searchQuery: q,
     nextChunk: data._links.next,
     recipes,
   };

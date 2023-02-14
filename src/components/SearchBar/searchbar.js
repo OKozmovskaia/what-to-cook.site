@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import { connect } from "react-redux";
+import { searchQuerySelector } from "../../redux/selectors";
 
 import Button from "../Button";
 import styles from "./searchbar.module.css";
 
-const SearchBar = ({ handleSearch }) => {
+const SearchBar = ({ handleSearch, queryUser }) => {
   const [query, setQuery] = useState("");
 
   const handleInput = (e) => {
@@ -13,11 +15,7 @@ const SearchBar = ({ handleSearch }) => {
 
   return (
     <div className={styles.searchBarContainer}>
-      <input
-        type="text"
-        placeholder={query ? query : "Type product or recipe name"}
-        onChange={handleInput}
-      />
+      <input type="text" placeholder={queryUser} onChange={handleInput} />
       <Button small onClick={handleSearch(query)}>
         Search
       </Button>
@@ -25,4 +23,6 @@ const SearchBar = ({ handleSearch }) => {
   );
 };
 
-export default SearchBar;
+export default connect((state) => ({
+  queryUser: searchQuerySelector(state),
+}))(SearchBar);
