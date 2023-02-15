@@ -25,7 +25,7 @@ const Filters = ({
   ];
 
   return (
-    <div>
+    <div style={{ flexGrow: 1 }}>
       <h2>Filter</h2>
       <div>
         {filterCategory.map((i, index) => {

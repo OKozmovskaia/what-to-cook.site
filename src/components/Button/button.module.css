@@ -29,6 +29,7 @@
   height: 2.1em;
   color: var(--yellow);
   background-color: transparent;
+  border-radius: 5px;
 }
 
 .dropDown {

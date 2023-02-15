@@ -11,3 +11,24 @@
 .mainContent {
   width: 70%;
 }
+
+.buttonFilterWrapper {
+  display: flex;
+  gap: 1em;
+}
+
+.buttonFilter {
+  background-color: var(--yellow);
+  border-radius: 50%;
+}
+
+.filtersWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+@media only screen and (max-width: 740px) {
+  .container {
+    flex-direction: column;
+  }
+}

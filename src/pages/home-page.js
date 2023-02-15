@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadRecipesByQuery } from "../redux/actions";
@@ -7,6 +7,7 @@ import {
   recipesSelector,
   recipesLoadingSelector,
 } from "../redux/selectors";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 import Recipes from "../components/Recipes";
 import Filters from "../components/Filters";
@@ -15,15 +16,23 @@ import FiltersBar from "../components/Filters/FiltersBar";
 import Loader from "../components/Loader";
 
 import styles from "./home-page.module.css";
+import Button from "../components/Button";
 
 function HomePage({ findRecipes, userFilters, recipes, loading }) {
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     findRecipes("carrot");
   }, [findRecipes]);
+  const isPageWide = useMediaQuery("(max-width: 740px)");
 
   const handleSearch = (query) => (e) => {
     e.preventDefault();
     findRecipes(query);
+  };
+
+  const handleOpen = () => {
+    setOpen(!open);
   };
 
   if (Object.keys(recipes).length < 1 && loading) return <Loader />;
@@ -36,6 +45,35 @@ function HomePage({ findRecipes, userFilters, recipes, loading }) {
           <SearchBar handleSearch={handleSearch} />
           <h3>No recipes match your request</h3>
         </main>
+      </div>
+    );
+  }
+
+  if (isPageWide) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.buttonFilterWrapper}>
+          <Button
+            style={{
+              backgroundColor: "var(--yellow)",
+              borderRadius: "50%",
+            }}
+            iconStyle
+            icon="filters"
+            onClick={handleOpen}
+          />
+          <SearchBar handleSearch={handleSearch} />
+        </div>
+
+        {open ? (
+          <div className={styles.filtersWrapper}>
+            <Button icon="cancel" iconStyle onClick={handleOpen} />
+            <Filters />
+          </div>
+        ) : null}
+
+        {userFilters.length > 0 ? <FiltersBar /> : null}
+        <Recipes />
       </div>
     );
   }

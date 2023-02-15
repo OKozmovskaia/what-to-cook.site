@@ -15,6 +15,7 @@ import { ReactComponent as githubIcon } from "../../icons/github.svg";
 import { ReactComponent as linkedinIcon } from "../../icons/linkedin.svg";
 import { ReactComponent as emailIcon } from "../../icons/email.svg";
 import { ReactComponent as cvIcon } from "../../icons/CV.svg";
+import { ReactComponent as filtersIcon } from "../../icons/filters.svg";
 
 const icons = {
   arrowBack: arrowBackIcon,
@@ -30,6 +31,7 @@ const icons = {
   linkedin: linkedinIcon,
   email: emailIcon,
   cv: cvIcon,
+  filters: filtersIcon,
 };
 
 const Button = ({
