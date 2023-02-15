@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadMoreRecipes, updateRecipes } from "../../redux/actions";
@@ -6,20 +6,22 @@ import { loadMoreRecipes, updateRecipes } from "../../redux/actions";
 import {
   recipesListSelector,
   recipesLoadMoreSelector,
+  recipesLoadingSelector,
 } from "../../redux/selectors";
 
 import Button from "../Button";
 import Recipe from "./Recipe";
+import Loader from "../Loader";
 
 import styles from "./recipes.module.css";
 
-const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes }) => {
+const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes, loading }) => {
   const [isVisible, setIsVisible] = useState(false);
   const divScroll = useRef(null);
 
   useEffect(() => {
     updateRecipes();
-  }, [loadMore, updateRecipes]);
+  }, [nextChunk, updateRecipes]);
 
   const handleLoadMore = (link) => (e) => {
     e.preventDefault();
@@ -65,12 +67,14 @@ const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes }) => {
             <Recipe key={item[0]} id={item[0]} />
           ))}
         </div>
-
-        <div className={styles.loadMoreButtonContainer}>
-          <Button large onClick={handleLoadMore(nextChunk)}>
-            Load More
-          </Button>
-        </div>
+        {loading && <Loader />}
+        {!loading && (
+          <div className={styles.loadMoreButtonContainer}>
+            <Button large onClick={handleLoadMore(nextChunk)}>
+              Load More
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -80,6 +84,7 @@ export default connect(
   createStructuredSelector({
     recipes: recipesListSelector,
     nextChunk: recipesLoadMoreSelector,
+    loading: recipesLoadingSelector,
   }),
   (dispatch) => ({
     loadMore: (link) => dispatch(loadMoreRecipes(link)),

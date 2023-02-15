@@ -3,20 +3,20 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadRecipesByQuery } from "../redux/actions";
 import {
-  recipesLoadedSelector,
-  recipesLoadingSelector,
   userFiltersSelector,
+  recipesSelector,
+  recipesLoadingSelector,
 } from "../redux/selectors";
 
 import Recipes from "../components/Recipes";
 import Filters from "../components/Filters";
-import Loader from "../components/Loader";
 import SearchBar from "../components/SearchBar";
 import FiltersBar from "../components/Filters/FiltersBar";
+import Loader from "../components/Loader";
 
 import styles from "./home-page.module.css";
 
-function HomePage({ findRecipes, userFilters, loading, loaded }) {
+function HomePage({ findRecipes, userFilters, recipes, loading }) {
   useEffect(() => {
     findRecipes("carrot");
   }, [findRecipes]);
@@ -26,8 +26,19 @@ function HomePage({ findRecipes, userFilters, loading, loaded }) {
     findRecipes(query);
   };
 
-  if (loading) return <Loader />;
-  if (!loaded) return "No recepies that match your request";
+  if (Object.keys(recipes).length < 1 && loading) return <Loader />;
+
+  if (Object.keys(recipes).length < 1 && !loading) {
+    return (
+      <div className={styles.container}>
+        <aside className={styles.sidebar}></aside>
+        <main className={styles.mainContent}>
+          <SearchBar handleSearch={handleSearch} />
+          <h3>No recipes match your request</h3>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -48,9 +59,9 @@ function HomePage({ findRecipes, userFilters, loading, loaded }) {
 
 export default connect(
   createStructuredSelector({
-    loading: recipesLoadingSelector,
-    loaded: recipesLoadedSelector,
+    recipes: recipesSelector,
     userFilters: userFiltersSelector,
+    loading: recipesLoadingSelector,
   }),
   (dispatch) => ({
     findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
