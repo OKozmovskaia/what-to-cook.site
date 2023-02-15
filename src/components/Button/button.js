@@ -11,6 +11,10 @@ import { ReactComponent as penIcon } from "../../icons/edit.svg";
 import { ReactComponent as heartIcon } from "../../icons/heart.svg";
 import { ReactComponent as shoppingBagIcon } from "../../icons/shopping-bag.svg";
 import { ReactComponent as cancelIcon } from "../../icons/cancel.svg";
+import { ReactComponent as githubIcon } from "../../icons/github.svg";
+import { ReactComponent as linkedinIcon } from "../../icons/linkedin.svg";
+import { ReactComponent as emailIcon } from "../../icons/email.svg";
+import { ReactComponent as cvIcon } from "../../icons/CV.svg";
 
 const icons = {
   arrowBack: arrowBackIcon,
@@ -22,6 +26,10 @@ const icons = {
   heart: heartIcon,
   shopBag: shoppingBagIcon,
   cancel: cancelIcon,
+  github: githubIcon,
+  linkedin: linkedinIcon,
+  email: emailIcon,
+  cv: cvIcon,
 };
 
 const Button = ({

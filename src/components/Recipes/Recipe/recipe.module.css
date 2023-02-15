@@ -82,7 +82,7 @@
 }
 
 .previewContainer:hover {
-  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  box-shadow: var(--shadow);
   background-color: var(--white);
   border: 1px solid var(--light-grey);
   height: fit-content;

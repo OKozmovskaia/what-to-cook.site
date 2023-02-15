@@ -1,0 +1,12 @@
+.footerContainer {
+  text-align: center;
+}
+
+.iconContainer button {
+  height: 60px;
+  width: 60px;
+  background-color: var(--yellow);
+  margin: 1em;
+  border-radius: 50%;
+  border: 5px solid var(--yellow);
+}
