@@ -29,6 +29,7 @@ a,
 button {
   text-decoration: none;
   outline: none;
+  align-self: center;
 }
 
 h1 {

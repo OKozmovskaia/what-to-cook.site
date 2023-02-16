@@ -15,7 +15,7 @@ import SearchBar from "../components/SearchBar";
 import FiltersBar from "../components/Filters/FiltersBar";
 import Loader from "../components/Loader";
 
-import styles from "./home-page.module.css";
+import styles from "./page.module.css";
 import Button from "../components/Button";
 
 function HomePage({ findRecipes, userFilters, recipes, loading }) {

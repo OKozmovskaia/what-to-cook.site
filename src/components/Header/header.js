@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import Button from "../Button";
 
 import styles from "./header.module.css";
@@ -8,12 +10,19 @@ const Header = () => {
   return (
     <div className={styles.container}>
       <div className={styles.div}>
-        <img src={logo} alt="logo" className={styles.img}></img>
+        <Link to="/">
+          <img src={logo} alt="logo" className={styles.img}></img>
+        </Link>
         <h1>What to cook?</h1>
       </div>
+
       <div className={styles.div}>
-        <Button large>Log In</Button>
-        <Button large>Sign Up</Button>
+        <Link to="/log-in">
+          <Button large>Log In</Button>
+        </Link>
+        <Link to="/sign-up">
+          <Button large>Sign Up</Button>
+        </Link>
       </div>
     </div>
   );
