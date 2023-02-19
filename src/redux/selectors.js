@@ -2,10 +2,12 @@ import { createSelector } from "reselect";
 import { v4 as uuidv4 } from "uuid";
 
 export const recipesSelector = (state) => state.recipes.entities;
+export const filtersSelector = (state) => state.recipes.filters;
 export const updateRecipesSelector = (state) => state.recipes.filtered;
 export const recipesLoadMoreSelector = (state) => state.recipes.loadMore;
 export const searchQuerySelector = (state) => state.recipes.searchQuery;
 export const userFiltersSelector = (state) => state.recipes.userFilters;
+export const recipesUpdateCountSelector = (state) => state.recipes.updateCount;
 
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;
@@ -34,6 +36,30 @@ const groupByCategory = (recipes, category) => {
   }, {});
 };
 
+const filtersCreateSelector = createSelector(
+  recipesSelector,
+  (state) => state.recipes.categories,
+  recipesUpdateCountSelector,
+  (recipes, categories, index) =>
+    categories
+      .map((i) => groupByCategory(Object.values(recipes).slice(-index), i))
+      .reduce((prev, curr) => ({ ...prev, ...curr }), {})
+);
+
+export const newFiltersSelector = createSelector(
+  filtersSelector,
+  filtersCreateSelector,
+  (prevFilters, newFilters) =>
+    Object.fromEntries(
+      Object.entries(newFilters).filter(
+        (i) =>
+          !Object.values(prevFilters).find(
+            (j) => JSON.stringify(j) === JSON.stringify(i[1])
+          )
+      )
+    )
+);
+
 const sortObjectByNestedValue = (obj) => {
   return Object.fromEntries(
     Object.entries(obj).sort((x, y) =>
@@ -43,15 +69,6 @@ const sortObjectByNestedValue = (obj) => {
     )
   );
 };
-
-export const filtersSelector = createSelector(
-  recipesSelector,
-  (state) => state.recipes.categories,
-  (recipes, categories) =>
-    categories
-      .map((i) => groupByCategory(Object.values(recipes), i))
-      .reduce((prev, curr) => ({ ...prev, ...curr }), {})
-);
 
 export const dishTypeListSelector = createSelector(filtersSelector, (list) =>
   Object.entries(list).reduce((acc, [key, value]) => {

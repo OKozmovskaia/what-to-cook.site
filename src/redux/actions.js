@@ -5,8 +5,13 @@ import {
   REMOVE_FILTER,
   REMOVE_ALL_FILTERS,
   UPDATE_RECIPES,
+  UPDATE_FILTERS,
 } from "./constants";
-import { filtredRecipesSelector, userFiltersSelector } from "./selectors";
+import {
+  filtredRecipesSelector,
+  userFiltersSelector,
+  newFiltersSelector,
+} from "./selectors";
 
 export const loadRecipesByQuery = (query) => ({
   type: LOAD_RECIPES,
@@ -21,8 +26,12 @@ export const loadMoreRecipes = (link) => ({
 
 export const updateRecipes = () => async (dispatch, getState) => {
   const updateRecipes = filtredRecipesSelector(getState());
-
   await dispatch({ type: UPDATE_RECIPES, updateRecipes });
+};
+
+export const updateFilters = () => async (dispatch, getState) => {
+  const updateFilters = newFiltersSelector(getState());
+  await dispatch({ type: UPDATE_FILTERS, updateFilters });
 };
 
 export const addFilter = (id) => ({

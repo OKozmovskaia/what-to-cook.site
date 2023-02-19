@@ -7,12 +7,14 @@ import {
   ADD_FILTER,
   REMOVE_FILTER,
   UPDATE_RECIPES,
+  UPDATE_FILTERS,
   REMOVE_ALL_FILTERS,
 } from "../constants";
 import { idAsKey } from "../utils/idAsKey";
 
 const initialState = {
   entities: {},
+  filters: {},
   filtered: {},
   userFilters: [],
   categories: [
@@ -27,8 +29,8 @@ const initialState = {
 };
 
 const recipes = (state = initialState, action) => {
-  const { type, data, newFilter, updateRecipes, error } = action;
-  const { entities, userFilters } = state;
+  const { type, data, newFilter, updateRecipes, updateFilters, error } = action;
+  const { entities, filters, userFilters } = state;
 
   switch (type) {
     case LOAD_RECIPES + REQUEST:
@@ -42,11 +44,11 @@ const recipes = (state = initialState, action) => {
       return {
         ...state,
         entities: idAsKey(data.recipes),
-        filtered: idAsKey(data.recipes),
         loadMore: data.nextChunk,
         searchQuery: data.searchQuery,
         loading: false,
         loaded: true,
+        updateCount: data.updateCount,
       };
 
     case LOAD_RECIPES + FAILURE:
@@ -72,6 +74,7 @@ const recipes = (state = initialState, action) => {
         loadMore: data.nextChunk,
         loading: false,
         loaded: true,
+        updateCount: data.updateCount,
       };
 
     case LOAD_MORE_RECIPES + FAILURE:
@@ -104,6 +107,12 @@ const recipes = (state = initialState, action) => {
       return {
         ...state,
         filtered: updateRecipes,
+      };
+
+    case UPDATE_FILTERS:
+      return {
+        ...state,
+        filters: { ...filters, ...updateFilters },
       };
     default:
       return state;

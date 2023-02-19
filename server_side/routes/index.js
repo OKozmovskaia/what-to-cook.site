@@ -41,6 +41,7 @@ router.get("/find-recipes", async (ctx) => {
     searchQuery: q,
     nextChunk: data._links.next,
     recipes,
+    updateCount: recipes.length,
   };
 
   ctx.body = chunkRecipes;
@@ -57,6 +58,7 @@ router.post("/load-more", async (ctx) => {
   const chunkRecipes = {
     nextChunk: data._links.next,
     recipes,
+    updateCount: recipes.length,
   };
 
   ctx.body = chunkRecipes;
