@@ -34,6 +34,16 @@ const groupByCategory = (recipes, category) => {
   }, {});
 };
 
+const sortObjectByNestedValue = (obj) => {
+  return Object.fromEntries(
+    Object.entries(obj).sort((x, y) =>
+      x[1].label === "totalTime"
+        ? x[1].value - y[1].value
+        : x[1].value.localeCompare(y[1].value)
+    )
+  );
+};
+
 export const filtersSelector = createSelector(
   recipesSelector,
   (state) => state.recipes.categories,
@@ -45,25 +55,33 @@ export const filtersSelector = createSelector(
 
 export const dishTypeListSelector = createSelector(filtersSelector, (list) =>
   Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "dishType" ? { ...acc, [key]: value } : acc;
+    return value.label === "dishType"
+      ? sortObjectByNestedValue({ ...acc, [key]: value })
+      : acc;
   }, {})
 );
 
 export const mealTypeListSelector = createSelector(filtersSelector, (list) =>
   Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "mealType" ? { ...acc, [key]: value } : acc;
+    return value.label === "mealType"
+      ? sortObjectByNestedValue({ ...acc, [key]: value })
+      : acc;
   }, {})
 );
 
 export const cuisineTypeListSelector = createSelector(filtersSelector, (list) =>
   Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "cuisineType" ? { ...acc, [key]: value } : acc;
+    return value.label === "cuisineType"
+      ? sortObjectByNestedValue({ ...acc, [key]: value })
+      : acc;
   }, {})
 );
 
 export const cookingTimeListSelector = createSelector(filtersSelector, (list) =>
   Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "totalTime" ? { ...acc, [key]: value } : acc;
+    return value.label === "totalTime"
+      ? sortObjectByNestedValue({ ...acc, [key]: value })
+      : acc;
   }, {})
 );
 
