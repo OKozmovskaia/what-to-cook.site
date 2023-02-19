@@ -46,9 +46,10 @@ const Button = ({
   ...props
 }) => {
   const Icon = icons[icon];
-
+  const isDisabled = block ? true : false;
   return (
     <button
+      disabled={isDisabled}
       className={cn(styles.button, {
         [styles.icon]: iconStyle,
         [styles.large]: large,

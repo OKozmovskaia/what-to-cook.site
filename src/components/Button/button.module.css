@@ -50,3 +50,12 @@
   height: 100%;
   width: 100%;
 }
+
+.block {
+  background-color: var(--yellow-light);
+  cursor: auto;
+}
+
+.block:hover {
+  box-shadow: none;
+}

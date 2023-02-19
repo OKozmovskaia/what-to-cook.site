@@ -70,7 +70,11 @@ const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes, loading }) => {
         {loading && <Loader />}
         {!loading && (
           <div className={styles.loadMoreButtonContainer}>
-            <Button large onClick={handleLoadMore(nextChunk)}>
+            <Button
+              large
+              onClick={handleLoadMore(nextChunk)}
+              block={!nextChunk}
+            >
               Load More
             </Button>
           </div>
