@@ -1,0 +1,45 @@
+.container {
+  color: var(--grey);
+  margin: 0 2em 2em 0;
+}
+
+input {
+  height: 1.8em;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  font-size: 1em;
+  margin: 0;
+  padding: 0 0 0 15px;
+  width: 100%;
+  outline: none;
+  color: var(--grey);
+}
+
+label {
+  font-size: 0.8em;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.message {
+  display: inline-block;
+  font-size: 0.8em;
+  line-height: 15px;
+  margin: 5px 0 0;
+}
+
+input.error {
+  border: 2px solid var(--deep-pink);
+}
+
+input:focus {
+  border: 2px solid var(--yellow);
+}
+
+.message.error {
+  color: var(--deep-pink);
+}
+
+.message.success {
+  color: var(--green);
+}
