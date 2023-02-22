@@ -5,8 +5,7 @@ import Footer from "./components/Footer/footer";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/home-page";
-import LoginPage from "./pages/login-page";
-import SignupPage from "./pages/signup-page";
+import AccountPage from "./pages/account-page";
 
 function App() {
   return (
@@ -15,8 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/log-in" element={<LoginPage />} />
-        <Route path="/sign-up" element={<SignupPage />} />
+        <Route path="/account" element={<AccountPage />} />
       </Routes>
       <Footer />
     </div>

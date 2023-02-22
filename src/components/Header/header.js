@@ -17,11 +17,8 @@ const Header = () => {
       </div>
 
       <div className={styles.div}>
-        <Link to="/log-in">
+        <Link to="/account">
           <Button large>Log In</Button>
-        </Link>
-        <Link to="/sign-up">
-          <Button large>Sign Up</Button>
         </Link>
       </div>
     </div>
