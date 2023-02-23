@@ -1,30 +1,34 @@
 import React, { useId, useState } from "react";
 
 import styles from "./emailInput.module.css";
-import cn from "classnames";
+
+const initialState = {
+  email: "",
+  isValid: false,
+  showMessage: false,
+};
 
 const EmailInput = () => {
   const idEmail = useId();
-  const [email, setEmail] = useState("");
-  const [isValid, setIsValid] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
+  const [state, setState] = useState(initialState);
   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,12})+$/;
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
+    setState((prevState) => ({ ...prevState, email: e.target.value }));
   };
 
   const handleValid = () => {
-    if (regex.test(email)) {
-      setIsValid(true);
+    if (!state.email) return;
+    if (regex.test(state.email)) {
+      setState((prevState) => ({ ...prevState, isValid: true }));
     } else {
-      setIsValid(false);
+      setState((prevState) => ({ ...prevState, isValid: false }));
     }
-    setShowMessage(true);
+    setState((prevState) => ({ ...prevState, showMessage: true }));
   };
 
   const hideMessage = () => {
-    setShowMessage(false);
+    setState((prevState) => ({ ...prevState, showMessage: false }));
   };
 
   return (
@@ -32,31 +36,32 @@ const EmailInput = () => {
       <label htmlFor={idEmail}>Email: </label>
 
       <input
-        className={isValid && email ? styles.success : styles.error}
+        className={
+          state.showMessage
+            ? state.isValid
+              ? styles.success
+              : styles.error
+            : null
+        }
         type="email"
         name="email"
         id={idEmail}
         required
-        value={email}
+        value={state.email}
         onChange={handleEmail}
         onMouseLeave={handleValid}
         onFocus={hideMessage}
       />
 
-      {showMessage && (
-        <div
-          className={cn(
-            styles.message,
-            isValid ? styles.success : styles.error
-          )}
-        >
-          {isValid ? (
-            <span>Email is correct</span>
-          ) : (
-            <span>Please, enter a valid email address</span>
-          )}
-        </div>
-      )}
+      <div className={styles.message}>
+        {state.showMessage ? (
+          <span className={state.isValid ? styles.success : styles.error}>
+            {state.isValid
+              ? "Email is correct"
+              : "Please, enter a valid email address"}
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 };

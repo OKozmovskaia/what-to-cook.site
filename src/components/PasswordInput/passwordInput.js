@@ -2,35 +2,41 @@ import React, { useId, useState } from "react";
 import Button from "../Button";
 
 import styles from "./passwordInput.module.css";
-import cn from "classnames";
+
+const initialState = {
+  password: "",
+  isValid: false,
+  showMessage: false,
+  showPassword: false,
+};
 
 const PasswordInput = () => {
   const idPassword = useId();
-  const [password, setPassword] = useState("");
-  const [isValid, setIsValid] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [state, setState] = useState(initialState);
   const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
   const handlePassword = (e) => {
-    setPassword(e.target.value);
+    setState({ ...state, password: e.target.value });
   };
 
   const handleValid = () => {
-    if (regex.test(password)) {
-      setIsValid(true);
+    if (!state.password) return;
+    if (regex.test(state.password)) {
+      setState((prevState) => ({ ...prevState, isValid: true }));
     } else {
-      setIsValid(false);
+      setState((prevState) => ({ ...prevState, isValid: false }));
     }
-    setShowMessage(true);
+    setState((prevState) => ({ ...prevState, showMessage: true }));
   };
 
   const hideMessage = () => {
-    setShowMessage(false);
+    setState((prevState) => ({ ...prevState, showMessage: false }));
   };
 
   const toggleShow = () => {
-    setShowPassword(!showPassword);
+    setState((prevState) => ({
+      ...prevState,
+      showPassword: !state.showPassword,
+    }));
   };
 
   return (
@@ -38,12 +44,18 @@ const PasswordInput = () => {
       <label htmlFor={idPassword}>Password: </label>
       <div className={styles.inputIcon}>
         <input
-          className={isValid && password ? styles.success : styles.error}
-          type={showPassword ? "text" : "password"}
+          className={
+            state.showMessage
+              ? state.isValid
+                ? styles.success
+                : styles.error
+              : null
+          }
+          type={state.showPassword ? "text" : "password"}
           name="password"
           id={idPassword}
           required
-          value={password}
+          value={state.password}
           onChange={handlePassword}
           onMouseLeave={handleValid}
           onFocus={hideMessage}
@@ -51,29 +63,21 @@ const PasswordInput = () => {
         <span className={styles.icon}>
           <Button
             iconStyle
-            icon={showPassword ? "eyeClosed" : "eye"}
+            icon={state.showPassword ? "eyeClosed" : "eye"}
             onClick={toggleShow}
           ></Button>
         </span>
       </div>
 
-      {showMessage && (
-        <div
-          className={cn(
-            styles.message,
-            isValid ? styles.success : styles.error
-          )}
-        >
-          {isValid ? (
-            <span>Password is strong</span>
-          ) : (
-            <span>
-              Password must contain minimum 8 characters, at least one letter
-              and one number
-            </span>
-          )}
-        </div>
-      )}
+      <div className={styles.message}>
+        {state.showMessage ? (
+          <span className={state.isValid ? styles.success : styles.error}>
+            {state.isValid
+              ? "Password is strong"
+              : "Password must contain min 8 characters, at least one letter andone number"}
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 };
