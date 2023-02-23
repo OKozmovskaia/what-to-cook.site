@@ -16,6 +16,8 @@ import { ReactComponent as linkedinIcon } from "../../icons/linkedin.svg";
 import { ReactComponent as emailIcon } from "../../icons/email.svg";
 import { ReactComponent as cvIcon } from "../../icons/CV.svg";
 import { ReactComponent as filtersIcon } from "../../icons/filters.svg";
+import { ReactComponent as eyeIcon } from "../../icons/eye.svg";
+import { ReactComponent as eyeClosedIcon } from "../../icons/eye-closed.svg";
 
 const icons = {
   arrowBack: arrowBackIcon,
@@ -32,10 +34,13 @@ const icons = {
   email: emailIcon,
   cv: cvIcon,
   filters: filtersIcon,
+  eye: eyeIcon,
+  eyeClosed: eyeClosedIcon,
 };
 
 const Button = ({
   icon,
+  submit = false,
   iconStyle = false,
   large = false,
   small = false,
@@ -49,6 +54,7 @@ const Button = ({
   const isDisabled = block ? true : false;
   return (
     <button
+      type={submit ? "submit" : "button"}
       disabled={isDisabled}
       className={cn(styles.button, {
         [styles.icon]: iconStyle,
