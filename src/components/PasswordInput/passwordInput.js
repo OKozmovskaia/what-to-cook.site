@@ -5,12 +5,11 @@ import styles from "./passwordInput.module.css";
 
 const initialState = {
   password: "",
-  isValid: false,
   showMessage: false,
   showPassword: false,
 };
 
-const PasswordInput = () => {
+const PasswordInput = ({ isValid, setIsValid }) => {
   const idPassword = useId();
   const [state, setState] = useState(initialState);
   const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -21,9 +20,9 @@ const PasswordInput = () => {
   const handleValid = () => {
     if (!state.password) return;
     if (regex.test(state.password)) {
-      setState((prevState) => ({ ...prevState, isValid: true }));
+      setIsValid((prevState) => ({ ...prevState, password: true }));
     } else {
-      setState((prevState) => ({ ...prevState, isValid: false }));
+      setIsValid((prevState) => ({ ...prevState, password: false }));
     }
     setState((prevState) => ({ ...prevState, showMessage: true }));
   };
@@ -45,16 +44,11 @@ const PasswordInput = () => {
       <div className={styles.inputIcon}>
         <input
           className={
-            state.showMessage
-              ? state.isValid
-                ? styles.success
-                : styles.error
-              : null
+            state.showMessage ? (isValid ? styles.success : styles.error) : null
           }
           type={state.showPassword ? "text" : "password"}
           name="password"
           id={idPassword}
-          required
           value={state.password}
           onChange={handlePassword}
           onMouseLeave={handleValid}
@@ -71,10 +65,10 @@ const PasswordInput = () => {
 
       <div className={styles.message}>
         {state.showMessage ? (
-          <span className={state.isValid ? styles.success : styles.error}>
-            {state.isValid
+          <span className={isValid ? styles.success : styles.error}>
+            {isValid
               ? "Password is strong"
-              : "Password must contain min 8 characters, at least one letter andone number"}
+              : "Password must contain min 8 characters, at least one letter and one number"}
           </span>
         ) : null}
       </div>

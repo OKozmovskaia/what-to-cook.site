@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Button from "../components/Button";
+import Login from "../components/Login";
 
 import styles from "./page.module.css";
 import cn from "classnames";
@@ -24,7 +25,7 @@ const AccountPage = () => {
           <h1>Sign Up</h1>
         </div>
         <div className={cn(styles.containerForm, styles.formLogIn)}>
-          <h1>Log In</h1>
+          <Login />
         </div>
 
         <div className={styles.containerOverlay}>

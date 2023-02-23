@@ -6,6 +6,7 @@ import {
   REMOVE_ALL_FILTERS,
   UPDATE_RECIPES,
   UPDATE_FILTERS,
+  USER_LOGIN,
 } from "./constants";
 import {
   filtredRecipesSelector,
@@ -13,6 +14,7 @@ import {
   newFiltersSelector,
 } from "./selectors";
 
+// RECIPES
 export const loadRecipesByQuery = (query) => ({
   type: LOAD_RECIPES,
   callAPI: `/find-recipes?q=${query}`,
@@ -52,4 +54,11 @@ export const removeFilter = (id) => async (dispatch, getState) => {
 export const removeAllFilters = () => ({
   type: REMOVE_ALL_FILTERS,
   newFilter: [],
+});
+
+// USER
+export const userLogin = (data) => ({
+  type: USER_LOGIN,
+  callAPI: `/login`,
+  postData: data,
 });

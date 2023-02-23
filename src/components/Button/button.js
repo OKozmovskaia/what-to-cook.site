@@ -51,11 +51,10 @@ const Button = ({
   ...props
 }) => {
   const Icon = icons[icon];
-  const isDisabled = block ? true : false;
   return (
     <button
       type={submit ? "submit" : "button"}
-      disabled={isDisabled}
+      disabled={block}
       className={cn(styles.button, {
         [styles.icon]: iconStyle,
         [styles.large]: large,

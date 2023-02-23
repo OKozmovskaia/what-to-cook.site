@@ -4,11 +4,10 @@ import styles from "./emailInput.module.css";
 
 const initialState = {
   email: "",
-  isValid: false,
   showMessage: false,
 };
 
-const EmailInput = () => {
+const EmailInput = ({ isValid, setIsValid }) => {
   const idEmail = useId();
   const [state, setState] = useState(initialState);
   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,12})+$/;
@@ -20,9 +19,9 @@ const EmailInput = () => {
   const handleValid = () => {
     if (!state.email) return;
     if (regex.test(state.email)) {
-      setState((prevState) => ({ ...prevState, isValid: true }));
+      setIsValid((prevState) => ({ ...prevState, email: true }));
     } else {
-      setState((prevState) => ({ ...prevState, isValid: false }));
+      setIsValid((prevState) => ({ ...prevState, email: false }));
     }
     setState((prevState) => ({ ...prevState, showMessage: true }));
   };
@@ -37,16 +36,11 @@ const EmailInput = () => {
 
       <input
         className={
-          state.showMessage
-            ? state.isValid
-              ? styles.success
-              : styles.error
-            : null
+          state.showMessage ? (isValid ? styles.success : styles.error) : null
         }
         type="email"
         name="email"
         id={idEmail}
-        required
         value={state.email}
         onChange={handleEmail}
         onMouseLeave={handleValid}
@@ -55,8 +49,8 @@ const EmailInput = () => {
 
       <div className={styles.message}>
         {state.showMessage ? (
-          <span className={state.isValid ? styles.success : styles.error}>
-            {state.isValid
+          <span className={isValid ? styles.success : styles.error}>
+            {isValid
               ? "Email is correct"
               : "Please, enter a valid email address"}
           </span>
