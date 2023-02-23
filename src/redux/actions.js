@@ -7,6 +7,7 @@ import {
   UPDATE_RECIPES,
   UPDATE_FILTERS,
   USER_LOGIN,
+  USER_CREATE,
 } from "./constants";
 import {
   filtredRecipesSelector,
@@ -59,6 +60,12 @@ export const removeAllFilters = () => ({
 // USER
 export const userLogin = (data) => ({
   type: USER_LOGIN,
-  callAPI: `/login`,
+  callAPI: `/log-in`,
+  postData: data,
+});
+
+export const userCreate = (data) => ({
+  type: USER_CREATE,
+  callAPI: `/sign-up`,
   postData: data,
 });

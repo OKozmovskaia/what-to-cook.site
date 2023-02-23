@@ -4,8 +4,9 @@
   align-items: center;
 }
 
-.formLogin {
+.formSignUp {
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding-left: 2em;
 }

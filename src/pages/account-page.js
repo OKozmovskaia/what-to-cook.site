@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Button from "../components/Button";
 import Login from "../components/Login";
+import Signup from "../components/Signup";
 
 import styles from "./page.module.css";
 import cn from "classnames";
@@ -22,7 +23,7 @@ const AccountPage = () => {
         )}
       >
         <div className={cn(styles.containerForm, styles.formSignUp)}>
-          <h1>Sign Up</h1>
+          <Signup />
         </div>
         <div className={cn(styles.containerForm, styles.formLogIn)}>
           <Login />

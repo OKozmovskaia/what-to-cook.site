@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { userLogin } from "../../redux/actions";
+import { userCreate } from "../../redux/actions";
 
 import Button from "../Button";
+import UserNameInput from "../UserNameInput";
 import EmailInput from "../EmailInput";
 import PasswordInput from "../PasswordInput";
 
-import styles from "./login.module.css";
+import styles from "./signup.module.css";
 
-const Login = ({ userLogin }) => {
+const Login = ({ userCreate }) => {
   const [isValid, setIsValid] = useState({
+    username: false,
     email: false,
     password: false,
   });
@@ -18,22 +20,27 @@ const Login = ({ userLogin }) => {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
-    // userLogin(data);
+    // userCreate(data);
   };
 
   return (
     <div className={styles.container}>
-      <h3>Log in to your Chef account</h3>
+      <h3>Create your Chef account</h3>
       <form
-        className={styles.formLogin}
+        className={styles.formSignUp}
         noValidate
         onSubmit={handleSubmit}
         method="POST"
       >
+        <UserNameInput isValid={isValid.username} setIsValid={setIsValid} />
         <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
         <PasswordInput isValid={isValid.password} setIsValid={setIsValid} />
-        <Button block={!(isValid.email && isValid.password)} submit small>
-          Log In
+        <Button
+          block={!(isValid.email && isValid.password && isValid.username)}
+          submit
+          small
+        >
+          Sign Up
         </Button>
       </form>
     </div>
@@ -41,5 +48,5 @@ const Login = ({ userLogin }) => {
 };
 
 export default connect(null, (dispatch) => ({
-  userLogin: (data) => dispatch(userLogin(data)),
+  userCreate: (data) => dispatch(userCreate(data)),
 }))(Login);
