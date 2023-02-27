@@ -6,6 +6,7 @@ import Button from "../Button";
 import UserNameInput from "../UserNameInput";
 import EmailInput from "../EmailInput";
 import PasswordInput from "../PasswordInput";
+import SocialMediaSet from "../SocialMediaSet";
 
 import styles from "./signup.module.css";
 
@@ -26,6 +27,7 @@ const Login = ({ userCreate }) => {
   return (
     <div className={styles.container}>
       <h3>Create your Chef account</h3>
+      <SocialMediaSet />
       <form
         className={styles.formSignUp}
         noValidate

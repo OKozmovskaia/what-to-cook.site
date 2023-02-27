@@ -1,0 +1,12 @@
+.container {
+  text-align: center;
+}
+
+.container button {
+  height: 50px;
+  width: 50px;
+  background-color: var(--yellow);
+  margin: 1em;
+  border-radius: 50%;
+  border: 5px solid var(--yellow);
+}

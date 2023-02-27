@@ -5,6 +5,7 @@ import { userLogin } from "../../redux/actions";
 import Button from "../Button";
 import EmailInput from "../EmailInput";
 import PasswordInput from "../PasswordInput";
+import SocialMediaSet from "../SocialMediaSet";
 
 import styles from "./login.module.css";
 
@@ -24,6 +25,7 @@ const Login = ({ userLogin }) => {
   return (
     <div className={styles.container}>
       <h3>Log in to your Chef account</h3>
+      <SocialMediaSet />
       <form
         className={styles.formLogin}
         noValidate

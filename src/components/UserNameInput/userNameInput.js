@@ -10,13 +10,14 @@ const initialState = {
 const UserNameInput = ({ isValid, setIsValid }) => {
   const idUsername = useId();
   const [state, setState] = useState(initialState);
-  const regex = /^[a-zA-Z]/ || /\d{2,25}$/;
+  const regex = /^[\w-_.]{2,25}$/;
 
-  const handleEmail = (e) => {
+  const handleName = (e) => {
     setState((prevState) => ({ ...prevState, username: e.target.value }));
   };
 
   const handleValid = () => {
+    if (!state.username) return;
     if (regex.test(state.username)) {
       setIsValid((prevState) => ({ ...prevState, username: true }));
     } else {
@@ -40,8 +41,8 @@ const UserNameInput = ({ isValid, setIsValid }) => {
         type="text"
         name="username"
         id={idUsername}
-        value={state.email}
-        onChange={handleEmail}
+        value={state.username}
+        onChange={handleName}
         onMouseLeave={handleValid}
         onFocus={hideMessage}
       />
