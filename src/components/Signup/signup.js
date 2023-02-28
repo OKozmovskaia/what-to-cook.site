@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { userCreate } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 import Button from "../Button";
 import UserNameInput from "../UserNameInput";
@@ -25,26 +26,34 @@ const Login = ({ userCreate }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <h3>Create your Chef account</h3>
-      <SocialMediaSet />
-      <form
-        className={styles.formSignUp}
-        noValidate
-        onSubmit={handleSubmit}
-        method="POST"
-      >
-        <UserNameInput isValid={isValid.username} setIsValid={setIsValid} />
-        <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
-        <PasswordInput isValid={isValid.password} setIsValid={setIsValid} />
-        <Button
-          block={!(isValid.email && isValid.password && isValid.username)}
-          submit
-          small
+    <div className={styles.containerForm}>
+      <div className={styles.containerButton}>
+        <Link to="../login">
+          <Button large>Log In</Button>
+        </Link>
+      </div>
+
+      <div className={styles.formSignUp}>
+        <h3>Create your Chef account</h3>
+        <SocialMediaSet />
+        <form
+          className={styles.form}
+          noValidate
+          onSubmit={handleSubmit}
+          method="POST"
         >
-          Sign Up
-        </Button>
-      </form>
+          <UserNameInput isValid={isValid.username} setIsValid={setIsValid} />
+          <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
+          <PasswordInput isValid={isValid.password} setIsValid={setIsValid} />
+          <Button
+            block={!(isValid.email && isValid.password && isValid.username)}
+            submit
+            small
+          >
+            Sign Up
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };

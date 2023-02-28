@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { userLogin } from "../../redux/actions";
 
 import Button from "../Button";
@@ -23,21 +24,29 @@ const Login = ({ userLogin }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <h3>Log in to your Chef account</h3>
-      <SocialMediaSet />
-      <form
-        className={styles.formLogin}
-        noValidate
-        onSubmit={handleSubmit}
-        method="POST"
-      >
-        <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
-        <PasswordInput isValid={isValid.password} setIsValid={setIsValid} />
-        <Button block={!(isValid.email && isValid.password)} submit small>
-          Log In
-        </Button>
-      </form>
+    <div className={styles.containerForm}>
+      <div className={styles.formLogin}>
+        <h3>Log in to your Chef account</h3>
+        <SocialMediaSet />
+        <form
+          className={styles.form}
+          noValidate
+          onSubmit={handleSubmit}
+          method="POST"
+        >
+          <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
+          <PasswordInput isValid={isValid.password} setIsValid={setIsValid} />
+          <Button block={!(isValid.email && isValid.password)} submit small>
+            Log In
+          </Button>
+        </form>
+      </div>
+
+      <div className={styles.containerButton}>
+        <Link to="../signup">
+          <Button large>Sign Up</Button>
+        </Link>
+      </div>
     </div>
   );
 };

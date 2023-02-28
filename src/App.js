@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/*" element={<AccountPage />} />
       </Routes>
       <Footer />
     </div>
