@@ -72,7 +72,11 @@ router.post("/sign-up", async (ctx) => {
   await user.save();
 
   const token = await ctx.login(user._id);
-  ctx.body = token;
+  ctx.body = {
+    token,
+    username: displayName,
+    email,
+  };
 });
 
 module.exports = router;

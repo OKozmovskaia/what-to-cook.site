@@ -39,7 +39,7 @@ const UserNameInput = ({ isValid, setIsValid }) => {
           state.showMessage ? (isValid ? styles.success : styles.error) : null
         }
         type="text"
-        name="username"
+        name="displayName"
         id={idUsername}
         value={state.username}
         onChange={handleName}

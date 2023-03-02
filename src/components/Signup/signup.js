@@ -22,7 +22,7 @@ const Login = ({ userCreate }) => {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
-    // userCreate(data);
+    userCreate(Object.fromEntries(data));
   };
 
   return (
