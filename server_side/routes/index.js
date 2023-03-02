@@ -2,6 +2,7 @@ const Router = require("koa-router");
 const config = require("config");
 const axios = require("axios");
 const { v4: uuid } = require("uuid");
+const User = require("../models/User");
 
 const router = new Router();
 
@@ -62,6 +63,16 @@ router.post("/load-more", async (ctx) => {
   };
 
   ctx.body = chunkRecipes;
+});
+
+router.post("/sign-up", async (ctx) => {
+  const { displayName, email, password } = ctx.request.body;
+  const user = new User({ displayName, email, password });
+  await user.setPassword(password);
+  await user.save();
+
+  const token = await ctx.login(user._id);
+  ctx.body = token;
 });
 
 module.exports = router;
