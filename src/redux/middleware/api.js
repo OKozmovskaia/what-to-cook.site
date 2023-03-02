@@ -10,7 +10,7 @@ const api = (store) => (next) => async (action) => {
   if (!action.callAPI) return next(action);
 
   const { callAPI, type, postData, ...rest } = action;
-  console.log("POST DATA: ", postData);
+
   next({ ...rest, type: type + REQUEST });
 
   try {

@@ -1,6 +1,8 @@
 import { createSelector } from "reselect";
 import { v4 as uuidv4 } from "uuid";
 
+// RECIPES
+
 export const recipesSelector = (state) => state.recipes.entities;
 export const filtersSelector = (state) => state.recipes.filters;
 export const updateRecipesSelector = (state) => state.recipes.filtered;
@@ -9,8 +11,15 @@ export const searchQuerySelector = (state) => state.recipes.searchQuery;
 export const userFiltersSelector = (state) => state.recipes.userFilters;
 export const recipesUpdateCountSelector = (state) => state.recipes.updateCount;
 
+export const userNameSelector = (state) => state.user.username;
+export const tokenSelector = (state) => state.user.token;
+export const emailSelector = (state) => state.user.email;
+
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;
+
+export const userLoadingSelector = (state) => state.user.loading;
+export const userLoadedSelector = (state) => state.user.loaded;
 
 export const recipesListSelector = createSelector(
   updateRecipesSelector,

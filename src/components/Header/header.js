@@ -17,7 +17,7 @@ const Header = () => {
       </div>
 
       <div className={styles.div}>
-        <Link to="/account">
+        <Link to="/login">
           <Button large>Log In</Button>
         </Link>
       </div>
