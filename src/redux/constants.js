@@ -7,6 +7,7 @@ export const UPDATE_RECIPES = "UPDATE_RECIPES";
 export const UPDATE_FILTERS = "UPDATE_FILTERS";
 
 export const USER_CREATE = "USER_CREATE";
+export const USER_LOAD = "USER_LOAD";
 export const USER_LOGIN = "USER_LOGIN";
 
 export const REQUEST = "_REQUEST";

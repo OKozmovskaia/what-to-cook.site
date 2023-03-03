@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
@@ -7,10 +7,16 @@ import {
   emailSelector,
   tokenSelector,
 } from "../../redux/selectors";
+import { userLoad } from "../../redux/actions";
 
 import styles from "./myAccount.module.css";
 
-const MyAccount = ({ username, email, token }) => {
+const MyAccount = ({ username, email, token, userLoad }) => {
+  useEffect(() => {
+    if (!token) return;
+    userLoad(token);
+  }, [userLoad, token]);
+
   if (!token) return <Navigate to="/login" />;
   return (
     <div className={styles.containerAccount}>
@@ -25,5 +31,8 @@ export default connect(
     username: userNameSelector,
     email: emailSelector,
     token: tokenSelector,
+  }),
+  (dispatch) => ({
+    userLoad: (token) => dispatch(userLoad(token)),
   })
 )(MyAccount);

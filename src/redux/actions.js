@@ -8,6 +8,7 @@ import {
   UPDATE_FILTERS,
   USER_LOGIN,
   USER_CREATE,
+  USER_LOAD,
 } from "./constants";
 import {
   filtredRecipesSelector,
@@ -68,4 +69,10 @@ export const userCreate = (data) => ({
   type: USER_CREATE,
   callAPI: `/sign-up`,
   postData: data,
+});
+
+export const userLoad = (token) => ({
+  type: USER_LOAD,
+  callAPI: `/me`,
+  token,
 });

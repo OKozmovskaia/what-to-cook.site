@@ -3,8 +3,27 @@ const config = require("config");
 const axios = require("axios");
 const { v4: uuid } = require("uuid");
 const User = require("../models/User");
+const Session = require("../models/Session");
 
 const router = new Router();
+
+router.use(async (ctx, next) => {
+  const header = ctx.request.get("Authorization");
+  if (!header) return next();
+
+  const token = header.split(" ")[1];
+  if (!token) return next();
+
+  const session = await Session.findOne({ token }).populate("user");
+  if (!session) {
+    ctx.throw(401, "Неверный аутентификационный токен");
+  }
+  session.lastVisit = new Date();
+  await session.save();
+
+  ctx.user = session.user;
+  return next();
+});
 
 router.get("/find-recipes", async (ctx) => {
   const q = ctx.request.query.q;
@@ -72,10 +91,13 @@ router.post("/sign-up", async (ctx) => {
   await user.save();
 
   const token = await ctx.login(user._id);
+  ctx.body = token;
+});
+
+router.get("/me", (ctx, next) => {
   ctx.body = {
-    token,
-    username: displayName,
-    email,
+    email: ctx.user.email,
+    username: ctx.user.displayName,
   };
 });
 

@@ -1,4 +1,10 @@
-import { USER_CREATE, REQUEST, SUCCESS, FAILURE } from "../constants";
+import {
+  USER_CREATE,
+  USER_LOAD,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from "../constants";
 
 const initialState = {
   token: localStorage.getItem("TOKEN"),
@@ -22,14 +28,37 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         token: data.token,
-        username: data.username,
-        email: data.email,
         loading: false,
         loaded: true,
         error: null,
       };
 
     case USER_CREATE + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        error,
+      };
+
+    case USER_LOAD + REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case USER_LOAD + SUCCESS:
+      return {
+        ...state,
+        email: data.email,
+        username: data.username,
+        loading: false,
+        loaded: true,
+        error: null,
+      };
+
+    case USER_LOAD + FAILURE:
       return {
         ...state,
         loading: false,
