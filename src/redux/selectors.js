@@ -14,6 +14,7 @@ export const recipesUpdateCountSelector = (state) => state.recipes.updateCount;
 export const userNameSelector = (state) => state.user.username;
 export const tokenSelector = (state) => state.user.token;
 export const emailSelector = (state) => state.user.email;
+export const userErrorSelector = (state) => state.user.error;
 
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;

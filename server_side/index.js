@@ -16,8 +16,8 @@ app.use(async (ctx, next) => {
     await next();
   } catch (err) {
     console.log("New Error: ", err);
-    err.status = err.statusCode || err.status || 500;
-    ctx.body = err.message;
+    ctx.response.status = err.statusCode || err.status || 500;
+    ctx.body = err;
   }
 });
 

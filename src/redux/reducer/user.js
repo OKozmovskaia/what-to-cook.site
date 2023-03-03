@@ -38,7 +38,7 @@ const user = (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error,
+        error: error.message,
       };
 
     case USER_LOAD + REQUEST:
@@ -63,7 +63,7 @@ const user = (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error,
+        error: error.message,
       };
 
     default:

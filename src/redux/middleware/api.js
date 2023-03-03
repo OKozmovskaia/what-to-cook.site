@@ -8,7 +8,10 @@ const createPostParams = (data) => ({
 
 const createAuthHeader = (token) => ({
   method: "GET",
-  headers: { Authorization: `Bearer ${token}` },
+  headers: {
+    Accept: "application/json",
+    Authorization: `Bearer ${token}`,
+  },
 });
 
 const api = (store) => (next) => async (action) => {

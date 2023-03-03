@@ -16,7 +16,7 @@ router.use(async (ctx, next) => {
 
   const session = await Session.findOne({ token }).populate("user");
   if (!session) {
-    ctx.throw(401, "Неверный аутентификационный токен");
+    ctx.throw(401, "Invalid authentication token");
   }
   session.lastVisit = new Date();
   await session.save();
