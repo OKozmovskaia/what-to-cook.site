@@ -1,6 +1,7 @@
 import { USER_CREATE, REQUEST, SUCCESS, FAILURE } from "../constants";
 
 const initialState = {
+  token: localStorage.getItem("TOKEN"),
   loading: false,
   loaded: false,
   error: null,

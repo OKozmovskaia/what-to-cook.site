@@ -11,6 +11,10 @@ import "./index.css";
 // DEV. ONLY
 window.store = store;
 
+store.subscribe(() =>
+  localStorage.setItem("TOKEN", store.getState().user.token)
+);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

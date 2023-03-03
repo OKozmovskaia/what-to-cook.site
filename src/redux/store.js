@@ -9,6 +9,5 @@ const preloadedState = {};
 export default configureStore({
   middleware: [thunk, api, generateId],
   reducer: rootReducer,
-
   preloadedState,
 });
