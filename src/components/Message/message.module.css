@@ -1,0 +1,22 @@
+.container {
+  position: fixed;
+  right: 0;
+  top: 10em;
+  z-index: 10;
+  display: flex;
+  max-width: 50%;
+  padding: 15px 25px;
+  border-radius: 6px;
+}
+
+.error {
+  background-color: var(--pink);
+  color: var(--deep-pink);
+  border: 3px solid var(--deep-pink);
+}
+
+.success {
+  background-color: var(--light-green);
+  color: var(--green);
+  border: 3px solid var(--green);
+}
