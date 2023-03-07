@@ -16,6 +16,17 @@
   gap: 1em;
 }
 
+.iconChef {
+  width: 3.5em;
+  height: 3.5em;
+  background-color: var(--white);
+}
+
+.iconChef button {
+  height: 100%;
+  width: 100%;
+}
+
 @media only screen and (max-width: 740px) {
   h1 {
     display: none;

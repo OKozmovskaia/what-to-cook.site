@@ -6,23 +6,32 @@ import {
   userNameSelector,
   emailSelector,
   tokenSelector,
-  userErrorSelector,
 } from "../../redux/selectors";
 import { userLoad } from "../../redux/actions";
 
+import Button from "../Button";
+
 import styles from "./myAccount.module.css";
 
-const MyAccount = ({ username, email, token, userLoad, message }) => {
+const MyAccount = ({ username, email, token, userLoad }) => {
   useEffect(() => {
     if (token) userLoad(token);
   }, [userLoad, token]);
 
   if (!token) return <Navigate to="/login" />;
+
+  const handleLogOut = () => {
+    localStorage.removeItem("TOKEN");
+    window.location.reload();
+  };
+
   return (
     <div className={styles.containerAccount}>
       <h2>Hello, {username}</h2>
       <h3>Your email: {email}</h3>
-      <h3>Message: {message}</h3>
+      <Button onClick={handleLogOut} large>
+        Log Out
+      </Button>
     </div>
   );
 };
@@ -32,7 +41,6 @@ export default connect(
     username: userNameSelector,
     email: emailSelector,
     token: tokenSelector,
-    message: userErrorSelector,
   }),
   (dispatch) => ({
     userLoad: (token) => dispatch(userLoad(token)),

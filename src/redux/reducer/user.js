@@ -8,7 +8,7 @@ import {
 } from "../constants";
 
 const initialState = {
-  token: JSON.parse(localStorage.getItem("TOKEN")),
+  token: localStorage.getItem("TOKEN"),
   loading: false,
   loaded: false,
   message: null,

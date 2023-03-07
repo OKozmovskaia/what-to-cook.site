@@ -20,6 +20,7 @@ import { ReactComponent as eyeIcon } from "../../icons/eye.svg";
 import { ReactComponent as eyeClosedIcon } from "../../icons/eye-closed.svg";
 import { ReactComponent as googleIcon } from "../../icons/google.svg";
 import { ReactComponent as facebookIcon } from "../../icons/facebook.svg";
+import { ReactComponent as chefIcon } from "../../icons/chef.svg";
 
 const icons = {
   arrowBack: arrowBackIcon,
@@ -40,6 +41,7 @@ const icons = {
   eyeClosed: eyeClosedIcon,
   google: googleIcon,
   facebook: facebookIcon,
+  chef: chefIcon,
 };
 
 const Button = ({
