@@ -16,6 +16,8 @@ export const tokenSelector = (state) => state.user.token;
 export const emailSelector = (state) => state.user.email;
 export const userErrorSelector = (state) => state.user.error;
 
+export const messageSelector = (state) => state.user.message;
+
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;
 

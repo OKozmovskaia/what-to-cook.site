@@ -17,7 +17,12 @@ app.use(async (ctx, next) => {
   } catch (err) {
     console.log("New Error: ", err);
     ctx.response.status = err.statusCode || err.status || 500;
-    ctx.body = err;
+    ctx.body = {
+      message: {
+        body: err.message,
+        error: true,
+      },
+    };
   }
 });
 

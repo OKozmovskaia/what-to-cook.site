@@ -4,24 +4,24 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE,
+  CLEAR_MESSAGE,
 } from "../constants";
 
 const initialState = {
-  token: localStorage.getItem("TOKEN"),
+  token: JSON.parse(localStorage.getItem("TOKEN")),
   loading: false,
   loaded: false,
-  error: null,
+  message: null,
 };
 
 const user = (state = initialState, action) => {
-  const { type, data, error } = action;
+  const { type, data } = action;
 
   switch (type) {
     case USER_CREATE + REQUEST:
       return {
         ...state,
         loading: true,
-        error: null,
       };
 
     case USER_CREATE + SUCCESS:
@@ -30,7 +30,7 @@ const user = (state = initialState, action) => {
         token: data.token,
         loading: false,
         loaded: true,
-        error: null,
+        message: data.message,
       };
 
     case USER_CREATE + FAILURE:
@@ -38,14 +38,13 @@ const user = (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error: error.message,
+        message: data.message,
       };
 
     case USER_LOAD + REQUEST:
       return {
         ...state,
         loading: true,
-        error: null,
       };
 
     case USER_LOAD + SUCCESS:
@@ -55,7 +54,7 @@ const user = (state = initialState, action) => {
         username: data.username,
         loading: false,
         loaded: true,
-        error: null,
+        message: data.message,
       };
 
     case USER_LOAD + FAILURE:
@@ -63,7 +62,13 @@ const user = (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error: error.message,
+        message: data.message,
+      };
+
+    case CLEAR_MESSAGE:
+      return {
+        ...state,
+        message: null,
       };
 
     default:

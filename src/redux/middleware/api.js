@@ -34,8 +34,8 @@ const api = (store) => (next) => async (action) => {
     if (!res.ok) throw data;
 
     return next({ ...rest, type: type + SUCCESS, data });
-  } catch (error) {
-    throw next({ ...rest, type: type + FAILURE, error });
+  } catch (data) {
+    throw next({ ...rest, type: type + FAILURE, data });
   }
 };
 

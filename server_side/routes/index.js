@@ -91,7 +91,13 @@ router.post("/sign-up", async (ctx) => {
   await user.save();
 
   const token = await ctx.login(user._id);
-  ctx.body = token;
+  ctx.body = {
+    token,
+    message: {
+      body: "Condratulations! Account successfully creted.",
+      success: true,
+    },
+  };
 });
 
 router.get("/me", (ctx, next) => {

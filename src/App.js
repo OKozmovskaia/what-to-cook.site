@@ -1,5 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { messageSelector } from "./redux/selectors";
 
 import Footer from "./components/Footer/footer";
 import Header from "./components/Header";
@@ -10,12 +13,12 @@ import Signup from "./components/Signup";
 import MyAccount from "./components/MyAccount";
 import Message from "./components/Message";
 
-function App() {
+function App({ message }) {
   return (
     <div>
       <Header />
       <Navbar />
-      <Message />
+      {message && <Message />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/me" element={<MyAccount />} />
@@ -27,4 +30,8 @@ function App() {
   );
 }
 
-export default App;
+export default connect(
+  createStructuredSelector({
+    message: messageSelector,
+  })
+)(App);

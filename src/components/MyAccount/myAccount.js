@@ -14,8 +14,7 @@ import styles from "./myAccount.module.css";
 
 const MyAccount = ({ username, email, token, userLoad, message }) => {
   useEffect(() => {
-    if (!token) return;
-    userLoad(token);
+    if (token) userLoad(token);
   }, [userLoad, token]);
 
   if (!token) return <Navigate to="/login" />;

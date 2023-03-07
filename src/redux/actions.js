@@ -9,6 +9,7 @@ import {
   USER_LOGIN,
   USER_CREATE,
   USER_LOAD,
+  CLEAR_MESSAGE,
 } from "./constants";
 import {
   filtredRecipesSelector,
@@ -75,4 +76,8 @@ export const userLoad = (token) => ({
   type: USER_LOAD,
   callAPI: `/me`,
   token,
+});
+
+export const clearMessage = () => ({
+  type: CLEAR_MESSAGE,
 });
