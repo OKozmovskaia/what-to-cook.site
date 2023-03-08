@@ -3,6 +3,7 @@ const config = require("config");
 const axios = require("axios");
 const { v4: uuid } = require("uuid");
 const mustBeAuthenticated = require("./mustBeAuthenticated");
+const passport = require("../passport");
 const User = require("../models/User");
 const Session = require("../models/Session");
 
@@ -17,7 +18,7 @@ router.use(async (ctx, next) => {
 
   const session = await Session.findOne({ token }).populate("user");
   if (!session) {
-    ctx.throw(401, "Invalid authentication token");
+    ctx.throw(401, "Authentication token invalid or expired");
   }
   session.lastVisit = new Date();
   await session.save();
@@ -107,6 +108,33 @@ router.get("/me", mustBeAuthenticated, (ctx, next) => {
     email: ctx.user.email,
     username: ctx.user.displayName,
   };
+});
+
+router.post("/log-in", async (ctx, next) => {
+  await passport.authenticate("local", async (err, user, info) => {
+    if (err) throw err;
+
+    if (!user) {
+      ctx.response.status = 400;
+      ctx.body = {
+        message: {
+          body: info,
+          error: true,
+          success: false,
+        },
+      };
+    }
+
+    const token = await ctx.login(user._id);
+    ctx.body = {
+      token,
+      message: {
+        body: `Welcome back, ${user.displayName}`,
+        success: true,
+        error: false,
+      },
+    };
+  })(ctx, next);
 });
 
 module.exports = router;

@@ -4,6 +4,7 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE,
+  USER_LOGIN,
 } from "../constants";
 
 const initialState = {
@@ -53,6 +54,27 @@ const user = (state = initialState, action) => {
       };
 
     case USER_LOAD + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+
+    case USER_LOGIN + REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_LOGIN + SUCCESS:
+      return {
+        ...state,
+        token: data.token,
+        loading: false,
+        success: true,
+      };
+
+    case USER_LOGIN + FAILURE:
       return {
         ...state,
         loading: false,

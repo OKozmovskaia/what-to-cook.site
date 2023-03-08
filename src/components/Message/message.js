@@ -11,7 +11,7 @@ const Message = ({ message, clearMessage }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       clearMessage();
-    }, 5000);
+    }, 9000);
     return () => clearTimeout(timer);
   }, [clearMessage, message]);
 
