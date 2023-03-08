@@ -16,13 +16,25 @@ app.use(async (ctx, next) => {
     await next();
   } catch (err) {
     console.log("New Error: ", err);
-    ctx.response.status = err.statusCode || err.status || 500;
-    ctx.body = {
-      message: {
-        body: err.message,
-        error: true,
-      },
-    };
+    if (err.code === 11000) {
+      ctx.response.status = 401;
+      ctx.body = {
+        message: {
+          body: `An account using this creadentials: ${Object.values(
+            err.keyValue
+          )}  already exists`,
+          error: true,
+        },
+      };
+    } else {
+      ctx.response.status = err.statusCode || err.status || 500;
+      ctx.body = {
+        message: {
+          body: err.message,
+          error: true,
+        },
+      };
+    }
   }
 });
 

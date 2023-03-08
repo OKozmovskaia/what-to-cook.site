@@ -2,6 +2,7 @@ const Router = require("koa-router");
 const config = require("config");
 const axios = require("axios");
 const { v4: uuid } = require("uuid");
+const mustBeAuthenticated = require("./mustBeAuthenticated");
 const User = require("../models/User");
 const Session = require("../models/Session");
 
@@ -100,7 +101,7 @@ router.post("/sign-up", async (ctx) => {
   };
 });
 
-router.get("/me", (ctx, next) => {
+router.get("/me", mustBeAuthenticated, (ctx, next) => {
   ctx.body = {
     email: ctx.user.email,
     username: ctx.user.displayName,
