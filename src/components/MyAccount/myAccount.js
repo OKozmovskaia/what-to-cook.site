@@ -6,6 +6,7 @@ import {
   userNameSelector,
   emailSelector,
   tokenSelector,
+  userSuccessLoadSelector,
 } from "../../redux/selectors";
 import { userLoad } from "../../redux/actions";
 
@@ -13,12 +14,17 @@ import Button from "../Button";
 
 import styles from "./myAccount.module.css";
 
-const MyAccount = ({ username, email, token, userLoad }) => {
-  useEffect(() => {
-    if (token) userLoad(token);
-  }, [userLoad, token]);
-
+const MyAccount = ({ username, email, token, userLoad, userLoadSuccess }) => {
   if (!token) return <Navigate to="/login" />;
+
+  if (token) {
+    userLoad(token);
+  }
+
+  if (!userLoadSuccess) {
+    localStorage.removeItem("TOKEN");
+    return <Navigate to="/login" />;
+  }
 
   const handleLogOut = () => {
     localStorage.removeItem("TOKEN");
@@ -41,6 +47,7 @@ export default connect(
     username: userNameSelector,
     email: emailSelector,
     token: tokenSelector,
+    userLoadSuccess: userSuccessLoadSelector,
   }),
   (dispatch) => ({
     userLoad: (token) => dispatch(userLoad(token)),

@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 import { userLogin } from "../../redux/actions";
+import {
+  userLoadingSelector,
+  userSuccessLoadSelector,
+} from "../../redux/selectors";
 
 import Button from "../Button";
 import EmailInput from "../EmailInput";
+import Loader from "../Loader";
 import PasswordInput from "../PasswordInput";
 import SocialMediaSet from "../SocialMediaSet";
 
 import styles from "./login.module.css";
 
-const Login = ({ userLogin }) => {
+const Login = ({ userLogin, userLoadSuccess, loading }) => {
   const [isValid, setIsValid] = useState({
     email: false,
     password: false,
@@ -20,8 +26,12 @@ const Login = ({ userLogin }) => {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
-    // userLogin(data);
+    userLogin(Object.fromEntries(data));
   };
+
+  if (loading) return <Loader />;
+
+  if (userLoadSuccess) return <Navigate to="/me" />;
 
   return (
     <div className={styles.containerAccount}>
@@ -53,6 +63,12 @@ const Login = ({ userLogin }) => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  userLogin: (data) => dispatch(userLogin(data)),
-}))(Login);
+export default connect(
+  createStructuredSelector({
+    loading: userLoadingSelector,
+    userLoadSuccess: userSuccessLoadSelector,
+  }),
+  (dispatch) => ({
+    userLogin: (data) => dispatch(userLogin(data)),
+  })
+)(Login);
