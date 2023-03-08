@@ -24,6 +24,7 @@ app.use(async (ctx, next) => {
             err.keyValue
           )}  already exists`,
           error: true,
+          success: false,
         },
       };
     } else {
@@ -32,6 +33,7 @@ app.use(async (ctx, next) => {
         message: {
           body: err.message,
           error: true,
+          success: false,
         },
       };
     }

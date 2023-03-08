@@ -13,7 +13,7 @@ const Message = ({ message, clearMessage }) => {
       clearMessage();
     }, 5000);
     return () => clearTimeout(timer);
-  }, [clearMessage]);
+  }, [clearMessage, message]);
 
   return (
     <div

@@ -95,8 +95,9 @@ router.post("/sign-up", async (ctx) => {
   ctx.body = {
     token,
     message: {
-      body: "Condratulations! Account successfully creted.",
+      body: "Condratulations! Account successfully created.",
       success: true,
+      error: false,
     },
   };
 });

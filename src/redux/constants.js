@@ -13,4 +13,6 @@ export const USER_LOGIN = "USER_LOGIN";
 export const REQUEST = "_REQUEST";
 export const SUCCESS = "_SUCCESS";
 export const FAILURE = "_FAILURE";
+
+export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";

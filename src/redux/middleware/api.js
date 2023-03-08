@@ -1,4 +1,4 @@
-import { REQUEST, SUCCESS, FAILURE } from "../constants";
+import { REQUEST, SUCCESS, FAILURE, SET_MESSAGE } from "../constants";
 
 const createPostParams = (data) => ({
   method: "POST",
@@ -33,9 +33,11 @@ const api = (store) => (next) => async (action) => {
 
     if (!res.ok) throw data;
 
-    return next({ ...rest, type: type + SUCCESS, data });
+    next({ ...rest, type: type + SUCCESS, data });
+    if (data.message) next({ ...rest, type: SET_MESSAGE, data: data.message });
   } catch (data) {
-    throw next({ ...rest, type: type + FAILURE, data });
+    next({ ...rest, type: type + FAILURE, data });
+    if (data.message) next({ ...rest, type: SET_MESSAGE, data: data.message });
   }
 };
 

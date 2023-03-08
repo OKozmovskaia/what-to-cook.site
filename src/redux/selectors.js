@@ -14,15 +14,14 @@ export const recipesUpdateCountSelector = (state) => state.recipes.updateCount;
 export const userNameSelector = (state) => state.user.username;
 export const tokenSelector = (state) => state.user.token;
 export const emailSelector = (state) => state.user.email;
-export const userErrorSelector = (state) => state.user.error;
+export const userSuccessLoadSelector = (state) => state.user.success;
 
-export const messageSelector = (state) => state.user.message;
+export const messageSelector = (state) => state.message;
 
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;
 
 export const userLoadingSelector = (state) => state.user.loading;
-export const userLoadedSelector = (state) => state.user.loaded;
 
 export const recipesListSelector = createSelector(
   updateRecipesSelector,

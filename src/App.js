@@ -18,7 +18,7 @@ function App({ message }) {
     <div>
       <Header />
       <Navbar />
-      {message && <Message />}
+      {message.body && <Message />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/me" element={<MyAccount />} />

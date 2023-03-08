@@ -4,14 +4,12 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE,
-  CLEAR_MESSAGE,
 } from "../constants";
 
 const initialState = {
   token: localStorage.getItem("TOKEN"),
   loading: false,
-  loaded: false,
-  message: null,
+  success: false,
 };
 
 const user = (state = initialState, action) => {
@@ -29,16 +27,14 @@ const user = (state = initialState, action) => {
         ...state,
         token: data.token,
         loading: false,
-        loaded: true,
-        message: data.message,
+        success: true,
       };
 
     case USER_CREATE + FAILURE:
       return {
         ...state,
         loading: false,
-        loaded: true,
-        message: data.message,
+        success: false,
       };
 
     case USER_LOAD + REQUEST:
@@ -53,22 +49,14 @@ const user = (state = initialState, action) => {
         email: data.email,
         username: data.username,
         loading: false,
-        loaded: true,
-        message: data.message,
+        success: true,
       };
 
     case USER_LOAD + FAILURE:
       return {
         ...state,
         loading: false,
-        loaded: true,
-        message: data.message,
-      };
-
-    case CLEAR_MESSAGE:
-      return {
-        ...state,
-        message: null,
+        success: false,
       };
 
     default:
