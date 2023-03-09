@@ -2,8 +2,11 @@ const Router = require("koa-router");
 const config = require("config");
 const axios = require("axios");
 const { v4: uuid } = require("uuid");
+
 const mustBeAuthenticated = require("./mustBeAuthenticated");
 const passport = require("../passport");
+const { oauth, oauthCallback } = require("../passport/oauth");
+
 const User = require("../models/User");
 const Session = require("../models/Session");
 
@@ -112,7 +115,7 @@ router.get("/me", mustBeAuthenticated, (ctx, next) => {
 
 router.post("/log-in", async (ctx, next) => {
   await passport.authenticate("local", async (err, user, info) => {
-    if (err) throw err;
+    if (err) return next(err);
 
     if (!user) {
       ctx.response.status = 400;
@@ -123,6 +126,7 @@ router.post("/log-in", async (ctx, next) => {
           success: false,
         },
       };
+      return;
     }
 
     const token = await ctx.login(user._id);
@@ -136,5 +140,8 @@ router.post("/log-in", async (ctx, next) => {
     };
   })(ctx, next);
 });
+
+router.get("/oauth/:provider", oauth);
+router.post("/oauth_callback", oauthCallback);
 
 module.exports = router;
