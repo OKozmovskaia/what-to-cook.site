@@ -15,6 +15,7 @@ export const userNameSelector = (state) => state.user.username;
 export const tokenSelector = (state) => state.user.token;
 export const emailSelector = (state) => state.user.email;
 export const userSuccessLoadSelector = (state) => state.user.success;
+export const userOAuthRedirectSelector = (state) => state.user.redirectTo;
 
 export const messageSelector = (state) => state.message;
 

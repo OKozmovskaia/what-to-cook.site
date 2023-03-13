@@ -5,10 +5,13 @@ import {
   SUCCESS,
   FAILURE,
   USER_LOGIN,
+  USER_OAUTH,
+  USER_OAUTH_CALLBACK,
 } from "../constants";
 
 const initialState = {
   token: localStorage.getItem("TOKEN"),
+  redirectTo: "",
   loading: false,
   success: false,
 };
@@ -75,6 +78,47 @@ const user = (state = initialState, action) => {
       };
 
     case USER_LOGIN + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+
+    case USER_OAUTH + REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_OAUTH + SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        redirectTo: data.location,
+      };
+
+    case USER_OAUTH + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+
+    case USER_OAUTH_CALLBACK + REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_OAUTH_CALLBACK + SUCCESS:
+      return {
+        ...state,
+        token: data.token,
+        loading: false,
+        success: true,
+      };
+
+    case USER_OAUTH_CALLBACK + FAILURE:
       return {
         ...state,
         loading: false,

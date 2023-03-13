@@ -3,12 +3,14 @@ import Button from "../Button";
 
 import styles from "./socialMediaSet.module.css";
 
-const SocialMediaSet = () => {
+const SocialMediaSet = ({ handleOAuth }) => {
+  const providers = ["github", "google", "facebook"];
+
   return (
     <div className={styles.container}>
-      <Button iconStyle icon="github" />
-      <Button iconStyle icon="google" />
-      <Button iconStyle icon="facebook" />
+      {providers.map((i) => (
+        <Button key={i} iconStyle icon={i} onClick={() => handleOAuth(i)} />
+      ))}
     </div>
   );
 };

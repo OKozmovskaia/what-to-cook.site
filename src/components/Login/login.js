@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import { userLogin } from "../../redux/actions";
+import { userLogin, userOAuth } from "../../redux/actions";
 import {
   userLoadingSelector,
+  userOAuthRedirectSelector,
   userSuccessLoadSelector,
 } from "../../redux/selectors";
 
@@ -16,7 +17,7 @@ import SocialMediaSet from "../SocialMediaSet";
 
 import styles from "./login.module.css";
 
-const Login = ({ userLogin, userLoadSuccess, loading }) => {
+const Login = ({ userLogin, userLoadSuccess, loading, redirectTo, oauth }) => {
   const [isValid, setIsValid] = useState({
     email: false,
     password: false,
@@ -29,16 +30,24 @@ const Login = ({ userLogin, userLoadSuccess, loading }) => {
     userLogin(Object.fromEntries(data));
   };
 
+  const handleOAuth = (provider) => {
+    oauth(provider);
+  };
+
   if (loading) return <Loader />;
 
-  if (userLoadSuccess) return <Navigate to="/me" />;
+  if (redirectTo) window.location.href = redirectTo;
+
+  if (userLoadSuccess) {
+    return <Navigate to="/me" />;
+  }
 
   return (
     <div className={styles.containerAccount}>
       <div className={styles.containerForm}>
         <div className={styles.formLogin}>
           <h3>Log in to your Chef account</h3>
-          <SocialMediaSet />
+          <SocialMediaSet handleOAuth={handleOAuth} />
           <form
             className={styles.form}
             noValidate
@@ -67,8 +76,10 @@ export default connect(
   createStructuredSelector({
     loading: userLoadingSelector,
     userLoadSuccess: userSuccessLoadSelector,
+    redirectTo: userOAuthRedirectSelector,
   }),
   (dispatch) => ({
     userLogin: (data) => dispatch(userLogin(data)),
+    oauth: (provider) => dispatch(userOAuth(provider)),
   })
 )(Login);

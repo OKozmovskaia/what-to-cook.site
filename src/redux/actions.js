@@ -10,6 +10,8 @@ import {
   USER_CREATE,
   USER_LOAD,
   CLEAR_MESSAGE,
+  USER_OAUTH,
+  USER_OAUTH_CALLBACK,
 } from "./constants";
 import {
   filtredRecipesSelector,
@@ -80,4 +82,15 @@ export const userLoad = (token) => ({
 
 export const clearMessage = () => ({
   type: CLEAR_MESSAGE,
+});
+
+export const userOAuth = (provider) => ({
+  type: USER_OAUTH,
+  callAPI: `/oauth/${provider}`,
+});
+
+export const userOAuthCallback = (code, provider) => ({
+  type: USER_OAUTH_CALLBACK,
+  callAPI: `/oauth_callback?code=${code}`,
+  postData: provider,
 });

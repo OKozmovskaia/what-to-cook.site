@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import MyAccount from "./components/MyAccount";
 import Message from "./components/Message";
+import OAuth from "./components/OAuth";
 
 function App({ message }) {
   return (
@@ -24,6 +25,7 @@ function App({ message }) {
         <Route path="/me" element={<MyAccount />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/oauth_callback/:provider" element={<OAuth />} />
       </Routes>
       <Footer />
     </div>
