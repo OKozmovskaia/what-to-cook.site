@@ -22,12 +22,12 @@ import {
 // RECIPES
 export const loadRecipesByQuery = (query) => ({
   type: LOAD_RECIPES,
-  callAPI: `/find-recipes?q=${query}`,
+  callAPI: `/api/find-recipes?q=${query}`,
 });
 
 export const loadMoreRecipes = (link) => ({
   type: LOAD_MORE_RECIPES,
-  callAPI: `/load-more`,
+  callAPI: `/api/load-more`,
   postData: link,
 });
 
@@ -64,19 +64,19 @@ export const removeAllFilters = () => ({
 // USER
 export const userLogin = (data) => ({
   type: USER_LOGIN,
-  callAPI: `/log-in`,
+  callAPI: `/api/log-in`,
   postData: data,
 });
 
 export const userCreate = (data) => ({
   type: USER_CREATE,
-  callAPI: `/sign-up`,
+  callAPI: `/api/sign-up`,
   postData: data,
 });
 
 export const userLoad = (token) => ({
   type: USER_LOAD,
-  callAPI: `/me`,
+  callAPI: `/api/me`,
   token,
 });
 
@@ -86,11 +86,11 @@ export const clearMessage = () => ({
 
 export const userOAuth = (provider) => ({
   type: USER_OAUTH,
-  callAPI: `/oauth/${provider}`,
+  callAPI: `/api/oauth/${provider}`,
 });
 
 export const userOAuthCallback = (code, provider) => ({
   type: USER_OAUTH_CALLBACK,
-  callAPI: `/oauth_callback?code=${code}`,
+  callAPI: `/api/oauth_callback?code=${code}`,
   postData: provider,
 });
