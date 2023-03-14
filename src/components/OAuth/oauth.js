@@ -25,13 +25,13 @@ const OAuth = ({ loadSuccess, loading, oauth_callback }) => {
 
   if (!loadSuccess)
     return (
-      <div style={{ height: "10em" }}>
+      <div style={{ height: "20em" }}>
         <h3>An error occurred while performing authentication</h3>
       </div>
     );
 
   return (
-    <div style={{ height: "10em" }}>
+    <div style={{ height: "20em" }}>
       <h3>It's performing authentication with {provider}...</h3>
     </div>
   );
