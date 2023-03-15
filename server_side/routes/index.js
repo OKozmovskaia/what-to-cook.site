@@ -100,7 +100,7 @@ router.post("/sign-up", async (ctx) => {
   ctx.body = {
     token,
     message: {
-      body: "Condratulations! Account successfully created.",
+      body: "Congratulations! Account successfully created.",
       success: true,
       error: false,
     },
@@ -119,15 +119,7 @@ router.post("/log-in", async (ctx, next) => {
     if (err) return next(err);
 
     if (!user) {
-      ctx.response.status = 400;
-      ctx.body = {
-        message: {
-          body: info,
-          error: true,
-          success: false,
-        },
-      };
-      return;
+      ctx.throw(400, info);
     }
 
     const token = await ctx.login(user._id);

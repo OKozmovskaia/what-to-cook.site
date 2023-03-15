@@ -59,3 +59,17 @@
 .block:hover {
   box-shadow: none;
 }
+
+.link {
+  color: VAR(--grey);
+  background-color: transparent;
+  box-shadow: none;
+  border-bottom: 2px solid currentColor;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+.link:hover {
+  box-shadow: none;
+  color: VAR(--yellow);
+}

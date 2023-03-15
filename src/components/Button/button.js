@@ -53,6 +53,7 @@ const Button = ({
   dropDown = false,
   block = false,
   noStyle = false,
+  link = false,
   children,
   ...props
 }) => {
@@ -68,6 +69,7 @@ const Button = ({
         [styles.dropDown]: dropDown,
         [styles.block]: block,
         [styles.nostyle]: noStyle,
+        [styles.link]: link,
       })}
       {...props}
     >

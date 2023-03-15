@@ -5,6 +5,7 @@ const sendEmail = require("../utils.js/sendEmail");
 
 module.exports.forgotPassword = async function forgotPassword(ctx, next) {
   const email = ctx.request.body.email;
+  console.log(email);
   const user = await User.findOne({ email });
   if (!user) ctx.throw(401, "User with this email doesn't exist");
 

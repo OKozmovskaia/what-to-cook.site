@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import { userLogin, userOAuth } from "../../redux/actions";
+import { userLogin, userOAuth, forgotPassword } from "../../redux/actions";
 import {
   userLoadingSelector,
   userOAuthRedirectSelector,
@@ -17,13 +17,25 @@ import SocialMediaSet from "../SocialMediaSet";
 
 import styles from "./login.module.css";
 
-const Login = ({ userLogin, userLoadSuccess, loading, redirectTo, oauth }) => {
+const Login = ({
+  userLogin,
+  userLoadSuccess,
+  loading,
+  redirectTo,
+  oauth,
+  forgotPassword,
+}) => {
   const [isValid, setIsValid] = useState({
     email: false,
     password: false,
   });
+  const [open, setOpen] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
+  const handleSubmitLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
@@ -32,6 +44,13 @@ const Login = ({ userLogin, userLoadSuccess, loading, redirectTo, oauth }) => {
 
   const handleOAuth = (provider) => {
     oauth(provider);
+  };
+
+  const handleSubmitReset = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    forgotPassword(Object.fromEntries(data));
   };
 
   if (loading) return <Loader />;
@@ -51,7 +70,7 @@ const Login = ({ userLogin, userLoadSuccess, loading, redirectTo, oauth }) => {
           <form
             className={styles.form}
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmitLogin}
             method="POST"
           >
             <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
@@ -60,6 +79,11 @@ const Login = ({ userLogin, userLoadSuccess, loading, redirectTo, oauth }) => {
               Log In
             </Button>
           </form>
+          <div className={styles.forgotButton}>
+            <Button link onClick={handleOpen}>
+              Forgot Password?
+            </Button>
+          </div>
         </div>
 
         <div className={styles.containerButton}>
@@ -68,6 +92,31 @@ const Login = ({ userLogin, userLoadSuccess, loading, redirectTo, oauth }) => {
           </Link>
         </div>
       </div>
+
+      {/* MODAL FOR RESET PASSWORD */}
+      {open && (
+        <div className={styles.modalContainerWrap}>
+          <div className={styles.modalContainer}>
+            <Button icon="cancel" iconStyle onClick={handleOpen} />
+            <h2>Forgot password?</h2>
+            <h4>
+              Don't worry. Reseting your password is easy. <br></br> Just type
+              in the email you registered.
+            </h4>
+            <form
+              className={styles.form}
+              noValidate
+              onSubmit={handleSubmitReset}
+              method="POST"
+            >
+              <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
+              <Button block={!isValid.email} submit large>
+                Change Password
+              </Button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -81,5 +130,6 @@ export default connect(
   (dispatch) => ({
     userLogin: (data) => dispatch(userLogin(data)),
     oauth: (provider) => dispatch(userOAuth(provider)),
+    forgotPassword: (data) => dispatch(forgotPassword(data)),
   })
 )(Login);

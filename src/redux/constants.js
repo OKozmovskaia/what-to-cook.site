@@ -11,6 +11,7 @@ export const USER_LOAD = "USER_LOAD";
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_OAUTH = "USER_OAUTH";
 export const USER_OAUTH_CALLBACK = "USER_OAUTH_CALLBACK";
+export const USER_FORGOT_PASSWORD = "USER_FORGOT_PASSWORD";
 
 export const REQUEST = "_REQUEST";
 export const SUCCESS = "_SUCCESS";

@@ -12,6 +12,7 @@ import {
   CLEAR_MESSAGE,
   USER_OAUTH,
   USER_OAUTH_CALLBACK,
+  USER_FORGOT_PASSWORD,
 } from "./constants";
 import {
   filtredRecipesSelector,
@@ -93,4 +94,10 @@ export const userOAuthCallback = (code, provider) => ({
   type: USER_OAUTH_CALLBACK,
   callAPI: `/api/oauth_callback?code=${code}`,
   postData: provider,
+});
+
+export const forgotPassword = (data) => ({
+  type: USER_FORGOT_PASSWORD,
+  callAPI: `/api/forgot_password`,
+  postData: data,
 });
