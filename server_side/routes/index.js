@@ -6,6 +6,7 @@ const { v4: uuid } = require("uuid");
 const mustBeAuthenticated = require("./mustBeAuthenticated");
 const passport = require("../passport");
 const { oauth, oauthCallback } = require("../passport/oauth");
+const { forgotPassword, resetPassword } = require("./forgotPassword");
 
 const User = require("../models/User");
 const Session = require("../models/Session");
@@ -143,5 +144,8 @@ router.post("/log-in", async (ctx, next) => {
 
 router.get("/oauth/:provider", oauth);
 router.post("/oauth_callback", oauthCallback);
+
+router.post("/forgot_password", forgotPassword);
+router.post("/reset_password", resetPassword);
 
 module.exports = router;
