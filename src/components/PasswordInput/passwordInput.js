@@ -9,7 +9,7 @@ const initialState = {
   showPassword: false,
 };
 
-const PasswordInput = ({ isValid, setIsValid }) => {
+const PasswordInput = ({ isValid, setIsValid, label }) => {
   const idPassword = useId();
   const [state, setState] = useState(initialState);
   const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -40,7 +40,7 @@ const PasswordInput = ({ isValid, setIsValid }) => {
 
   return (
     <div className={styles.container}>
-      <label htmlFor={idPassword}>Password: </label>
+      <label htmlFor={idPassword}>{label} </label>
       <div className={styles.inputIcon}>
         <input
           className={

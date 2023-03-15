@@ -13,6 +13,7 @@ import {
   USER_OAUTH,
   USER_OAUTH_CALLBACK,
   USER_FORGOT_PASSWORD,
+  USER_RESET_PASSWORD,
 } from "./constants";
 import {
   filtredRecipesSelector,
@@ -99,5 +100,11 @@ export const userOAuthCallback = (code, provider) => ({
 export const forgotPassword = (data) => ({
   type: USER_FORGOT_PASSWORD,
   callAPI: `/api/forgot_password`,
+  postData: data,
+});
+
+export const resetPassword = (data) => ({
+  type: USER_RESET_PASSWORD,
+  callAPI: `/api/reset_password`,
   postData: data,
 });

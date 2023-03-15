@@ -13,6 +13,7 @@ import Signup from "./components/Signup";
 import MyAccount from "./components/MyAccount";
 import Message from "./components/Message";
 import OAuth from "./components/OAuth";
+import PasswordReset from "./components/PasswordReset";
 
 function App({ message }) {
   return (
@@ -26,6 +27,7 @@ function App({ message }) {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth_callback/:provider" element={<OAuth />} />
+        <Route path="/password_reset/:token/:id" element={<PasswordReset />} />
       </Routes>
       <Footer />
     </div>

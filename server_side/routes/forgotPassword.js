@@ -5,7 +5,6 @@ const sendEmail = require("../utils.js/sendEmail");
 
 module.exports.forgotPassword = async function forgotPassword(ctx, next) {
   const email = ctx.request.body.email;
-  console.log(email);
   const user = await User.findOne({ email });
   if (!user) ctx.throw(401, "User with this email doesn't exist");
 
@@ -13,14 +12,14 @@ module.exports.forgotPassword = async function forgotPassword(ctx, next) {
   if (prevSession) await prevSession.deleteOne();
 
   const resetToken = await ctx.login(user._id);
-  const link = `${config.get(
-    "clientURL"
-  )}/password_reset?token=${resetToken}&id=${user._id}`;
+  const link = `${config.get("clientURL")}/password_reset/${resetToken}/${
+    user._id
+  }`;
 
   sendEmail(
     user.email,
     "Password Reset",
-    { name: user.name, link },
+    { name: user.displayName, link },
     "/emailTemplate.js/requestResetPassword.handlebars"
   );
 
@@ -34,4 +33,34 @@ module.exports.forgotPassword = async function forgotPassword(ctx, next) {
   };
 };
 
-module.exports.resetPassword = async function resetPassword(ctx, next) {};
+module.exports.resetPassword = async function resetPassword(ctx, next) {
+  const { id, token, password } = ctx.request.body;
+  const tokenFromDB = await Session.findOne({ user: id });
+
+  if (!tokenFromDB) ctx.throw(401, "Authentication token invalid or expired");
+
+  if (tokenFromDB !== token)
+    ctx.throw(401, "Authentication token invalid or expired");
+
+  const user = await User.findOne({ _id: id });
+  await user.setPassword(password);
+  await user.save();
+
+  sendEmail(
+    user.email,
+    "Password Reset Successfully",
+    { name: user.displayName },
+    "/emailTemplate.js/successResetPassword.handlebars"
+  );
+
+  await tokenFromDB.deleteOne();
+
+  ctx.status = 200;
+  ctx.body = {
+    message: {
+      body: `Congratulations!Password Reset Successfully`,
+      success: true,
+      error: false,
+    },
+  };
+};

@@ -55,7 +55,11 @@ const Signup = ({ userCreate, loading, userLoadSuccess }) => {
           >
             <UserNameInput isValid={isValid.username} setIsValid={setIsValid} />
             <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
-            <PasswordInput isValid={isValid.password} setIsValid={setIsValid} />
+            <PasswordInput
+              label="Password:"
+              isValid={isValid.password}
+              setIsValid={setIsValid}
+            />
             <Button
               block={!(isValid.email && isValid.password && isValid.username)}
               submit
