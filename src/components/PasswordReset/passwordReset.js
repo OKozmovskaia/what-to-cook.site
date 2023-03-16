@@ -28,7 +28,10 @@ const PasswordReset = ({ resetPassword }) => {
 
     if (passwords[0] !== passwords[1]) {
       setNotMatch(true);
-      return;
+      const timer = setTimeout(() => {
+        setNotMatch(false);
+      }, 4000);
+      return () => clearTimeout(timer);
     }
 
     const data = {
@@ -54,7 +57,10 @@ const PasswordReset = ({ resetPassword }) => {
           isValid={isValidConfirmed.password}
           setIsValid={setIsValidConformed}
         />
-        {notMatch && <p className={styles.warning}>Passwords doesn't match</p>}
+        <div className={styles.warning}>
+          {notMatch && <span>Passwords doesn't match</span>}
+        </div>
+
         <Button
           block={
             !(isValidPassword.password && isValidConfirmed.password) || notMatch

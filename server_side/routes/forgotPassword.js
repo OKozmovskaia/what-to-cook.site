@@ -35,11 +35,12 @@ module.exports.forgotPassword = async function forgotPassword(ctx, next) {
 
 module.exports.resetPassword = async function resetPassword(ctx, next) {
   const { id, token, password } = ctx.request.body;
+
   const tokenFromDB = await Session.findOne({ user: id });
 
   if (!tokenFromDB) ctx.throw(401, "Authentication token invalid or expired");
 
-  if (tokenFromDB !== token)
+  if (tokenFromDB.token !== token)
     ctx.throw(401, "Authentication token invalid or expired");
 
   const user = await User.findOne({ _id: id });
@@ -58,7 +59,7 @@ module.exports.resetPassword = async function resetPassword(ctx, next) {
   ctx.status = 200;
   ctx.body = {
     message: {
-      body: `Congratulations!Password Reset Successfully`,
+      body: `Congratulations!Password Reset Successfully. Go to login page and enter your credentials`,
       success: true,
       error: false,
     },
