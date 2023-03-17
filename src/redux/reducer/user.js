@@ -11,6 +11,7 @@ import {
 
 const initialState = {
   token: localStorage.getItem("TOKEN"),
+  id: localStorage.getItem("USER_ID"),
   redirectTo: "",
   loading: false,
   success: false,
@@ -30,6 +31,7 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         token: data.token,
+        id: data.id,
         loading: false,
         success: true,
       };
@@ -73,6 +75,7 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         token: data.token,
+        id: data.id,
         loading: false,
         success: true,
       };
@@ -114,6 +117,7 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         token: data.token,
+        id: data.id,
         loading: false,
         success: true,
       };

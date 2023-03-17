@@ -99,6 +99,7 @@ router.post("/sign-up", async (ctx) => {
   const token = await ctx.login(user._id);
   ctx.body = {
     token,
+    id: user.id,
     message: {
       body: "Congratulations! Account successfully created.",
       success: true,
@@ -125,6 +126,7 @@ router.post("/log-in", async (ctx, next) => {
     const token = await ctx.login(user._id);
     ctx.body = {
       token,
+      id: user._id,
       message: {
         body: `Welcome back, ${user.displayName}`,
         success: true,

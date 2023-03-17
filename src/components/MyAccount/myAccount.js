@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import {
   userNameSelector,
   emailSelector,
   tokenSelector,
   userSuccessLoadSelector,
+  idSelector,
 } from "../../redux/selectors";
 import { userLoad } from "../../redux/actions";
 
@@ -14,20 +15,31 @@ import Button from "../Button";
 
 import styles from "./myAccount.module.css";
 
-const MyAccount = ({ username, email, token, userLoad, userLoadSuccess }) => {
-  if (!token) return <Navigate to="/login" />;
+const MyAccount = ({
+  username,
+  email,
+  token,
+  id,
+  userLoad,
+  userLoadSuccess,
+}) => {
+  const navigate = useNavigate();
 
   if (token) {
     userLoad(token);
   }
 
+  if (!token) return <Navigate to="/login" />;
+
   if (!userLoadSuccess) {
     localStorage.removeItem("TOKEN");
+    localStorage.removeItem("USER_ID");
     return <Navigate to="/login" />;
   }
 
   const handleLogOut = () => {
     localStorage.removeItem("TOKEN");
+    localStorage.removeItem("USER_ID");
     window.location.reload();
   };
 
@@ -38,6 +50,9 @@ const MyAccount = ({ username, email, token, userLoad, userLoadSuccess }) => {
       <Button onClick={handleLogOut} large>
         Log Out
       </Button>
+      <Button onClick={() => navigate(`/password_reset/${token}/${id}`)} large>
+        Change Password
+      </Button>
     </div>
   );
 };
@@ -47,6 +62,7 @@ export default connect(
     username: userNameSelector,
     email: emailSelector,
     token: tokenSelector,
+    id: idSelector,
     userLoadSuccess: userSuccessLoadSelector,
   }),
   (dispatch) => ({

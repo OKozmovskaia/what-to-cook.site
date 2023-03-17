@@ -35,6 +35,7 @@ module.exports.oauthCallback = async function oauthCallback(ctx, next) {
 
     ctx.body = {
       token,
+      id: user._id,
       message: {
         body: `Welcome, ${user.displayName}`,
         success: true,

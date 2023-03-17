@@ -11,9 +11,10 @@ import "./index.css";
 // DEV. ONLY
 window.store = store;
 
-store.subscribe(() =>
-  localStorage.setItem("TOKEN", store.getState().user.token)
-);
+store.subscribe(() => {
+  localStorage.setItem("TOKEN", store.getState().user.token);
+  localStorage.setItem("USER_ID", store.getState().user.id);
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
