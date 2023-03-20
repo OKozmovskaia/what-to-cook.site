@@ -14,11 +14,13 @@ import {
   USER_OAUTH_CALLBACK,
   USER_FORGOT_PASSWORD,
   USER_RESET_PASSWORD,
+  USER_SAVE_RECIPE,
 } from "./constants";
 import {
   filtredRecipesSelector,
   userFiltersSelector,
   newFiltersSelector,
+  tokenSelector,
 } from "./selectors";
 
 // RECIPES
@@ -108,3 +110,14 @@ export const resetPassword = (data) => ({
   callAPI: `/api/reset_password`,
   postData: data,
 });
+
+export const saveRecipe = (data) => async (dispatch, getState) => {
+  const token = tokenSelector(getState());
+
+  await dispatch({
+    type: USER_SAVE_RECIPE,
+    callAPI: `/api/save-recipe`,
+    postData: data,
+    token,
+  });
+};

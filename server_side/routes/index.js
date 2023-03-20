@@ -149,6 +149,7 @@ router.post("/reset_password", mustBeAuthenticated, resetPassword);
 
 router.post("/save-recipe", mustBeAuthenticated, async (ctx, next) => {
   const { recipe } = ctx.request.body;
+  console.log("RECIPE: ", recipe);
   const isRecipeSaved = await Recipe.findOne({ url: recipe.url });
 
   if (isRecipeSaved) {

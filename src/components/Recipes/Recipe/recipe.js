@@ -1,19 +1,22 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { recipesSelector } from "../../../redux/selectors";
+import { saveRecipe } from "../../../redux/actions";
 import { cleanString } from "../../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
 
 import Button from "../../Button";
 import styles from "./recipe.module.css";
 
-const Recipe = ({ id, recipes }) => {
+const Recipe = ({ id, recipes, saveRecipe }) => {
   const [open, setOpen] = useState(false);
 
   const {
     label,
     image,
+    url,
     ingredientLines,
     totalTime,
     cuisineType,
@@ -29,6 +32,10 @@ const Recipe = ({ id, recipes }) => {
   const meal = cleanString(JSON.stringify(mealType));
   const cuisine = cleanString(JSON.stringify(cuisineType));
   const time = toHoursAndMin(totalTime);
+
+  const handleSave = () => {
+    saveRecipe({ recipe: recipes[id] });
+  };
 
   return (
     <div>
@@ -81,8 +88,12 @@ const Recipe = ({ id, recipes }) => {
                   ))}
                 </ul>
                 <div className={styles.flexBox}>
-                  <Button small>Read Recipe</Button>
-                  <Button small>Save Recipe</Button>
+                  <Link to={url} target="_blank">
+                    <Button small>Read Recipe</Button>
+                  </Link>
+                  <Button onClick={handleSave} small>
+                    Save Recipe
+                  </Button>
                 </div>
               </div>
             </div>
@@ -96,5 +107,8 @@ const Recipe = ({ id, recipes }) => {
 export default connect(
   createStructuredSelector({
     recipes: recipesSelector,
+  }),
+  (dispatch) => ({
+    saveRecipe: (recipe) => dispatch(saveRecipe(recipe)),
   })
 )(Recipe);

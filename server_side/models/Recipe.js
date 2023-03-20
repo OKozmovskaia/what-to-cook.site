@@ -15,15 +15,21 @@ const recipeSchema = new mongoose.Schema({
   totalTime: {
     type: String,
   },
-  cuisineType: {
-    type: String,
-  },
-  mealType: {
-    type: String,
-  },
-  dishType: {
-    type: String,
-  },
+  cuisineType: [
+    {
+      type: String,
+    },
+  ],
+  mealType: [
+    {
+      type: String,
+    },
+  ],
+  dishType: [
+    {
+      type: String,
+    },
+  ],
   ingredientLines: [
     {
       type: String,
