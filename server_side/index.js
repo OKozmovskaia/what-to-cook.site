@@ -20,9 +20,7 @@ app.use(async (ctx, next) => {
       ctx.response.status = 401;
       ctx.body = {
         message: {
-          body: `An account using this creadentials: ${Object.values(
-            err.keyValue
-          )}  already exists`,
+          body: `Please, use another credentials, your creadentials is already exists`,
           error: true,
           success: false,
         },

@@ -24,6 +24,7 @@ router.use(async (ctx, next) => {
   if (!session) {
     ctx.throw(401, "Authentication token invalid or expired");
   }
+
   session.lastVisit = new Date();
   await session.save();
 
@@ -122,6 +123,9 @@ router.post("/log-in", async (ctx, next) => {
     if (!user) {
       ctx.throw(400, info);
     }
+
+    const existSession = await Session.findOne({ user: user._id });
+    if (existSession) await existSession.deleteOne();
 
     const token = await ctx.login(user._id);
     ctx.body = {
