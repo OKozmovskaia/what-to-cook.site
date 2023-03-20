@@ -10,6 +10,7 @@ const { forgotPassword, resetPassword } = require("./forgotPassword");
 
 const User = require("../models/User");
 const Session = require("../models/Session");
+const Recipe = require("../models/Recipe");
 
 const router = new Router();
 
@@ -143,7 +144,35 @@ router.post("/log-in", async (ctx, next) => {
 router.get("/oauth/:provider", oauth);
 router.post("/oauth_callback", oauthCallback);
 
-router.post("/forgot_password", forgotPassword);
-router.post("/reset_password", resetPassword);
+router.post("/forgot_password", mustBeAuthenticated, forgotPassword);
+router.post("/reset_password", mustBeAuthenticated, resetPassword);
+
+router.post("/save-recipe", mustBeAuthenticated, async (ctx, next) => {
+  const { recipe } = ctx.request.body;
+  const isRecipeSaved = await Recipe.findOne({ url: recipe.url });
+
+  if (isRecipeSaved) {
+    await User.findOneAndUpdate(
+      { _id: ctx.user._id, recipes: { $ne: isRecipeSaved._id } },
+      { $push: { recipes: isRecipeSaved._id } }
+    );
+  } else {
+    const newRecipe = new Recipe(recipe);
+    await newRecipe.save();
+
+    await User.findByIdAndUpdate(
+      { _id: ctx.user._id },
+      { $push: { recipes: newRecipe._id } }
+    );
+  }
+
+  ctx.body = {
+    message: {
+      body: `Recipe ${recipe.label} is saved successfully`,
+      success: true,
+      error: false,
+    },
+  };
+});
 
 module.exports = router;

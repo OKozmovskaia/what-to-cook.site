@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
     salt: {
       type: String,
     },
+    recipes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "recipe",
+      },
+    ],
   },
   {
     timestamps: true,

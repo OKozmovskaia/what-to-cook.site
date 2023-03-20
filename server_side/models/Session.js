@@ -21,5 +21,5 @@ const session = new mongoose.Schema({
 });
 
 session.path("lastVisit").index({ expires: "1d" });
-const Session = connection.model("Session", session);
+const Session = connection.model("session", session);
 module.exports = Session;
