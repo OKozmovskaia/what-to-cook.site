@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useStickyOnScroll from "../../hooks/useStickyOnScroll";
 import styles from "./navbar.module.css";
 import cn from "classnames";
@@ -11,8 +12,12 @@ export default function Navbar() {
       className={cn(styles.container, { [styles.sticky]: sticky })}
       ref={stickyRef}
     >
-      <p>Home</p>
-      <p>My recipes</p>
+      <Link to="/">
+        <p>Home</p>
+      </Link>
+      <Link to="/me/recipes">
+        <p>My recipes</p>
+      </Link>
       <p>My product</p>
     </div>
   );
