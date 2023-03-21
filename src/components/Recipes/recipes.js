@@ -7,6 +7,7 @@ import {
   recipesListSelector,
   recipesLoadMoreSelector,
   recipesLoadingSelector,
+  recipesSelector,
 } from "../../redux/selectors";
 
 import Button from "../Button";
@@ -15,7 +16,14 @@ import Loader from "../Loader";
 
 import styles from "./recipes.module.css";
 
-const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes, loading }) => {
+const Recipes = ({
+  recipes,
+  recipesObject,
+  nextChunk,
+  loadMore,
+  updateRecipes,
+  loading,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const divScroll = useRef(null);
 
@@ -64,7 +72,7 @@ const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes, loading }) => {
       >
         <div className={styles.recipesContainer}>
           {recipes.map((item) => (
-            <Recipe key={item[0]} id={item[0]} />
+            <Recipe key={item[0]} id={item[0]} recipes={recipesObject} />
           ))}
         </div>
         {loading && <Loader />}
@@ -87,6 +95,7 @@ const Recipes = ({ recipes, nextChunk, loadMore, updateRecipes, loading }) => {
 export default connect(
   createStructuredSelector({
     recipes: recipesListSelector,
+    recipesObject: recipesSelector,
     nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,
   }),

@@ -7,7 +7,10 @@ import {
   USER_LOGIN,
   USER_OAUTH,
   USER_OAUTH_CALLBACK,
+  USER_GET_RECIPES,
 } from "../constants";
+
+import { idAsKeyForUser } from "../utils/idAsKey";
 
 const initialState = {
   token: localStorage.getItem("TOKEN"),
@@ -15,6 +18,7 @@ const initialState = {
   redirectTo: "",
   loading: false,
   success: false,
+  recipes: {},
 };
 
 const user = (state = initialState, action) => {
@@ -123,6 +127,27 @@ const user = (state = initialState, action) => {
       };
 
     case USER_OAUTH_CALLBACK + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+
+    case USER_GET_RECIPES + REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_GET_RECIPES + SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        recipes: idAsKeyForUser(data),
+      };
+
+    case USER_GET_RECIPES + FAILURE:
       return {
         ...state,
         loading: false,

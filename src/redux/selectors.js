@@ -1,6 +1,23 @@
 import { createSelector } from "reselect";
 import { v4 as uuidv4 } from "uuid";
 
+// USER
+export const userNameSelector = (state) => state.user.username;
+export const tokenSelector = (state) => state.user.token;
+export const idSelector = (state) => state.user.id;
+export const emailSelector = (state) => state.user.email;
+export const userSuccessLoadSelector = (state) => state.user.success;
+export const userOAuthRedirectSelector = (state) => state.user.redirectTo;
+
+export const userLoadingSelector = (state) => state.user.loading;
+export const messageSelector = (state) => state.message;
+
+export const userRecipesSelector = (state) => state.user.recipes;
+export const userRecipesListSelector = createSelector(
+  userRecipesSelector,
+  (recipes) => Object.entries(recipes)
+);
+
 // RECIPES
 
 export const recipesSelector = (state) => state.recipes.entities;
@@ -11,19 +28,8 @@ export const searchQuerySelector = (state) => state.recipes.searchQuery;
 export const userFiltersSelector = (state) => state.recipes.userFilters;
 export const recipesUpdateCountSelector = (state) => state.recipes.updateCount;
 
-export const userNameSelector = (state) => state.user.username;
-export const tokenSelector = (state) => state.user.token;
-export const idSelector = (state) => state.user.id;
-export const emailSelector = (state) => state.user.email;
-export const userSuccessLoadSelector = (state) => state.user.success;
-export const userOAuthRedirectSelector = (state) => state.user.redirectTo;
-
-export const messageSelector = (state) => state.message;
-
 export const recipesLoadingSelector = (state) => state.recipes.loading;
 export const recipesLoadedSelector = (state) => state.recipes.loaded;
-
-export const userLoadingSelector = (state) => state.user.loading;
 
 export const recipesListSelector = createSelector(
   updateRecipesSelector,

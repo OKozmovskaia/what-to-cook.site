@@ -104,11 +104,6 @@ const Recipe = ({ id, recipes, saveRecipe }) => {
   );
 };
 
-export default connect(
-  createStructuredSelector({
-    recipes: recipesSelector,
-  }),
-  (dispatch) => ({
-    saveRecipe: (recipe) => dispatch(saveRecipe(recipe)),
-  })
-)(Recipe);
+export default connect(null, (dispatch) => ({
+  saveRecipe: (recipe) => dispatch(saveRecipe(recipe)),
+}))(Recipe);

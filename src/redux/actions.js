@@ -15,12 +15,14 @@ import {
   USER_FORGOT_PASSWORD,
   USER_RESET_PASSWORD,
   USER_SAVE_RECIPE,
+  USER_GET_RECIPES,
 } from "./constants";
 import {
   filtredRecipesSelector,
   userFiltersSelector,
   newFiltersSelector,
   tokenSelector,
+  idSelector,
 } from "./selectors";
 
 // RECIPES
@@ -99,17 +101,27 @@ export const userOAuthCallback = (code, provider) => ({
   postData: provider,
 });
 
-export const forgotPassword = (data) => ({
-  type: USER_FORGOT_PASSWORD,
-  callAPI: `/api/forgot_password`,
-  postData: data,
-});
+export const forgotPassword = (data) => async (dispatch, getState) => {
+  const token = tokenSelector(getState());
 
-export const resetPassword = (data) => ({
-  type: USER_RESET_PASSWORD,
-  callAPI: `/api/reset_password`,
-  postData: data,
-});
+  await dispatch({
+    type: USER_FORGOT_PASSWORD,
+    callAPI: `/api/forgot_password`,
+    token,
+    postData: data,
+  });
+};
+
+export const resetPassword = (data) => async (dispatch, getState) => {
+  const token = tokenSelector(getState());
+
+  await dispatch({
+    type: USER_RESET_PASSWORD,
+    callAPI: `/api/reset_password`,
+    postData: data,
+    token,
+  });
+};
 
 export const saveRecipe = (data) => async (dispatch, getState) => {
   const token = tokenSelector(getState());
@@ -118,6 +130,17 @@ export const saveRecipe = (data) => async (dispatch, getState) => {
     type: USER_SAVE_RECIPE,
     callAPI: `/api/save-recipe`,
     postData: data,
+    token,
+  });
+};
+
+export const getAllUserRecipes = () => async (dispatch, getState) => {
+  const token = tokenSelector(getState());
+  const user_id = idSelector(getState());
+
+  await dispatch({
+    type: USER_GET_RECIPES,
+    callAPI: `/api/get-recipes/${user_id}`,
     token,
   });
 };
