@@ -175,5 +175,11 @@ router.post("/save-recipe", mustBeAuthenticated, async (ctx, next) => {
     },
   };
 });
+router.get("/get-recipes/:user_id", mustBeAuthenticated, async (ctx, next) => {
+  const user_id = ctx.params.user_id;
+  const user = await User.findById({ _id: user_id });
+  const recipes = await Recipe.find({ _id: { $in: user.recipes } });
+  ctx.body = recipes;
+});
 
 module.exports = router;
