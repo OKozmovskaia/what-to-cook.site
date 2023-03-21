@@ -36,19 +36,21 @@ function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
-        <h3>Side Bar</h3>
         <ul>
           {recipesList.map((i) => (
-            <li>{i[1].label}</li>
+            <ListItem key={i[0]} id={i[0]} item={i[1].label} />
           ))}
         </ul>
       </aside>
 
       <main className={styles.mainContent}>
-        <h3>Recipes</h3>
-        {recipesList.map((i) => (
-          <Recipe key={i[0]} id={i[0]} recipes={recipesObject} />
-        ))}
+        <div className={styles.outerRecipes}>
+          <div className={styles.recipesContainer}>
+            {recipesList.map((i) => (
+              <Recipe key={i[0]} id={i[0]} recipes={recipesObject} />
+            ))}
+          </div>
+        </div>
       </main>
     </div>
   );

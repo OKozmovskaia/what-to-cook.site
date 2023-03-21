@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useRef } from "react";
 import useHandleClickOutside from "../../../hooks/use-handleCkickOutside";
 
-import ListItem from "../../ListItem";
+import ListItemFilter from "../../ListItemFilter";
 import Button from "../../Button";
 
 import styles from "./filterItem.module.css";
@@ -28,8 +28,7 @@ const FilterItem = ({ category }) => {
         <ul className={styles.filterContent}>
           {Object.entries(category).map((i) => {
             const id = i[0];
-
-            return <ListItem checkBox key={id} id={id} />;
+            return <ListItemFilter checkBox key={id} id={id} />;
           })}
         </ul>
       ) : null}

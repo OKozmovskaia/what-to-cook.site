@@ -1,38 +1,13 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { addFilter, updateRecipes, removeFilter } from "../../redux/actions";
-import { filtersSelector, userFiltersSelector } from "../../redux/selectors";
 import { cleanString } from "../../redux/utils/cleanString";
-import { toHoursAndMin } from "../../redux/utils/toHoursAndMin";
 
 import styles from "./listItem.module.css";
 
-const ListItem = ({
-  checkBox,
-  children,
-  id,
-  filters,
-  userFilters,
-  addFilter,
-  removeFilter,
-  updateRecipes,
-}) => {
-  const defaultCheck = userFilters.includes(id) ? true : false;
-  const [isChecked, setIsChecked] = useState(defaultCheck);
-  const { label, value } = filters[id];
+const ListItem = ({ item, checkBox, id }) => {
+  const [isChecked, setIsChecked] = useState(false);
 
-  const handleClickFilter = (e) => {
-    const id = e.target.dataset.id;
+  const handleClickFilter = () => {
     setIsChecked(!isChecked);
-
-    if (e.target.checked) {
-      addFilter(id);
-      updateRecipes();
-    } else {
-      removeFilter(id);
-      updateRecipes();
-    }
   };
 
   return (
@@ -41,26 +16,15 @@ const ListItem = ({
         <input
           type="checkBox"
           checked={isChecked}
-          name={label}
+          name={item}
           data-id={id}
-          value={value}
+          value={item}
           onChange={handleClickFilter}
         />
       )}
-      {label === "totalTime" ? toHoursAndMin(value) : cleanString(value)}
-      {children}
+      {cleanString(item)}
     </li>
   );
 };
 
-export default connect(
-  createStructuredSelector({
-    filters: filtersSelector,
-    userFilters: userFiltersSelector,
-  }),
-  (dispatch) => ({
-    addFilter: (id) => dispatch(addFilter(id)),
-    removeFilter: (id) => dispatch(removeFilter(id)),
-    updateRecipes: () => dispatch(updateRecipes()),
-  })
-)(ListItem);
+export default ListItem;

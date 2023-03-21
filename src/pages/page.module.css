@@ -28,6 +28,22 @@
   flex-direction: row-reverse;
 }
 
+.recipesContainer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(10em, 1fr));
+  grid-auto-rows: 21em;
+  justify-items: start;
+  position: relative;
+  padding: 0.5em;
+}
+
+.outerRecipes {
+  height: 25em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 5em;
+}
+
 @media only screen and (max-width: 740px) {
   .container {
     flex-direction: column;
