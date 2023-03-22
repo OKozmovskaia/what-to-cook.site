@@ -88,9 +88,18 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe }) => {
                   )}
                 </p>
                 <ul>
-                  {ingredientLines.map((i, index) => (
-                    <li key={index}>{i}</li>
-                  ))}
+                  {ingredientLines.map((i, index) =>
+                    pathname === "/" ? (
+                      <li key={index}>{i}</li>
+                    ) : (
+                      <li key={index} className={styles.ingredientContainer}>
+                        <div>
+                          <Button iconStyle icon="plus" />
+                        </div>
+                        {i}
+                      </li>
+                    )
+                  )}
                 </ul>
                 <div className={styles.flexBox}>
                   <Link to={url} target="_blank">

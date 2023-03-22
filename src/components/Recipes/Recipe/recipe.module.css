@@ -9,13 +9,14 @@
   backdrop-filter: blur(15px);
   z-index: 10;
   padding: 2em;
+  overflow: scroll;
 }
 
 .mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5em;
+  padding: 1.5em;
   border: 3px solid var(--yellow);
   border-radius: 5px;
   width: 80%;
@@ -30,6 +31,7 @@
 .flexBox {
   display: flex;
   gap: 1.5em;
+  padding-top: 1em;
 }
 
 .mainContainer img {
@@ -49,6 +51,13 @@
   border-radius: 15px;
   background-color: var(--yellow-light);
   margin-right: 0.4em;
+}
+
+.ingredientContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  list-style: none;
 }
 
 /* PREVIEW CONTAINER */
