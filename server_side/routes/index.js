@@ -11,6 +11,7 @@ const { forgotPassword, resetPassword } = require("./forgotPassword");
 const User = require("../models/User");
 const Session = require("../models/Session");
 const Recipe = require("../models/Recipe");
+const { default: mongoose } = require("mongoose");
 
 const router = new Router();
 
@@ -175,11 +176,33 @@ router.post("/save-recipe", mustBeAuthenticated, async (ctx, next) => {
     },
   };
 });
-router.get("/get-recipes/:user_id", mustBeAuthenticated, async (ctx, next) => {
-  const user_id = ctx.params.user_id;
+router.get("/get-recipes", mustBeAuthenticated, async (ctx, next) => {
+  const user_id = ctx.user._id;
   const user = await User.findById({ _id: user_id });
   const recipes = await Recipe.find({ _id: { $in: user.recipes } });
   ctx.body = recipes;
 });
+
+router.get(
+  "/delete-recipes/:recipe_id",
+  mustBeAuthenticated,
+  async (ctx, next) => {
+    const user_id = ctx.user._id;
+    const recipe_id = ctx.params.recipe_id;
+
+    await User.findOneAndUpdate(
+      { _id: user_id },
+      { $pull: { recipes: recipe_id } },
+      { new: true }
+    );
+    ctx.body = {
+      message: {
+        body: "You removed 1 recipe",
+        success: true,
+        error: false,
+      },
+    };
+  }
+);
 
 module.exports = router;

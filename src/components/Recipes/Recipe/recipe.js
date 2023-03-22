@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { recipesSelector } from "../../../redux/selectors";
 import { saveRecipe } from "../../../redux/actions";
 import { cleanString } from "../../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
@@ -40,7 +38,7 @@ const Recipe = ({ id, recipes, saveRecipe }) => {
   return (
     <div>
       {/* RECIPE PREVIEW */}
-      <div className={styles.previewWrapContainer}>
+      <div id={id} className={styles.previewWrapContainer}>
         <Button noStyle onClick={handleOpen}>
           <div className={styles.previewContainer}>
             <img src={image} alt="recipe-img" height="300" width="300" />
