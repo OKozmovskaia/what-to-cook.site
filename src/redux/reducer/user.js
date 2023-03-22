@@ -8,6 +8,7 @@ import {
   USER_OAUTH,
   USER_OAUTH_CALLBACK,
   USER_GET_RECIPES,
+  USER_DELETE_RECIPE,
 } from "../constants";
 
 import { idAsKeyForUser } from "../utils/idAsKey";
@@ -148,6 +149,27 @@ const user = (state = initialState, action) => {
       };
 
     case USER_GET_RECIPES + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+
+    case USER_DELETE_RECIPE + REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_DELETE_RECIPE + SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        recipes: idAsKeyForUser(data.recipes),
+      };
+
+    case USER_DELETE_RECIPE + FAILURE:
       return {
         ...state,
         loading: false,

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { saveRecipe } from "../../../redux/actions";
+import { saveRecipe, deleteRecipe } from "../../../redux/actions";
 import { cleanString } from "../../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
 
 import Button from "../../Button";
 import styles from "./recipe.module.css";
 
-const Recipe = ({ id, recipes, saveRecipe }) => {
+const Recipe = ({ id, recipes, saveRecipe, deleteRecipe }) => {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
 
   const {
     label,
@@ -33,6 +34,12 @@ const Recipe = ({ id, recipes, saveRecipe }) => {
 
   const handleSave = () => {
     saveRecipe({ recipe: recipes[id] });
+    handleOpen();
+  };
+
+  const handleDelete = () => {
+    deleteRecipe(id);
+    handleOpen();
   };
 
   return (
@@ -89,9 +96,15 @@ const Recipe = ({ id, recipes, saveRecipe }) => {
                   <Link to={url} target="_blank">
                     <Button small>Read Recipe</Button>
                   </Link>
-                  <Button onClick={handleSave} small>
-                    Save Recipe
-                  </Button>
+                  {pathname === "/" ? (
+                    <Button onClick={handleSave} small>
+                      Save Recipe
+                    </Button>
+                  ) : (
+                    <Button onClick={handleDelete} small>
+                      Delete Recipe
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
@@ -104,4 +117,5 @@ const Recipe = ({ id, recipes, saveRecipe }) => {
 
 export default connect(null, (dispatch) => ({
   saveRecipe: (recipe) => dispatch(saveRecipe(recipe)),
+  deleteRecipe: (id) => dispatch(deleteRecipe(id)),
 }))(Recipe);

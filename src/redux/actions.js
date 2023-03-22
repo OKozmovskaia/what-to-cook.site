@@ -16,13 +16,13 @@ import {
   USER_RESET_PASSWORD,
   USER_SAVE_RECIPE,
   USER_GET_RECIPES,
+  USER_DELETE_RECIPE,
 } from "./constants";
 import {
   filtredRecipesSelector,
   userFiltersSelector,
   newFiltersSelector,
   tokenSelector,
-  idSelector,
 } from "./selectors";
 
 // RECIPES
@@ -136,11 +136,20 @@ export const saveRecipe = (data) => async (dispatch, getState) => {
 
 export const getAllUserRecipes = () => async (dispatch, getState) => {
   const token = tokenSelector(getState());
-  const user_id = idSelector(getState());
 
   await dispatch({
     type: USER_GET_RECIPES,
-    callAPI: `/api/get-recipes/${user_id}`,
+    callAPI: `/api/get-recipes`,
+    token,
+  });
+};
+
+export const deleteRecipe = (id) => async (dispatch, getState) => {
+  const token = tokenSelector(getState());
+
+  await dispatch({
+    type: USER_DELETE_RECIPE,
+    callAPI: `/api/delete-recipe/${id}`,
     token,
   });
 };

@@ -150,7 +150,6 @@ router.post("/reset_password", mustBeAuthenticated, resetPassword);
 
 router.post("/save-recipe", mustBeAuthenticated, async (ctx, next) => {
   const { recipe } = ctx.request.body;
-  console.log("RECIPE: ", recipe);
   const isRecipeSaved = await Recipe.findOne({ url: recipe.url });
 
   if (isRecipeSaved) {
@@ -184,18 +183,22 @@ router.get("/get-recipes", mustBeAuthenticated, async (ctx, next) => {
 });
 
 router.get(
-  "/delete-recipes/:recipe_id",
+  "/delete-recipe/:recipe_id",
   mustBeAuthenticated,
   async (ctx, next) => {
     const user_id = ctx.user._id;
     const recipe_id = ctx.params.recipe_id;
 
-    await User.findOneAndUpdate(
+    const user = await User.findOneAndUpdate(
       { _id: user_id },
       { $pull: { recipes: recipe_id } },
       { new: true }
     );
+
+    const recipes = await Recipe.find({ _id: { $in: user.recipes } });
+
     ctx.body = {
+      recipes,
       message: {
         body: "You removed 1 recipe",
         success: true,

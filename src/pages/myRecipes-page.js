@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Link } from "react-router-dom";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 import { getAllUserRecipes } from "../redux/actions";
 import {
   userLoadingSelector,
@@ -18,6 +20,8 @@ function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
     getAllRecipes();
   }, [getAllRecipes]);
 
+  const isPageWide = useMediaQuery("(max-width: 740px)");
+
   if (recipesList.length < 1 && loading) return <Loader />;
   if (recipesList.length < 1 && !loading) {
     return (
@@ -25,8 +29,9 @@ function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
         <aside className={styles.sidebar}></aside>
         <main className={styles.mainContent}>
           <h2>
-            You have not saved ant recipes. Go to Home page and choose your
-            first perfect recipe.
+            You have not saved ant recipes. Go to <Link to="/">Home page</Link>
+            <br></br>
+            and choose your first tasty recipe.
           </h2>
         </main>
       </div>
@@ -35,13 +40,15 @@ function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
 
   return (
     <div className={styles.container}>
-      <aside className={styles.sidebar}>
-        <ul>
-          {recipesList.map((i) => (
-            <ListItem key={i[0]} id={i[0]} item={i[1].label} />
-          ))}
-        </ul>
-      </aside>
+      {!isPageWide && (
+        <aside className={styles.sidebar}>
+          <ul>
+            {recipesList.map((i) => (
+              <ListItem key={i[0]} id={i[0]} item={i[1].label} />
+            ))}
+          </ul>
+        </aside>
+      )}
 
       <main className={styles.mainContent}>
         <div className={styles.outerRecipes}>
