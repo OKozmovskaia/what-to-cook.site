@@ -46,6 +46,7 @@ const icons = {
 
 const Button = ({
   icon,
+  currentColor = false,
   submit = false,
   iconStyle = false,
   large = false,
@@ -70,6 +71,7 @@ const Button = ({
         [styles.block]: block,
         [styles.nostyle]: noStyle,
         [styles.link]: link,
+        [styles.currentColor]: currentColor,
       })}
       {...props}
     >

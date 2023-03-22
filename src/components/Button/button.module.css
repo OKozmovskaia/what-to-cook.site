@@ -73,3 +73,7 @@
   box-shadow: none;
   color: VAR(--yellow);
 }
+
+.currentColor {
+  color: currentColor !important;
+}

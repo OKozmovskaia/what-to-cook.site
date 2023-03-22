@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { messageSelector } from "../../redux/selectors";
 import { clearMessage } from "../../redux/actions";
 
+import Button from "../Button";
 import styles from "./message.module.css";
 import cn from "classnames";
 import { createStructuredSelector } from "reselect";
@@ -23,6 +24,12 @@ const Message = ({ message, clearMessage }) => {
       })}
     >
       <div>{message.body}</div>
+      <Button
+        currentColor
+        iconStyle
+        icon="cancel"
+        onClick={() => clearMessage()}
+      />
     </div>
   );
 };
