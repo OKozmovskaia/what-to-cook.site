@@ -242,4 +242,56 @@ router.get("/get-product_list", mustBeAuthenticated, async (ctx, next) => {
   ctx.body = userProduct.productList;
 });
 
+router.post("/update-product", mustBeAuthenticated, async (ctx, next) => {
+  const user_id = ctx.user._id;
+  const { product } = ctx.request.body;
+
+  await Product.findOneAndUpdate(
+    { user: user_id, "productList._id": product._id },
+    {
+      $set: {
+        "productList.$.title": product.title,
+        "productList.$.quantity": product.quantity,
+        "productList.$.checked": product.checked,
+        "productList.$.groupTitle": product.groupTitle,
+      },
+    },
+    { new: true, upsert: true }
+  );
+
+  ctx.body = {
+    message: {
+      body: `Product ${product.title} is updated successfully`,
+      success: true,
+      error: false,
+    },
+  };
+});
+
+router.get(
+  "/delete-product/:product_id",
+  mustBeAuthenticated,
+  async (ctx, next) => {
+    const product_id = ctx.params.product_id;
+    const user_id = ctx.user._id;
+    await Product.findOneAndUpdate(
+      {
+        user: user_id,
+      },
+      {
+        $pull: { productList: { _id: product_id } },
+      },
+      { new: true }
+    );
+
+    ctx.body = {
+      message: {
+        body: `Product is deleted`,
+        success: true,
+        error: false,
+      },
+    };
+  }
+);
+
 module.exports = router;
