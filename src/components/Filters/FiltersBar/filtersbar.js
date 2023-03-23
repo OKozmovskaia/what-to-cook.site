@@ -7,7 +7,7 @@ import {
   removeFilter,
   updateRecipes,
   removeAllFilters,
-} from "../../../redux/actions";
+} from "../../../redux/actions/edamam_recipes";
 import { userFiltersSelector, filtersSelector } from "../../../redux/selectors";
 
 import Button from "../../Button";

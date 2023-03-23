@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { loadRecipesByQuery, updateFilters } from "../redux/actions";
+import {
+  loadRecipesByQuery,
+  updateFilters,
+} from "../redux/actions/edamam_recipes";
 import {
   userFiltersSelector,
   recipesSelector,

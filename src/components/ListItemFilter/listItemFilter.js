@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { addFilter, updateRecipes, removeFilter } from "../../redux/actions";
+import {
+  addFilter,
+  updateRecipes,
+  removeFilter,
+} from "../../redux/actions/edamam_recipes";
 import { filtersSelector, userFiltersSelector } from "../../redux/selectors";
 import { cleanString } from "../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../redux/utils/toHoursAndMin";

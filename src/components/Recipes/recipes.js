@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { loadMoreRecipes, updateRecipes } from "../../redux/actions";
+import {
+  loadMoreRecipes,
+  updateRecipes,
+} from "../../redux/actions/edamam_recipes";
 
 import {
   recipesListSelector,
