@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import { userLogin, userOAuth, forgotPassword } from "../../redux/actions";
+import { userLogin, userOAuth, forgotPassword } from "../../redux/actions/user";
 import {
   userLoadingSelector,
   userOAuthRedirectSelector,

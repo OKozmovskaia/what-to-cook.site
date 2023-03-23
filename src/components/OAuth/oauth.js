@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Navigate, useParams, useSearchParams } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import { userOAuthCallback } from "../../redux/actions";
+import { userOAuthCallback } from "../../redux/actions/user";
 import {
   userLoadingSelector,
   userSuccessLoadSelector,

@@ -9,7 +9,7 @@ import {
   userSuccessLoadSelector,
   idSelector,
 } from "../../redux/selectors";
-import { userLoad } from "../../redux/actions";
+import { userLoad } from "../../redux/actions/user";
 
 import Button from "../Button";
 

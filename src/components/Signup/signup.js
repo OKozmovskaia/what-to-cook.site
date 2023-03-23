@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { userCreate } from "../../redux/actions";
+import { userCreate } from "../../redux/actions/user";
 import { Link, Navigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import {

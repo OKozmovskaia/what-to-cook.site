@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { messageSelector } from "../../redux/selectors";
-import { clearMessage } from "../../redux/actions";
+import { clearMessage } from "../../redux/actions/user";
 
 import Button from "../Button";
 import styles from "./message.module.css";

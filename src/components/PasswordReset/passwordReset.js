@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { resetPassword } from "../../redux/actions";
+import { resetPassword } from "../../redux/actions/user";
 
 import PasswordInput from "../PasswordInput";
 import Button from "../Button";
