@@ -212,7 +212,7 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
   const { product } = ctx.request.body;
   const user_id = ctx.user._id;
 
-  const hasUserList = await User.findOne({ user: user_id });
+  const hasUserList = await Product.findOne({ user: user_id });
 
   if (hasUserList) {
     await Product.findOneAndUpdate(
@@ -234,6 +234,12 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
       error: false,
     },
   };
+});
+
+router.get("/get-product_list", mustBeAuthenticated, async (ctx, next) => {
+  const user_id = ctx.user._id;
+  const userProduct = await Product.findOne({ user: user_id });
+  ctx.body = userProduct.productList;
 });
 
 module.exports = router;
