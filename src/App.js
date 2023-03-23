@@ -15,6 +15,7 @@ import Message from "./components/Message";
 import OAuth from "./components/OAuth";
 import PasswordReset from "./components/PasswordReset";
 import MyRecipes from "./pages/myRecipes-page";
+import MyProducts from "./pages/myProducts-page";
 
 function App({ message }) {
   return (
@@ -30,6 +31,7 @@ function App({ message }) {
         <Route path="/oauth_callback/:provider" element={<OAuth />} />
         <Route path="/password_reset/:token/:id" element={<PasswordReset />} />
         <Route path="/me/recipes" element={<MyRecipes />} />
+        <Route path="/me/products" element={<MyProducts />} />
       </Routes>
       <Footer />
     </div>

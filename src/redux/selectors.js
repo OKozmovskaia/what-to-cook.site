@@ -21,6 +21,16 @@ export const userRecipesListSelector = createSelector(
   (recipes) => Object.entries(recipes)
 );
 
+export const userProductsSelector = (state) => state.user_products.entities;
+export const userProductsLoadingSelector = (state) =>
+  state.user_products.loading;
+export const userProductsLoadSuccessSelector = (state) =>
+  state.user_products.success;
+export const userProductsListSelector = createSelector(
+  userProductsSelector,
+  (products) => Object.entries(products)
+);
+
 // RECIPES
 
 export const recipesSelector = (state) => state.recipes.entities;

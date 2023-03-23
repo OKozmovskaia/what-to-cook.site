@@ -3,7 +3,7 @@ import { cleanString } from "../../redux/utils/cleanString";
 
 import styles from "./listItem.module.css";
 
-const ListItem = ({ item, checkBox, id }) => {
+const ListItem = ({ item, checkBox, id, children }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleClickFilter = () => {
@@ -23,6 +23,7 @@ const ListItem = ({ item, checkBox, id }) => {
         />
       )}
       {cleanString(item)}
+      {children}
     </li>
   );
 };

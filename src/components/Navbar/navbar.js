@@ -18,7 +18,9 @@ export default function Navbar() {
       <Link to="/me/recipes">
         <p>My recipes</p>
       </Link>
-      <p>My product</p>
+      <Link to="/me/products">
+        <p>My product</p>
+      </Link>
     </div>
   );
 }
