@@ -12,7 +12,10 @@ export const userOAuthRedirectSelector = (state) => state.user.redirectTo;
 export const userLoadingSelector = (state) => state.user.loading;
 export const messageSelector = (state) => state.message;
 
-export const userRecipesSelector = (state) => state.user.recipes;
+export const userRecipesSelector = (state) => state.user_recipes.entities;
+export const userRecipesLoadingSelector = (state) => state.user_recipes.loading;
+export const userRecipesLoadSuccessSelector = (state) =>
+  state.user_recipes.success;
 export const userRecipesListSelector = createSelector(
   userRecipesSelector,
   (recipes) => Object.entries(recipes)

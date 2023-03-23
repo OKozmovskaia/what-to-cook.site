@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { getAllUserRecipes } from "../redux/actions";
 import {
-  userLoadingSelector,
+  userRecipesLoadingSelector,
   userRecipesListSelector,
   userRecipesSelector,
 } from "../redux/selectors";
@@ -29,7 +29,8 @@ function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
         <aside className={styles.sidebar}></aside>
         <main className={styles.mainContent}>
           <h2>
-            You have not saved ant recipes. Go to <Link to="/">Home page</Link>
+            You have not saved any recipes yet. Go to{" "}
+            <Link to="/">Home page</Link>
             <br></br>
             and choose your first tasty recipe.
           </h2>
@@ -67,7 +68,7 @@ export default connect(
   createStructuredSelector({
     recipesObject: userRecipesSelector,
     recipesList: userRecipesListSelector,
-    loading: userLoadingSelector,
+    loading: userRecipesLoadingSelector,
   }),
   (dispatch) => ({
     getAllRecipes: () => dispatch(getAllUserRecipes()),
