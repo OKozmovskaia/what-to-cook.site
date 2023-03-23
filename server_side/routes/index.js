@@ -239,14 +239,14 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
 router.get("/get-product_list", mustBeAuthenticated, async (ctx, next) => {
   const user_id = ctx.user._id;
   const userProduct = await Product.findOne({ user: user_id });
-  ctx.body = userProduct.productList;
+  ctx.body = userProduct;
 });
 
 router.post("/update-product", mustBeAuthenticated, async (ctx, next) => {
   const user_id = ctx.user._id;
   const { product } = ctx.request.body;
 
-  await Product.findOneAndUpdate(
+  const userProduct = await Product.findOneAndUpdate(
     { user: user_id, "productList._id": product._id },
     {
       $set: {
@@ -260,6 +260,7 @@ router.post("/update-product", mustBeAuthenticated, async (ctx, next) => {
   );
 
   ctx.body = {
+    userProduct,
     message: {
       body: `Product ${product.title} is updated successfully`,
       success: true,
@@ -274,7 +275,7 @@ router.get(
   async (ctx, next) => {
     const product_id = ctx.params.product_id;
     const user_id = ctx.user._id;
-    await Product.findOneAndUpdate(
+    const userProduct = await Product.findOneAndUpdate(
       {
         user: user_id,
       },
@@ -285,6 +286,7 @@ router.get(
     );
 
     ctx.body = {
+      userProduct,
       message: {
         body: `Product is deleted`,
         success: true,

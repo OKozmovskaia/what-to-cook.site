@@ -3,8 +3,8 @@ import {
   USER_UPDATE_PRODUCT,
   USER_DELETE_PRODUCT,
   USER_GET_PRODUCTS,
-} from "./constants";
-import { tokenSelector } from "./selectors";
+} from "../constants";
+import { tokenSelector } from "../selectors";
 
 export const saveProduct = (data) => async (dispatch, getState) => {
   const token = tokenSelector(getState());

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { saveRecipe, deleteRecipe } from "../../../redux/actions/user_recipes";
+import { saveProduct } from "../../../redux/actions/user_products";
 import { cleanString } from "../../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
 
 import Button from "../../Button";
 import styles from "./recipe.module.css";
 
-const Recipe = ({ id, recipes, saveRecipe, deleteRecipe }) => {
+const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
@@ -40,6 +41,19 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe }) => {
   const handleDelete = () => {
     deleteRecipe(id);
     handleOpen();
+  };
+
+  const handleSaveProduct = (title) => {
+    const data = {
+      product: {
+        title,
+        quantity: 1,
+        checked: false,
+        groupTitle: "",
+      },
+    };
+
+    saveProduct(data);
   };
 
   return (
@@ -94,7 +108,11 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe }) => {
                     ) : (
                       <li key={index} className={styles.ingredientContainer}>
                         <div>
-                          <Button iconStyle icon="plus" />
+                          <Button
+                            iconStyle
+                            icon="plus"
+                            onClick={() => handleSaveProduct(i)}
+                          />
                         </div>
                         {i}
                       </li>
@@ -127,4 +145,5 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe }) => {
 export default connect(null, (dispatch) => ({
   saveRecipe: (recipe) => dispatch(saveRecipe(recipe)),
   deleteRecipe: (id) => dispatch(deleteRecipe(id)),
+  saveProduct: (product) => dispatch(saveProduct(product)),
 }))(Recipe);
