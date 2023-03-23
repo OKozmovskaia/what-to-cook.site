@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { saveRecipe, deleteRecipe } from "../../../redux/actions";
+import { saveRecipe, deleteRecipe } from "../../../redux/actions/user_recipes";
 import { cleanString } from "../../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
 

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "../hooks/useMediaQuery";
-import { getAllUserRecipes } from "../redux/actions";
+import { getAllUserRecipes } from "../redux/actions/user_recipes";
 import {
   userRecipesLoadingSelector,
   userRecipesListSelector,
