@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
@@ -25,9 +25,11 @@ const MyAccount = ({
 }) => {
   const navigate = useNavigate();
 
-  if (token) {
-    userLoad(token);
-  }
+  useEffect(() => {
+    if (token) {
+      userLoad(token);
+    }
+  }, [token, userLoad]);
 
   if (!token) return <Navigate to="/login" />;
 

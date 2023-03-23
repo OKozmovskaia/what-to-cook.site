@@ -11,7 +11,7 @@ const { forgotPassword, resetPassword } = require("./forgotPassword");
 const User = require("../models/User");
 const Session = require("../models/Session");
 const Recipe = require("../models/Recipe");
-const { default: mongoose } = require("mongoose");
+const Product = require("../models/Product");
 
 const router = new Router();
 
@@ -207,5 +207,33 @@ router.get(
     };
   }
 );
+
+router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
+  const { product } = ctx.request.body;
+  const user_id = ctx.user._id;
+
+  const hasUserList = await User.findOne({ user: user_id });
+
+  if (hasUserList) {
+    await Product.findOneAndUpdate(
+      { user: user_id, "productList.title": { $ne: product.title } },
+      { $push: { productList: product } }
+    );
+  } else {
+    const newProduct = new Product({
+      user: user_id,
+      productList: [product],
+    });
+    await newProduct.save();
+  }
+
+  ctx.body = {
+    message: {
+      body: `Product ${product.title} is saved successfully`,
+      success: true,
+      error: false,
+    },
+  };
+});
 
 module.exports = router;
