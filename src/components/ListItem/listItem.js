@@ -6,7 +6,7 @@ import styles from "./listItem.module.css";
 const ListItem = ({ item, checkBox, id, children }) => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleClickFilter = () => {
+  const handleCheck = () => {
     setIsChecked(!isChecked);
   };
 
@@ -19,7 +19,7 @@ const ListItem = ({ item, checkBox, id, children }) => {
           name={item}
           data-id={id}
           value={item}
-          onChange={handleClickFilter}
+          onChange={handleCheck}
         />
       )}
       {cleanString(item)}

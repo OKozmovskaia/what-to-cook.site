@@ -13,8 +13,6 @@ import { toHoursAndMin } from "../../redux/utils/toHoursAndMin";
 import styles from "./listItemFilter.module.css";
 
 const ListItemFilter = ({
-  checkBox,
-  children,
   id,
   filters,
   userFilters,
@@ -41,18 +39,15 @@ const ListItemFilter = ({
 
   return (
     <li className={styles.container}>
-      {checkBox && (
-        <input
-          type="checkBox"
-          checked={isChecked}
-          name={label}
-          data-id={id}
-          value={value}
-          onChange={handleClickFilter}
-        />
-      )}
+      <input
+        type="checkBox"
+        checked={isChecked}
+        name={label}
+        data-id={id}
+        value={value}
+        onChange={handleClickFilter}
+      />
       {label === "totalTime" ? toHoursAndMin(value) : cleanString(value)}
-      {children}
     </li>
   );
 };

@@ -28,7 +28,7 @@ const FilterItem = ({ category }) => {
         <ul className={styles.filterContent}>
           {Object.entries(category).map((i) => {
             const id = i[0];
-            return <ListItemFilter checkBox key={id} id={id} />;
+            return <ListItemFilter key={id} id={id} />;
           })}
         </ul>
       ) : null}
