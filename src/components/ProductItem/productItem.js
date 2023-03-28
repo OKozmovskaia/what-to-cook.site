@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import Button from "../Button";
+import { connect } from "react-redux";
+import {
+  deleteProduct,
+  updateProduct,
+} from "../../redux/actions/user_products";
 
+import Button from "../Button";
 import styles from "./productItem.module.css";
 
-const ProductItem = ({ product, id }) => {
+const ProductItem = ({ product, id, update, remove }) => {
   const { title, quantity, checked, groupTitle } = product;
   const [state, setState] = useState({
     title,
@@ -39,6 +44,7 @@ const ProductItem = ({ product, id }) => {
   };
 
   const handleSave = () => {
+    update({ product: { ...state, _id: id } });
     setIsEdit(false);
   };
 
@@ -79,9 +85,12 @@ const ProductItem = ({ product, id }) => {
         </span>
       )}
 
-      <Button iconStyle icon="bin" />
+      <Button iconStyle icon="bin" onClick={() => remove(id)} />
     </li>
   );
 };
 
-export default ProductItem;
+export default connect(null, (dispatch) => ({
+  update: (data) => dispatch(updateProduct(data)),
+  remove: (id) => dispatch(deleteProduct(id)),
+}))(ProductItem);

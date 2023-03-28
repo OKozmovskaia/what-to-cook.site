@@ -51,7 +51,7 @@ const user_product = (state = initialState, action) => {
         ...state,
         loading: false,
         success: true,
-        entities: idAsKeyForUser(data.productList),
+        entities: idAsKeyForUser(data.userProduct.productList),
       };
 
     case USER_UPDATE_PRODUCT + FAILURE:
@@ -72,7 +72,7 @@ const user_product = (state = initialState, action) => {
         ...state,
         loading: false,
         success: true,
-        entities: idAsKeyForUser(data.productList),
+        entities: idAsKeyForUser(data.userProduct.productList),
       };
 
     case USER_DELETE_PRODUCT + FAILURE:
