@@ -10,8 +10,7 @@ import {
 } from "../redux/selectors";
 
 import Loader from "../components/Loader";
-import ListItem from "../components/ListItem";
-import Button from "../components/Button";
+import ProductItem from "../components/ProductItem/";
 import styles from "./page.module.css";
 
 function MyProductsPage({ getAllProducts, productsList, loading }) {
@@ -46,16 +45,11 @@ function MyProductsPage({ getAllProducts, productsList, loading }) {
 
       <main className={styles.mainContent}>
         <div className={styles.outerRecipes}>
-          <div className={styles.recipesContainer}>
-            <ul>
-              {productsList.map((i) => (
-                <ListItem key={i[0]} item={i[1].title} checkBox id={i[0]}>
-                  <Button iconStyle icon="pen" />
-                  <Button iconStyle icon="bin" />
-                </ListItem>
-              ))}
-            </ul>
-          </div>
+          <ul>
+            {productsList.map((i) => (
+              <ProductItem key={i[0]} id={i[0]} product={i[1]} />
+            ))}
+          </ul>
         </div>
       </main>
     </div>
