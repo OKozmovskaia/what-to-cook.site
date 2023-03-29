@@ -15,10 +15,10 @@ export default function Navbar() {
       <Link to="/">
         <p>Home</p>
       </Link>
-      <Link to="/me/recipes">
+      <Link to="/my_recipes">
         <p>My recipes</p>
       </Link>
-      <Link to="/me/products">
+      <Link to="/my_products">
         <p>My product</p>
       </Link>
     </div>

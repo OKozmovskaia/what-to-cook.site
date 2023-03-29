@@ -10,10 +10,11 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/home-page";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import MyAccount from "./components/MyAccount";
 import Message from "./components/Message";
 import OAuth from "./components/OAuth";
 import PasswordReset from "./components/PasswordReset";
+import ProtectedRoute from "./components/ProtectedRoute";
+import MyAccountPage from "./pages/myAccount-page";
 import MyRecipes from "./pages/myRecipes-page";
 import MyProducts from "./pages/myProducts-page";
 
@@ -25,13 +26,18 @@ function App({ message }) {
       {message.body && <Message />}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/me" element={<MyAccount />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth_callback/:provider" element={<OAuth />} />
-        <Route path="/password_reset/:token/:id" element={<PasswordReset />} />
-        <Route path="/me/recipes" element={<MyRecipes />} />
-        <Route path="/me/products" element={<MyProducts />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/me" element={<MyAccountPage />} />
+          <Route
+            path="/password_reset/:token/:id"
+            element={<PasswordReset />}
+          />
+          <Route path="/my_recipes" element={<MyRecipes />} />
+          <Route path="/my_products" element={<MyProducts />} />
+        </Route>
       </Routes>
       <Footer />
     </div>

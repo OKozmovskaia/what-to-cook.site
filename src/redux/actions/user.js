@@ -2,6 +2,7 @@ import {
   USER_LOGIN,
   USER_CREATE,
   USER_LOAD,
+  SET_MESSAGE,
   CLEAR_MESSAGE,
   USER_OAUTH,
   USER_OAUTH_CALLBACK,
@@ -27,6 +28,11 @@ export const userLoad = (token) => ({
   type: USER_LOAD,
   callAPI: `/api/me`,
   token,
+});
+
+export const setMessage = (data) => ({
+  type: SET_MESSAGE,
+  data,
 });
 
 export const clearMessage = () => ({
