@@ -8,7 +8,7 @@ import { setMessage, userLoad } from "../../redux/actions/user";
 
 const ProtectedRoute = ({ token, userLoad, userLoadSuccess, setMessage }) => {
   useEffect(() => {
-    if (token) {
+    if (token !== "null" || token !== "undefined") {
       userLoad(token);
     } else {
       setMessage({

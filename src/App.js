@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MyAccountPage from "./pages/myAccount-page";
 import MyRecipes from "./pages/myRecipes-page";
 import MyProducts from "./pages/myProducts-page";
+import NotFound from "./components/NotFound/";
 
 function App({ message }) {
   return (
@@ -38,6 +39,7 @@ function App({ message }) {
           <Route path="/my_recipes" element={<MyRecipes />} />
           <Route path="/my_products" element={<MyProducts />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </div>

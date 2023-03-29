@@ -10,8 +10,8 @@ import {
 } from "../constants";
 
 const initialState = {
-  token: JSON.parse(localStorage.getItem("TOKEN")),
-  id: JSON.parse(localStorage.getItem("USER_ID")),
+  token: localStorage.getItem("TOKEN"),
+  id: localStorage.getItem("USER_ID"),
   redirectTo: "",
   loading: false,
   success: false,
