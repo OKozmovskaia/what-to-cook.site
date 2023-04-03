@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { tokenSelector } from "../../redux/selectors";
+import { userSuccessLoadSelector } from "../../redux/selectors";
 
 import Button from "../Button";
 
 import styles from "./header.module.css";
 import logo from "./logo.png";
 
-const Header = ({ token }) => {
+const Header = ({ logedIn }) => {
   return (
     <div className={styles.container}>
       <div className={styles.div}>
@@ -20,7 +20,7 @@ const Header = ({ token }) => {
       </div>
 
       <div className={styles.div}>
-        {token ? (
+        {logedIn ? (
           <Link to="/me">
             <div className={styles.iconChef}>
               <Button iconStyle icon="chef" />
@@ -38,6 +38,6 @@ const Header = ({ token }) => {
 
 export default connect(
   createStructuredSelector({
-    token: tokenSelector,
+    logedIn: userSuccessLoadSelector,
   })
 )(Header);
