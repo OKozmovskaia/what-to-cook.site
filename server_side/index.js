@@ -1,6 +1,7 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const helmet = require("koa-helmet");
+const logger = require("koa-logger");
 const { v4: uuid } = require("uuid");
 
 const routes = require("./routes");
@@ -9,8 +10,9 @@ const Session = require("./models/Session");
 
 const app = new Koa();
 
-app.use(bodyParser());
+app.use(logger());
 app.use(helmet());
+app.use(bodyParser());
 
 // handle error
 app.use(async (ctx, next) => {
