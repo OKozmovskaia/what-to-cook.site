@@ -7,7 +7,7 @@ const path = require("path");
 const sendEmail = async (email, subject, payload, template) => {
   try {
     const transporter = nodemailer.createTransport({
-      service: config.get("nodemailer.service"),
+      host: config.get("nodemailer.host"),
       auth: {
         user: config.get("nodemailer.user"),
         pass: config.get("nodemailer.pass"),

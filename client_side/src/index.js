@@ -9,7 +9,7 @@ import store from "./redux/store";
 import "./index.css";
 
 // DEV. ONLY
-window.store = store;
+// window.store = store;
 
 store.subscribe(() => {
   localStorage.setItem("TOKEN", store.getState().user.token);
