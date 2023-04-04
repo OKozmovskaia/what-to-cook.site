@@ -1,0 +1,10 @@
+{
+  "name": "What-To-Cook",
+  "short_name": "What-To-Cook",
+  "background_color": "#fff",
+  "description": "Web site for recipes search and collecting",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
