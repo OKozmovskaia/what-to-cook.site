@@ -1,6 +1,8 @@
 {
   "name": "What-To-Cook",
   "short_name": "What-To-Cook",
+  "start_url": ".",
+  "display": "standalone",
   "background_color": "#fff",
   "description": "Web site for recipes search and collecting",
   "icons": [
