@@ -32,6 +32,7 @@
   display: flex;
   gap: 1.5em;
   padding-top: 1em;
+  width: 100%;
 }
 
 .mainContainer img {

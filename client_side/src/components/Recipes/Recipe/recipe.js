@@ -8,6 +8,7 @@ import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
 
 import Button from "../../Button";
 import styles from "./recipe.module.css";
+import defaultImage from "./plate.svg";
 
 const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
   const [open, setOpen] = useState(false);
@@ -56,13 +57,23 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
     saveProduct(data);
   };
 
+  const imageOnError = (e) => {
+    e.currentTarget.src = defaultImage;
+  };
+
   return (
     <div>
       {/* RECIPE PREVIEW */}
       <div id={id} className={styles.previewWrapContainer}>
         <Button noStyle onClick={handleOpen}>
           <div className={styles.previewContainer}>
-            <img src={image} alt="recipe-img" height="300" width="300" />
+            <img
+              src={image}
+              alt="recipe-img"
+              height="300"
+              width="300"
+              onError={imageOnError}
+            />
             <h4>{label}</h4>
             <p>
               {cuisine} {dish}
@@ -85,7 +96,7 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
           <div className={styles.mainContainer}>
             <Button icon="cancel" iconStyle onClick={handleOpen} />
             <div className={styles.flexBox}>
-              <img src={image} alt="recipe-img" />
+              <img src={image} alt="recipe-img" onError={imageOnError} />
               <div className={styles.content}>
                 <h2>{label}</h2>
                 <p>
