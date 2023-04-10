@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-  loadRecipesByQuery,
-  updateFilters,
-} from "../redux/actions/edamam_recipes";
+import { loadRecipesByQuery } from "../redux/actions/edamam_recipes";
 import {
   userFiltersSelector,
   recipesSelector,
   recipesLoadingSelector,
-  recipesLoadedSelector,
 } from "../redux/selectors";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
@@ -22,14 +18,7 @@ import Loader from "../components/Loader";
 import styles from "./page.module.css";
 import Button from "../components/Button";
 
-function HomePage({
-  findRecipes,
-  userFilters,
-  recipes,
-  loading,
-  loaded,
-  updateFilters,
-}) {
+function HomePage({ findRecipes, userFilters, recipes, loading }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -45,8 +34,6 @@ function HomePage({
   const handleOpen = () => {
     setOpen(!open);
   };
-
-  if (loaded) updateFilters();
 
   if (Object.keys(recipes).length < 1 && loading) return <Loader />;
 
@@ -113,10 +100,8 @@ export default connect(
     recipes: recipesSelector,
     userFilters: userFiltersSelector,
     loading: recipesLoadingSelector,
-    loaded: recipesLoadedSelector,
   }),
   (dispatch) => ({
     findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
-    updateFilters: () => dispatch(updateFilters()),
   })
 )(HomePage);

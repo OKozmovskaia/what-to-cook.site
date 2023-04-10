@@ -27,6 +27,10 @@
   flex-direction: row-reverse;
 }
 
+.filtersWrapper button:first-of-type {
+  align-self: flex-start;
+}
+
 .recipesContainer {
   display: grid;
   grid-template-columns: repeat(2, minmax(10em, 1fr));

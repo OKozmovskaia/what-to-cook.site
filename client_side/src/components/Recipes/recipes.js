@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import {
   loadMoreRecipes,
+  updateFilters,
   updateRecipes,
 } from "../../redux/actions/edamam_recipes";
 
@@ -25,14 +26,16 @@ const Recipes = ({
   nextChunk,
   loadMore,
   updateRecipes,
+  updateFilters,
   loading,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const divScroll = useRef(null);
 
   useEffect(() => {
+    updateFilters();
     updateRecipes();
-  }, [nextChunk, updateRecipes]);
+  }, [nextChunk, updateFilters, updateRecipes]);
 
   const handleLoadMore = (link) => (e) => {
     e.preventDefault();
@@ -105,5 +108,6 @@ export default connect(
   (dispatch) => ({
     loadMore: (link) => dispatch(loadMoreRecipes(link)),
     updateRecipes: () => dispatch(updateRecipes()),
+    updateFilters: () => dispatch(updateFilters()),
   })
 )(Recipes);
