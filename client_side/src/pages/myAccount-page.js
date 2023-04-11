@@ -14,6 +14,7 @@ import { useMediaQuery } from "../hooks/useMediaQuery";
 
 import Button from "../components/Button";
 import styles from "./page.module.css";
+import { userRemoveToken } from "../redux/actions/user";
 
 const MyAccountPage = ({
   username,
@@ -22,17 +23,16 @@ const MyAccountPage = ({
   id,
   numberRecipes,
   numberProducts,
+  userRemoveToken,
 }) => {
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    localStorage.removeItem("TOKEN");
-    localStorage.removeItem("USER_ID");
-    window.location.reload();
+    userRemoveToken();
+    return navigate("/login");
   };
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
-
   return (
     <div className={styles.container}>
       {!isPageWide && <aside className={styles.sidebar}></aside>}
@@ -77,5 +77,8 @@ export default connect(
     id: idSelector,
     numberRecipes: numberUserRecipesSelector,
     numberProducts: numberUserProductsSelector,
+  }),
+  (dispatch) => ({
+    userRemoveToken: () => dispatch(userRemoveToken()),
   })
 )(MyAccountPage);

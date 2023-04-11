@@ -32,15 +32,38 @@ function App({ message }) {
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth_callback/:provider" element={<OAuth />} />
         <Route path="/privacy_policy" element={<PrivacyPolicy />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/me" element={<MyAccountPage />} />
-          <Route
-            path="/password_reset/:token/:id"
-            element={<PasswordReset />}
-          />
-          <Route path="/my_recipes" element={<MyRecipes />} />
-          <Route path="/my_products" element={<MyProducts />} />
-        </Route>
+        <Route
+          path="/me"
+          element={
+            <ProtectedRoute>
+              <MyAccountPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/password_reset/:token/:id"
+          element={
+            <ProtectedRoute>
+              <PasswordReset />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my_recipes"
+          element={
+            <ProtectedRoute>
+              <MyRecipes />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my_products"
+          element={
+            <ProtectedRoute>
+              <MyProducts />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

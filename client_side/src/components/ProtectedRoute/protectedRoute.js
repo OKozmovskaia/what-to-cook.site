@@ -1,32 +1,28 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { createStructuredSelector } from "reselect";
 import { tokenSelector, userSuccessLoadSelector } from "../../redux/selectors";
-import { setMessage, userLoad } from "../../redux/actions/user";
+import { userLoad, userRemoveToken } from "../../redux/actions/user";
 
-const ProtectedRoute = ({ token, userLoad, userLoadSuccess, setMessage }) => {
+const ProtectedRoute = ({
+  token,
+  userLoad,
+  userLoadSuccess,
+  userRemoveToken,
+  children,
+}) => {
   useEffect(() => {
-    if (token !== "null" || token !== "undefined") {
-      userLoad(token);
-    } else {
-      setMessage({
-        body: "To go to this page you should be logged in.",
-        success: true,
-        error: false,
-      });
-      <Navigate to="/login" />;
-    }
-  }, [token, userLoad, setMessage]);
+    userLoad(token);
+  });
 
   if (!userLoadSuccess) {
-    localStorage.removeItem("TOKEN");
-    localStorage.removeItem("USER_ID");
+    userRemoveToken();
     return <Navigate to="/login" />;
   }
 
-  return <Outlet />;
+  return children;
 };
 
 export default connect(
@@ -36,6 +32,6 @@ export default connect(
   }),
   (dispatch) => ({
     userLoad: (token) => dispatch(userLoad(token)),
-    setMessage: (message) => dispatch(setMessage(message)),
+    userRemoveToken: () => dispatch(userRemoveToken()),
   })
 )(ProtectedRoute);

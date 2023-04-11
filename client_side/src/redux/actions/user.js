@@ -8,6 +8,7 @@ import {
   USER_OAUTH_CALLBACK,
   USER_FORGOT_PASSWORD,
   USER_RESET_PASSWORD,
+  USER_REMOVE_TOKEN,
 } from "../constants";
 import { tokenSelector } from "../selectors";
 
@@ -32,7 +33,7 @@ export const userLoad = (token) => ({
 
 export const setMessage = (data) => ({
   type: SET_MESSAGE,
-  data,
+  data: data.message,
 });
 
 export const clearMessage = () => ({
@@ -71,3 +72,7 @@ export const resetPassword = (data) => async (dispatch, getState) => {
     token,
   });
 };
+
+export const userRemoveToken = () => ({
+  type: USER_REMOVE_TOKEN,
+});

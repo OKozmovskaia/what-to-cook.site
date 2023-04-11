@@ -7,6 +7,7 @@ import {
   USER_LOGIN,
   USER_OAUTH,
   USER_OAUTH_CALLBACK,
+  USER_REMOVE_TOKEN,
 } from "../constants";
 
 const initialState = {
@@ -126,6 +127,14 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        success: false,
+      };
+
+    case USER_REMOVE_TOKEN:
+      return {
+        ...state,
+        token: null,
+        id: null,
         success: false,
       };
 
