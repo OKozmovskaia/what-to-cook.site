@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { loadRecipesByQuery } from "../redux/actions/edamam_recipes";
+import {
+  loadRecipesByQuery,
+  updateFilters,
+} from "../redux/actions/edamam_recipes";
 import {
   userFiltersSelector,
   recipesSelector,
   recipesLoadingSelector,
+  recipesLoadedSelector,
 } from "../redux/selectors";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
@@ -18,12 +22,20 @@ import Loader from "../components/Loader";
 import styles from "./page.module.css";
 import Button from "../components/Button";
 
-function HomePage({ findRecipes, userFilters, recipes, loading }) {
+function HomePage({
+  findRecipes,
+  userFilters,
+  recipes,
+  loading,
+  loaded,
+  updateFilters,
+}) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     findRecipes("carrot");
   }, [findRecipes]);
+
   const isPageWide = useMediaQuery("(max-width: 740px)");
 
   const handleSearch = (query) => (e) => {
@@ -34,6 +46,8 @@ function HomePage({ findRecipes, userFilters, recipes, loading }) {
   const handleOpen = () => {
     setOpen(!open);
   };
+
+  if (loaded) updateFilters();
 
   if (Object.keys(recipes).length < 1 && loading) return <Loader />;
 
@@ -100,8 +114,10 @@ export default connect(
     recipes: recipesSelector,
     userFilters: userFiltersSelector,
     loading: recipesLoadingSelector,
+    loaded: recipesLoadedSelector,
   }),
   (dispatch) => ({
     findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
+    updateFilters: () => dispatch(updateFilters()),
   })
 )(HomePage);

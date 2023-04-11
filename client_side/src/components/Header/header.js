@@ -7,7 +7,7 @@ import { userSuccessLoadSelector } from "../../redux/selectors";
 import Button from "../Button";
 
 import styles from "./header.module.css";
-import logo from "./logo.png";
+import logo from "./icon.svg";
 
 const Header = ({ logedIn }) => {
   return (

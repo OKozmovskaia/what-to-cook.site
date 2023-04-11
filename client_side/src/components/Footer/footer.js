@@ -12,11 +12,17 @@ const Footer = () => {
           <Button iconStyle icon="email" />
         </Link>
 
-        <Link to="https://github.com/OKozmovskaia/what-to-cook.site">
+        <Link
+          to="https://github.com/OKozmovskaia/what-to-cook.site"
+          target="_blank"
+        >
           <Button iconStyle icon="github" />
         </Link>
 
-        <Link to="https://www.linkedin.com/in/olga-kozmovskaia/">
+        <Link
+          to="https://www.linkedin.com/in/olga-kozmovskaia/"
+          target="_blank"
+        >
           <Button iconStyle icon="linkedin" />
         </Link>
       </div>
