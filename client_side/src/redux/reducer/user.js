@@ -15,7 +15,7 @@ const initialState = {
   id: localStorage.getItem("USER_ID"),
   redirectTo: "",
   loading: false,
-  success: false,
+  success: localStorage.getItem("SUCCESS_LOAD_USER"),
 };
 
 const user = (state = initialState, action) => {

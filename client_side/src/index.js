@@ -14,6 +14,7 @@ import "./index.css";
 store.subscribe(() => {
   localStorage.setItem("TOKEN", store.getState().user.token);
   localStorage.setItem("USER_ID", store.getState().user.id);
+  localStorage.setItem("SUCCESS_LOAD_USER", store.getState().user.success);
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
