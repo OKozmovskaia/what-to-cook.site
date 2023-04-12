@@ -60,10 +60,11 @@ const MyAccountPage = ({
             </div>
           </Link>
         </div>
-
-        <Button onClick={handleLogOut} large>
-          Log Out
-        </Button>
+        <div>
+          <Button onClick={handleLogOut} large>
+            Log Out
+          </Button>
+        </div>
       </main>
     </div>
   );

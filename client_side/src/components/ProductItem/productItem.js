@@ -17,8 +17,8 @@ const ProductItem = ({ product, id, update, remove }) => {
     groupTitle,
   });
   const [isEdit, setIsEdit] = useState(false);
-
   const handleChecked = () => {
+    update({ product: { ...state, checked: !state.checked, _id: id } });
     setState({
       ...state,
       checked: !state.checked,

@@ -72,6 +72,10 @@
     flex-direction: column;
   }
 
+  .recipesContainer {
+    grid-template-columns: 1fr;
+  }
+
   .infoBoxesContainer {
     display: inline-flex;
     flex-direction: column;
