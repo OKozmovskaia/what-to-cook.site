@@ -111,10 +111,15 @@ router.post("/sign-up", async (ctx) => {
   };
 });
 
-router.get("/me", mustBeAuthenticated, (ctx, next) => {
+router.get("/me", mustBeAuthenticated, async (ctx, next) => {
+  const products = await Product.findOne({ user: ctx.user._id });
+  const numberOfProducts = products.productList.length;
+
   ctx.body = {
     email: ctx.user.email,
     username: ctx.user.displayName,
+    numberOfProducts,
+    numberOfRecipes: ctx.user.recipes.length,
   };
 });
 

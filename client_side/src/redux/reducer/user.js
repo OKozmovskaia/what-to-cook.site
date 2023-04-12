@@ -55,6 +55,8 @@ const user = (state = initialState, action) => {
         ...state,
         email: data.email,
         username: data.username,
+        numOfProducts: data.numberOfProducts,
+        numOfRecipes: data.numberOfRecipes,
         loading: false,
         success: true,
       };
