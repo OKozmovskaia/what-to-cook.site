@@ -47,11 +47,12 @@
 }
 
 .badge {
+  display: inline-block;
   padding: 2px 7px;
   border: 1px dotted var(--yellow);
   border-radius: 15px;
   background-color: var(--yellow-light);
-  margin-right: 0.4em;
+  margin: 0.4em 0.4em 0.4em 0;
 }
 
 .ingredientContainer {
@@ -116,9 +117,13 @@
 }
 
 @media only screen and (max-width: 740px) {
+  .previewContainer {
+    margin-left: 1em;
+  }
+
   .previewContainer img {
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: 200px;
   }
 
   .previewContainer h4 {
@@ -131,5 +136,22 @@
 
   .content {
     width: 100%;
+  }
+
+  .content ul {
+    font-size: 0.8em;
+    padding-left: 15px;
+  }
+
+  .content h2 {
+    margin-top: 0;
+  }
+
+  .flexBox {
+    flex-direction: column;
+  }
+
+  .flexBox button {
+    align-self: center;
   }
 }

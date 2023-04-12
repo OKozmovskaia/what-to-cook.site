@@ -2,7 +2,7 @@ import React from "react";
 
 const NotFound = () => {
   return (
-    <div>
+    <div style={{ minHeight: "40vh" }}>
       <h1> 404 </h1>
       <h2>Sorry, the page is not found.</h2>
     </div>

@@ -28,6 +28,8 @@
 
 .productTitle {
   flex-grow: 1;
+  width: 100px;
+  line-height: 1.4em;
 }
 
 input[type="checkbox"] {
@@ -73,10 +75,22 @@ input[type="number"] {
 input[type="number"],
 .productQuantity {
   width: 3em;
+  text-align: center;
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus {
   border: 1px solid var(--yellow);
   box-shadow: none;
+}
+
+@media only screen and (max-width: 740px) {
+  input[type="number"] {
+    font-size: 0.8em;
+  }
+
+  .container {
+    padding: 0.3em;
+    gap: 0.8em;
+  }
 }

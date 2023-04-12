@@ -47,3 +47,9 @@ input:focus {
 .message span.success {
   color: var(--green);
 }
+
+@media only screen and (max-width: 740px) {
+  .message {
+    font-size: 0.7em;
+  }
+}

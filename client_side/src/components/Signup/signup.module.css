@@ -42,3 +42,25 @@
   display: flex;
   justify-content: center;
 }
+
+@media only screen and (max-width: 740px) {
+  .containerForm {
+    flex-direction: column-reverse;
+  }
+
+  .formSignUp {
+    width: 100%;
+    position: relative;
+  }
+
+  .containerButton {
+    width: 100%;
+    position: relative;
+    height: auto;
+    background-color: inherit;
+  }
+
+  .forgotButton {
+    font-size: 0.8em;
+  }
+}

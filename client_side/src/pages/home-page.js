@@ -71,6 +71,7 @@ function HomePage({
             style={{
               backgroundColor: "var(--yellow)",
               borderRadius: "50%",
+              flexShrink: 0,
             }}
             iconStyle
             icon="filters"

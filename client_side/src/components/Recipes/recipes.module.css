@@ -39,3 +39,14 @@
   z-index: 3;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 740px) {
+  .recipesContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonToTop {
+    width: 2em;
+    height: 2em;
+  }
+}

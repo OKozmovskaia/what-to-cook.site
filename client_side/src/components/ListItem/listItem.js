@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { cleanString } from "../../redux/utils/cleanString";
 
 import styles from "./listItem.module.css";
 
@@ -22,7 +21,7 @@ const ListItem = ({ item, checkBox, id, children }) => {
           onChange={handleCheck}
         />
       )}
-      {cleanString(item)}
+      {item}
       {children}
     </li>
   );

@@ -72,3 +72,25 @@
 .modalContainer button {
   align-self: flex-end;
 }
+
+@media only screen and (max-width: 740px) {
+  .containerForm {
+    flex-direction: column;
+  }
+
+  .formLogin {
+    width: 100%;
+    position: relative;
+  }
+
+  .containerButton {
+    width: 100%;
+    position: relative;
+    height: auto;
+    background-color: inherit;
+  }
+
+  .forgotButton {
+    font-size: 0.8em;
+  }
+}
