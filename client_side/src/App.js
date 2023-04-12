@@ -18,6 +18,7 @@ import MyAccountPage from "./pages/myAccount-page";
 import MyRecipes from "./pages/myRecipes-page";
 import MyProducts from "./pages/myProducts-page";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import DataDeletion from "./components/DataDeletion";
 import NotFound from "./components/NotFound/";
 
 function App({ message }) {
@@ -32,6 +33,7 @@ function App({ message }) {
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth_callback/:provider" element={<OAuth />} />
         <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+        <Route path="/data-deletion-facebook" element={<DataDeletion />} />
         <Route
           path="/me"
           element={
