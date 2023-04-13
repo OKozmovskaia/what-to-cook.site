@@ -113,7 +113,7 @@ router.post("/sign-up", async (ctx) => {
 
 router.get("/me", mustBeAuthenticated, async (ctx, next) => {
   const products = await Product.findOne({ user: ctx.user._id });
-  const numberOfProducts = products.productList.length;
+  const numberOfProducts = products ? products.productList.length : 0;
 
   ctx.body = {
     email: ctx.user.email,

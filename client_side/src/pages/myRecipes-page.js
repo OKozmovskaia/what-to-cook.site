@@ -28,12 +28,13 @@ function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
       <div className={styles.container}>
         <aside className={styles.sidebar}></aside>
         <main className={styles.mainContent}>
-          <h2>
-            You have not saved any recipes yet. Go to{" "}
-            <Link to="/">Home page</Link>
+          <h2>You have not saved any recipes yet.</h2>{" "}
+          <h4>
+            {" "}
+            Go to <Link to="/">Home page</Link>
             <br></br>
             and choose your first tasty recipe.
-          </h2>
+          </h4>
         </main>
       </div>
     );

@@ -19,8 +19,6 @@ const OAuth = ({ loadSuccess, loading, oauth_callback }) => {
     if (!loadSuccess) oauth_callback(code, { provider });
   }, [code, provider, oauth_callback, loadSuccess]);
 
-  if (loadSuccess) return <Navigate to="/me" />;
-
   if (loading) return <Loader />;
 
   if (!loadSuccess)
@@ -29,6 +27,8 @@ const OAuth = ({ loadSuccess, loading, oauth_callback }) => {
         <h3>An error occurred while performing authentication</h3>
       </div>
     );
+
+  if (loadSuccess) return <Navigate to="/me" />;
 
   return (
     <div style={{ height: "20em" }}>

@@ -26,14 +26,14 @@ function MyProductsPage({ getAllProducts, productsList, loading }) {
       <div className={styles.container}>
         <aside className={styles.sidebar}></aside>
         <main className={styles.mainContent}>
-          <h2>
-            You have not saved any products yet. Go to{" "}
-            <Link to="/">Home page</Link>
+          <h2>You have not saved any products yet. </h2>{" "}
+          <h4>
+            Go to <Link to="/">Home page</Link>
             <br></br>
             and choose your first tasty recipe.<br></br>
             Inside of the recipe card you could save any ingridients as your
             product.
-          </h2>
+          </h4>
         </main>
       </div>
     );
