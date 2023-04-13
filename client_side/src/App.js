@@ -20,10 +20,12 @@ import MyProducts from "./pages/myProducts-page";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import DataDeletion from "./components/DataDeletion";
 import NotFound from "./components/NotFound/";
+import GetToken from "./components/GetToken/getToken";
 
 function App({ message }) {
   return (
     <div>
+      <GetToken />
       <Header />
       <Navbar />
       {message.body && <Message />}

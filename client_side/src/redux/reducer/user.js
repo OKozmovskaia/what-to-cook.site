@@ -16,6 +16,8 @@ const initialState = {
   redirectTo: "",
   loading: false,
   success: localStorage.getItem("SUCCESS_LOAD_USER"),
+  numOfProducts: 0,
+  numOfRecipes: 0,
 };
 
 const user = (state = initialState, action) => {

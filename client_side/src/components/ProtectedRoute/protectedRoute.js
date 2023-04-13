@@ -1,37 +1,35 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { createStructuredSelector } from "reselect";
-import { tokenSelector, userSuccessLoadSelector } from "../../redux/selectors";
-import { userLoad, userRemoveToken } from "../../redux/actions/user";
+import { userSuccessLoadSelector } from "../../redux/selectors";
+import { userRemoveToken } from "../../redux/actions/user";
 
-const ProtectedRoute = ({
-  token,
-  userLoad,
-  userLoadSuccess,
-  userRemoveToken,
-  children,
-}) => {
+const ProtectedRoute = ({ userLoadSuccess, userRemoveToken, children }) => {
   useEffect(() => {
-    userLoad(token);
+    if (!userLoadSuccess) {
+      userRemoveToken();
+    }
   });
 
-  if (!userLoadSuccess) {
-    userRemoveToken();
-    return <Navigate to="/login" />;
-  }
+  if (userLoadSuccess) return children;
 
-  return children;
+  return (
+    <div style={{ minHeight: "40vh" }}>
+      <h1>Error 401</h1>
+      <h2>
+        To gain access to this page <Link to="/login">login page</Link>
+      </h2>
+    </div>
+  );
 };
 
 export default connect(
   createStructuredSelector({
-    token: tokenSelector,
     userLoadSuccess: userSuccessLoadSelector,
   }),
   (dispatch) => ({
-    userLoad: (token) => dispatch(userLoad(token)),
     userRemoveToken: () => dispatch(userRemoveToken()),
   })
 )(ProtectedRoute);
