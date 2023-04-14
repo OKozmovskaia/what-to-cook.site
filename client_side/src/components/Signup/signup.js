@@ -45,7 +45,7 @@ const Signup = ({ userCreate, loading, userLoadSuccess }) => {
         </div>
 
         <div className={styles.formSignUp}>
-          <h3>Create your Chef account</h3>
+          <h3>Create your account</h3>
           <SocialMediaSet />
           <form
             className={styles.form}

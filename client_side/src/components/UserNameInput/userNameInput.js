@@ -51,7 +51,7 @@ const UserNameInput = ({ isValid, setIsValid }) => {
         {state.showMessage ? (
           <span className={isValid ? styles.success : styles.error}>
             {isValid
-              ? `Welcome, Chef ${state.username}`
+              ? `Welcome, ${state.username}`
               : "Name must be between 2 and 25 characters long"}
           </span>
         ) : null}
