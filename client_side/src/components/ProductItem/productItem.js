@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   deleteProduct,
@@ -9,13 +9,13 @@ import Button from "../Button";
 import styles from "./productItem.module.css";
 
 const ProductItem = ({ product, id, update, remove }) => {
-  const { title, quantity, checked, groupTitle } = product;
   const [state, setState] = useState({
-    title,
-    quantity,
-    checked,
-    groupTitle,
+    ...product,
   });
+  useEffect(() => {
+    setState(product);
+  }, [product]);
+
   const [isEdit, setIsEdit] = useState(false);
   const handleChecked = () => {
     update({ product: { ...state, checked: !state.checked, _id: id } });

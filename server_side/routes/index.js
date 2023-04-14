@@ -174,7 +174,7 @@ router.post("/save-recipe", mustBeAuthenticated, async (ctx, next) => {
 
   ctx.body = {
     message: {
-      body: `Recipe ${recipe.label} is saved successfully`,
+      body: `Recipe "${recipe.label.toUpperCase()}" is saved successfully`,
       success: true,
       error: false,
     },
@@ -220,10 +220,37 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
   const hasUserList = await Product.findOne({ user: user_id });
 
   if (hasUserList) {
-    await Product.findOneAndUpdate(
-      { user: user_id, "productList.title": { $ne: product.title } },
-      { $push: { productList: product } }
+    const hasProduct = await Product.findOne(
+      {
+        user: user_id,
+        "productList.title": product.title,
+      },
+      {
+        "productList.$": 1,
+      }
     );
+
+    if (hasProduct) {
+      await Product.findOneAndUpdate(
+        { user: user_id, "productList.title": product.title },
+        { $inc: { "productList.$.quantity": 1 } }
+      );
+
+      return (ctx.body = {
+        message: {
+          body: `You saved ${
+            hasProduct.productList[0].quantity + 1
+          } pcs of "${product.title.toUpperCase()}"`,
+          success: true,
+          error: false,
+        },
+      });
+    } else {
+      await Product.findOneAndUpdate(
+        { user: user_id, "productList.title": { $ne: product.title } },
+        { $push: { productList: product } }
+      );
+    }
   } else {
     const newProduct = new Product({
       user: user_id,
@@ -234,7 +261,9 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
 
   ctx.body = {
     message: {
-      body: `Product ${product.title} is saved successfully`,
+      body: `You saved ${
+        product.quantity
+      } pcs of "${product.title.toUpperCase()}"`,
       success: true,
       error: false,
     },
@@ -266,11 +295,6 @@ router.post("/update-product", mustBeAuthenticated, async (ctx, next) => {
 
   ctx.body = {
     userProduct,
-    message: {
-      body: `Product ${product.title} is updated successfully`,
-      success: true,
-      error: false,
-    },
   };
 });
 
