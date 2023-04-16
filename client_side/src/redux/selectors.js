@@ -13,7 +13,6 @@ export const userOAuthRedirectSelector = (state) => state.user.redirectTo;
 export const userLoadingSelector = (state) => state.user.loading;
 export const messageSelector = (state) => state.message;
 
-export const numberUserRecipesSelector = (state) => state.user.numOfRecipes;
 export const userRecipesSelector = (state) => state.user_recipes.entities;
 export const userRecipesLoadingSelector = (state) => state.user_recipes.loading;
 export const userRecipesLoadSuccessSelector = (state) =>
@@ -22,8 +21,11 @@ export const userRecipesListSelector = createSelector(
   userRecipesSelector,
   (recipes) => Object.entries(recipes)
 );
+export const numberRecipesSelector = createSelector(
+  userRecipesSelector,
+  (list) => Object.entries(list).length
+);
 
-export const numberUserProductsSelector = (state) => state.user.numOfProducts;
 export const userProductsSelector = (state) => state.user_products.entities;
 export const userProductsLoadingSelector = (state) =>
   state.user_products.loading;
@@ -33,7 +35,7 @@ export const userProductsListSelector = createSelector(
   userProductsSelector,
   (products) => Object.entries(products)
 );
-export const badgeProductsSelector = createSelector(
+export const numberProductsSelector = createSelector(
   userProductsSelector,
   (list) => Object.entries(list).length
 );

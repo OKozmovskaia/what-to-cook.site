@@ -16,8 +16,6 @@ const initialState = {
   redirectTo: "",
   loading: false,
   success: localStorage.getItem("SUCCESS_LOAD_USER"),
-  numOfProducts: 0,
-  numOfRecipes: 0,
 };
 
 const user = (state = initialState, action) => {
@@ -57,8 +55,6 @@ const user = (state = initialState, action) => {
         ...state,
         email: data.email,
         username: data.username,
-        numOfProducts: data.numberOfProducts,
-        numOfRecipes: data.numberOfRecipes,
         loading: false,
         success: true,
       };

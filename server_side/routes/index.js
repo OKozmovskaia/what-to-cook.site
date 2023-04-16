@@ -112,14 +112,9 @@ router.post("/sign-up", async (ctx) => {
 });
 
 router.get("/me", mustBeAuthenticated, async (ctx, next) => {
-  const products = await Product.findOne({ user: ctx.user._id });
-  const numberOfProducts = products ? products.productList.length : 0;
-
   ctx.body = {
     email: ctx.user.email,
     username: ctx.user.displayName,
-    numberOfProducts,
-    numberOfRecipes: ctx.user.recipes.length,
   };
 });
 
@@ -229,7 +224,8 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
     if (hasProduct) {
       savedProducts = await Product.findOneAndUpdate(
         { user: user_id, "productList.title": product.title },
-        { $inc: { "productList.$.quantity": 1 } }
+        { $inc: { "productList.$.quantity": 1 } },
+        { new: true }
       );
 
       return (ctx.body = {
@@ -245,7 +241,8 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
     } else {
       savedProducts = await Product.findOneAndUpdate(
         { user: user_id, "productList.title": { $ne: product.title } },
-        { $push: { productList: product } }
+        { $push: { productList: product } },
+        { new: true }
       );
     }
   } else {
@@ -253,8 +250,11 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
       user: user_id,
       productList: [product],
     });
-    savedProducts = await newProduct.save();
+    await newProduct.save();
+    savedProducts = { newProduct };
   }
+
+  console.log("SAVED PRODUCT: ", savedProducts);
 
   ctx.body = {
     savedProducts,

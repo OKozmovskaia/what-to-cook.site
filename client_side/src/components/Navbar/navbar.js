@@ -7,7 +7,7 @@ import useStickyOnScroll from "../../hooks/useStickyOnScroll";
 import styles from "./navbar.module.css";
 import cn from "classnames";
 import Button from "../Button";
-import { badgeProductsSelector } from "../../redux/selectors";
+import { numberProductsSelector } from "../../redux/selectors";
 
 const Navbar = ({ badgeNum }) => {
   const [badge, setBadge] = useState(badgeNum);
@@ -40,6 +40,6 @@ const Navbar = ({ badgeNum }) => {
 
 export default connect(
   createStructuredSelector({
-    badgeNum: badgeProductsSelector,
+    badgeNum: numberProductsSelector,
   })
 )(Navbar);

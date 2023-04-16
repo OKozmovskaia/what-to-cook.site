@@ -7,8 +7,8 @@ import {
   emailSelector,
   tokenSelector,
   idSelector,
-  numberUserRecipesSelector,
-  numberUserProductsSelector,
+  numberRecipesSelector,
+  numberProductsSelector,
 } from "../redux/selectors";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
@@ -76,8 +76,8 @@ export default connect(
     email: emailSelector,
     token: tokenSelector,
     id: idSelector,
-    numberRecipes: numberUserRecipesSelector,
-    numberProducts: numberUserProductsSelector,
+    numberRecipes: numberRecipesSelector,
+    numberProducts: numberProductsSelector,
   }),
   (dispatch) => ({
     userRemoveToken: () => dispatch(userRemoveToken()),
