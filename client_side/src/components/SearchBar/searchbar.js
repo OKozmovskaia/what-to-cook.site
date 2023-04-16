@@ -7,7 +7,7 @@ import Button from "../Button";
 import styles from "./searchbar.module.css";
 
 const SearchBar = ({ handleSearch, queryUser }) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(queryUser);
 
   const handleInput = (e) => {
     setQuery(e.target.value);

@@ -254,8 +254,6 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
     savedProducts = { newProduct };
   }
 
-  console.log("SAVED PRODUCT: ", savedProducts);
-
   ctx.body = {
     savedProducts,
     message: {

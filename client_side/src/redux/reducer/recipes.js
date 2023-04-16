@@ -23,6 +23,9 @@ const initialState = {
     { name: "Cuisine", label: "cuisineType" },
     { name: "Cooking time", label: "totalTime" },
   ],
+  searchQuery: localStorage.getItem("QUERY")
+    ? localStorage.getItem("QUERY")
+    : "carrot",
   loading: false,
   loaded: false,
   error: null,

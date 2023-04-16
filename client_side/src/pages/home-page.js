@@ -10,6 +10,7 @@ import {
   recipesSelector,
   recipesLoadingSelector,
   recipesLoadedSelector,
+  searchQuerySelector,
 } from "../redux/selectors";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
@@ -24,6 +25,7 @@ import Button from "../components/Button";
 
 function HomePage({
   findRecipes,
+  queryUser,
   userFilters,
   recipes,
   loading,
@@ -33,8 +35,8 @@ function HomePage({
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    findRecipes("carrot");
-  }, [findRecipes]);
+    findRecipes(queryUser);
+  }, [findRecipes, queryUser]);
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
 
@@ -113,6 +115,7 @@ function HomePage({
 export default connect(
   createStructuredSelector({
     recipes: recipesSelector,
+    queryUser: searchQuerySelector,
     userFilters: userFiltersSelector,
     loading: recipesLoadingSelector,
     loaded: recipesLoadedSelector,
