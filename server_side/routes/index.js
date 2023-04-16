@@ -214,29 +214,26 @@ router.get(
 );
 
 router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
+  let savedProducts;
   const { product } = ctx.request.body;
   const user_id = ctx.user._id;
 
   const hasUserList = await Product.findOne({ user: user_id });
 
   if (hasUserList) {
-    const hasProduct = await Product.findOne(
-      {
-        user: user_id,
-        "productList.title": product.title,
-      },
-      {
-        "productList.$": 1,
-      }
-    );
+    const hasProduct = await Product.findOne({
+      user: user_id,
+      "productList.title": product.title,
+    });
 
     if (hasProduct) {
-      await Product.findOneAndUpdate(
+      savedProducts = await Product.findOneAndUpdate(
         { user: user_id, "productList.title": product.title },
         { $inc: { "productList.$.quantity": 1 } }
       );
 
       return (ctx.body = {
+        savedProducts,
         message: {
           body: `You saved ${
             hasProduct.productList[0].quantity + 1
@@ -246,7 +243,7 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
         },
       });
     } else {
-      await Product.findOneAndUpdate(
+      savedProducts = await Product.findOneAndUpdate(
         { user: user_id, "productList.title": { $ne: product.title } },
         { $push: { productList: product } }
       );
@@ -256,10 +253,11 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
       user: user_id,
       productList: [product],
     });
-    await newProduct.save();
+    savedProducts = await newProduct.save();
   }
 
   ctx.body = {
+    savedProducts,
     message: {
       body: `You saved ${
         product.quantity

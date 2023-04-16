@@ -33,6 +33,10 @@ export const userProductsListSelector = createSelector(
   userProductsSelector,
   (products) => Object.entries(products)
 );
+export const badgeProductsSelector = createSelector(
+  userProductsSelector,
+  (list) => Object.entries(list).length
+);
 
 // RECIPES
 

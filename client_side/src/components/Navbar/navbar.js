@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
 import useStickyOnScroll from "../../hooks/useStickyOnScroll";
 import styles from "./navbar.module.css";
 import cn from "classnames";
+import Button from "../Button";
+import { badgeProductsSelector } from "../../redux/selectors";
 
-export default function Navbar() {
+const Navbar = ({ badgeNum }) => {
+  const [badge, setBadge] = useState(badgeNum);
+  useEffect(() => {
+    setBadge(badgeNum);
+  }, [badgeNum]);
+
   const { sticky, stickyRef } = useStickyOnScroll();
 
   return (
@@ -18,9 +28,18 @@ export default function Navbar() {
       <Link to="/my_recipes">
         <p>My recipes</p>
       </Link>
-      <Link to="/my_products">
-        <p>My product</p>
-      </Link>
+      <div className={styles.shopBag}>
+        <Link to="/my_products">
+          <Button iconStyle icon="shopBag" />
+        </Link>
+        <span className={styles.badge}>{badge}</span>
+      </div>
     </div>
   );
-}
+};
+
+export default connect(
+  createStructuredSelector({
+    badgeNum: badgeProductsSelector,
+  })
+)(Navbar);

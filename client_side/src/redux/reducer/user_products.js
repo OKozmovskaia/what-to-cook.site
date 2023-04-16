@@ -2,6 +2,7 @@ import {
   USER_GET_PRODUCTS,
   USER_DELETE_PRODUCT,
   USER_UPDATE_PRODUCT,
+  USER_SAVE_PRODUCT,
   REQUEST,
   SUCCESS,
   FAILURE,
@@ -34,6 +35,27 @@ const user_product = (state = initialState, action) => {
       };
 
     case USER_GET_PRODUCTS + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+
+    case USER_SAVE_PRODUCT + REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_SAVE_PRODUCT + SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        entities: idAsKeyForUser(data.savedProducts.productList),
+      };
+
+    case USER_SAVE_PRODUCT + FAILURE:
       return {
         ...state,
         loading: false,
