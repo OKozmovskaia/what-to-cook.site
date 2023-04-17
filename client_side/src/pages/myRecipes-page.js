@@ -53,12 +53,10 @@ function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
       )}
 
       <main className={styles.mainContent}>
-        <div className={styles.outerRecipes}>
-          <div className={styles.recipesContainer}>
-            {recipesList.map((i) => (
-              <Recipe key={i[0]} id={i[0]} recipes={recipesObject} />
-            ))}
-          </div>
+        <div className={styles.recipesContainer}>
+          {recipesList.map((i) => (
+            <Recipe key={i[0]} id={i[0]} recipes={recipesObject} />
+          ))}
         </div>
       </main>
     </div>

@@ -12,6 +12,10 @@ import {
 } from "../constants";
 import { idAsKey } from "../utils/idAsKey";
 
+const queryRecipe = localStorage.getItem("QUERY")
+  ? localStorage.getItem("QUERY")
+  : "carrot";
+
 const initialState = {
   entities: {},
   filters: {},
@@ -23,9 +27,7 @@ const initialState = {
     { name: "Cuisine", label: "cuisineType" },
     { name: "Cooking time", label: "totalTime" },
   ],
-  searchQuery: localStorage.getItem("QUERY")
-    ? localStorage.getItem("QUERY")
-    : "carrot",
+  searchQuery: queryRecipe,
   loading: false,
   loaded: false,
   error: null,

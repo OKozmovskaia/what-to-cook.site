@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -20,11 +20,41 @@ import MyProducts from "./pages/myProducts-page";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import DataDeletion from "./components/DataDeletion";
 import NotFound from "./components/NotFound/";
-import GetToken from "./components/GetToken/getToken";
+import GetToken from "./components/GetToken";
+import Button from "./components/Button";
+
+import styles from "./app.module.css";
 
 function App({ message }) {
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 300) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    });
+  });
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div>
+      {showButton && (
+        <Button
+          iconStyle
+          icon="arrowUp"
+          onClick={scrollToTop}
+          className={styles.buttonToTop}
+        />
+      )}
       <GetToken />
       <Header />
       <Navbar />

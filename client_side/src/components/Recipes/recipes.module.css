@@ -3,13 +3,6 @@
   position: relative;
 }
 
-.outerRecipes {
-  height: 25em;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  padding-bottom: 5em;
-}
-
 .recipesContainer {
   display: grid;
   grid-template-columns: repeat(2, minmax(10em, 1fr));
@@ -24,20 +17,6 @@
   margin-top: 3em;
   position: relative;
   z-index: 4;
-}
-
-.buttonToTop {
-  width: 3em;
-  height: 3em;
-  color: var(--white);
-  background-color: var(--yellow);
-  border-radius: 50%;
-  border: 1px solid transparent;
-  position: absolute;
-  right: 1em;
-  bottom: 1em;
-  z-index: 3;
-  cursor: pointer;
 }
 
 @media only screen and (max-width: 740px) {

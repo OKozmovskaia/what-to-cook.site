@@ -15,7 +15,7 @@ const SearchBar = ({ handleSearch, queryUser }) => {
 
   return (
     <div className={styles.searchBarContainer}>
-      <input type="text" placeholder={queryUser} onChange={handleInput} />
+      <input type="text" onChange={handleInput} defaultValue={query} />
       <Button small onClick={handleSearch(query)}>
         Search
       </Button>

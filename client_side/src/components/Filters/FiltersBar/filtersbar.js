@@ -35,7 +35,7 @@ const FiltersBar = ({
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "1em" }}>
       <Button noStyle onClick={handleRemoveAll}>
         <span className={cn(styles.badge, styles.pinkBadge)}>
           Clear Filters

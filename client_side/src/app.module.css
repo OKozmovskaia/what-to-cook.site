@@ -1,0 +1,13 @@
+.buttonToTop {
+  width: 3em;
+  height: 3em;
+  color: var(--white);
+  background-color: var(--yellow);
+  border-radius: 50%;
+  border: 1px solid transparent;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  z-index: 3;
+  cursor: pointer;
+}

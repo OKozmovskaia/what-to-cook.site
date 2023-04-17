@@ -1,1 +1,1 @@
-export { default } from "getToken.js";
+export { default } from "./getToken.js";

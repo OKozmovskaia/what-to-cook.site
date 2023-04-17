@@ -15,7 +15,7 @@ store.subscribe(() => {
   localStorage.setItem("TOKEN", store.getState().user.token);
   localStorage.setItem("USER_ID", store.getState().user.id);
   localStorage.setItem("SUCCESS_LOAD_USER", store.getState().user.success);
-  localStorage.setItem("QUERY", store.getState().searchQuery);
+  localStorage.setItem("QUERY", store.getState().recipes.searchQuery);
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import {
@@ -27,9 +27,6 @@ const Recipes = ({
   updateRecipes,
   loading,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const divScroll = useRef(null);
-
   useEffect(() => {
     updateRecipes();
   }, [nextChunk, updateRecipes]);
@@ -39,58 +36,25 @@ const Recipes = ({
     loadMore(link);
   };
 
-  const toggleVisible = (e) => {
-    const scrolled = e.currentTarget.scrollTop;
-    if (scrolled > 200) {
-      setIsVisible(true);
-    } else if (scrolled <= 200) {
-      setIsVisible(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    divScroll.current.scroll({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <div className={styles.scrollContainer}>
-      {isVisible && (
-        <Button
-          iconStyle
-          icon="arrowUp"
-          onClick={scrollToTop}
-          className={styles.buttonToTop}
-        />
-      )}
-
-      <p>We found {recipes.length} recipes</p>
-
-      <div
-        className={styles.outerRecipes}
-        onScroll={toggleVisible}
-        ref={divScroll}
-      >
-        <div className={styles.recipesContainer}>
-          {recipes.map((item) => (
-            <Recipe key={item[0]} id={item[0]} recipes={recipesObject} />
-          ))}
-        </div>
-        {loading && <Loader />}
-        {!loading && (
-          <div className={styles.loadMoreButtonContainer}>
-            <Button
-              large
-              onClick={handleLoadMore(nextChunk)}
-              block={!nextChunk}
-            >
-              Load More
-            </Button>
-          </div>
-        )}
+      <p>
+        {recipes.length} recipes matching your request. To found more scroll
+        down.
+      </p>
+      <div className={styles.recipesContainer}>
+        {recipes.map((item) => (
+          <Recipe key={item[0]} id={item[0]} recipes={recipesObject} />
+        ))}
       </div>
+      {loading && <Loader />}
+      {!loading && (
+        <div className={styles.loadMoreButtonContainer}>
+          <Button large onClick={handleLoadMore(nextChunk)} block={!nextChunk}>
+            Find More
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
