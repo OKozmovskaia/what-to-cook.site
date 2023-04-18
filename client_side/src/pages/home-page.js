@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import isDeepEqual from "fast-deep-equal";
+
 import {
   loadRecipesByQuery,
   updateFilters,
@@ -25,7 +27,6 @@ import Button from "../components/Button";
 
 function HomePage({
   findRecipes,
-  queryUser,
   userFilters,
   recipes,
   loading,
@@ -35,8 +36,10 @@ function HomePage({
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    findRecipes(queryUser);
-  }, [findRecipes, queryUser]);
+    if (isDeepEqual(recipes, {})) {
+      findRecipes("carrot");
+    }
+  }, [findRecipes, recipes]);
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
 
