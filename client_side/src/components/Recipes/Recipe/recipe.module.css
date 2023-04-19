@@ -81,6 +81,7 @@
   overflow: hidden;
   white-space: normal;
   max-width: calc(300px + 2em);
+  text-align: center;
 }
 
 .previewContainer img {

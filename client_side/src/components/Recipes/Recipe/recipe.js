@@ -76,9 +76,6 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
             />
             <h4>{label}</h4>
             <p>
-              {cuisine} {dish}
-            </p>
-            <p>
               Cook time:
               {totalTime > 0 ? (
                 <span> {time}</span>
