@@ -23,8 +23,10 @@ function MyRecipesPage({
   loading,
 }) {
   useEffect(() => {
-    getAllUserRecipes();
-  }, [getAllUserRecipes]);
+    if (recipesList.length < 1) {
+      getAllUserRecipes();
+    }
+  }, [recipesList, getAllUserRecipes]);
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
 

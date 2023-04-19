@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -10,11 +10,13 @@ import {
   numberRecipesSelector,
   numberProductsSelector,
 } from "../redux/selectors";
+import { userRemoveToken } from "../redux/actions/user";
+import { getAllUserProducts } from "../redux/actions/user_products";
+import { getAllUserRecipes } from "../redux/actions/user_recipes";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
 import Button from "../components/Button";
 import styles from "./page.module.css";
-import { userRemoveToken } from "../redux/actions/user";
 
 const MyAccountPage = ({
   username,
@@ -24,8 +26,20 @@ const MyAccountPage = ({
   numberRecipes,
   numberProducts,
   userRemoveToken,
+  getAllUserProducts,
+  getAllUserRecipes,
 }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (numberRecipes < 1) {
+      getAllUserRecipes();
+    }
+
+    if (numberProducts < 1) {
+      getAllUserProducts();
+    }
+  }, [numberProducts, numberRecipes, getAllUserProducts, getAllUserRecipes]);
 
   const handleLogOut = () => {
     userRemoveToken();
@@ -79,5 +93,5 @@ export default connect(
     numberRecipes: numberRecipesSelector,
     numberProducts: numberProductsSelector,
   }),
-  { userRemoveToken }
+  { userRemoveToken, getAllUserProducts, getAllUserRecipes }
 )(MyAccountPage);

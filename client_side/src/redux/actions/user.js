@@ -12,7 +12,6 @@ import {
 } from "../constants";
 import { tokenSelector } from "../selectors";
 
-// USER
 export const userLogin = (data) => ({
   type: USER_LOGIN,
   callAPI: `/api/log-in`,
