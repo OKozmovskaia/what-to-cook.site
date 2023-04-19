@@ -24,7 +24,8 @@ router.use(async (ctx, next) => {
 
   const session = await Session.findOne({ token }).populate("user");
   if (!session) {
-    ctx.throw(401, "Authentication token invalid or expired");
+    console.log("Authentication token invalid or expired");
+    ctx.throw(401);
   }
 
   session.lastVisit = new Date();
@@ -228,12 +229,16 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
         { new: true }
       );
 
+      const newProduct = savedProducts.productList.filter(
+        (i) => i.title === product.title
+      );
+
       return (ctx.body = {
         savedProducts,
         message: {
           body: `You saved ${
-            hasProduct.productList[0].quantity + 1
-          } pcs of "${product.title.toUpperCase()}"`,
+            newProduct[0].quantity
+          } pcs of "${newProduct[0].title.toUpperCase()}"`,
           success: true,
           error: false,
         },
@@ -254,12 +259,16 @@ router.post("/save-product", mustBeAuthenticated, async (ctx, next) => {
     savedProducts = { newProduct };
   }
 
+  const newProduct = savedProducts.productList.filter(
+    (i) => i.title === product.title
+  );
+
   ctx.body = {
     savedProducts,
     message: {
       body: `You saved ${
-        product.quantity
-      } pcs of "${product.title.toUpperCase()}"`,
+        newProduct[0].quantity
+      } pcs of "${newProduct[0].title.toUpperCase()}"`,
       success: true,
       error: false,
     },

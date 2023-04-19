@@ -16,10 +16,8 @@ import Button from "../components/Button/button";
 
 function MyProductsPage({ getAllUserProducts, productsList, loading }) {
   useEffect(() => {
-    if (productsList.length < 1) {
-      getAllUserProducts();
-    }
-  }, [productsList, getAllUserProducts]);
+    getAllUserProducts();
+  }, [getAllUserProducts]);
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
 
