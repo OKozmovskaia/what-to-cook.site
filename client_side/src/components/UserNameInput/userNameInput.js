@@ -43,7 +43,8 @@ const UserNameInput = ({ isValid, setIsValid }) => {
         id={idUsername}
         value={state.username}
         onChange={handleName}
-        onMouseLeave={handleValid}
+        onMouseOut={handleValid}
+        onBlur={handleValid}
         onFocus={hideMessage}
       />
 

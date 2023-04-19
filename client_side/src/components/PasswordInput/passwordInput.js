@@ -51,7 +51,8 @@ const PasswordInput = ({ isValid, setIsValid, label }) => {
           id={idPassword}
           value={state.password}
           onChange={handlePassword}
-          onMouseLeave={handleValid}
+          onBlur={handleValid}
+          onMouseOut={handleValid}
           onFocus={hideMessage}
         />
         <span className={styles.icon}>

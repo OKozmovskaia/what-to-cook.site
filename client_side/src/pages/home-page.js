@@ -33,11 +33,6 @@ function HomePage({ findRecipes, userFilters, recipes, loading }) {
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
 
-  const handleSearch = (query) => (e) => {
-    e.preventDefault();
-    findRecipes(query);
-  };
-
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -49,7 +44,7 @@ function HomePage({ findRecipes, userFilters, recipes, loading }) {
       <div className={styles.container}>
         <aside className={styles.sidebar}></aside>
         <main className={styles.mainContent}>
-          <SearchBar handleSearch={handleSearch} />
+          <SearchBar />
           <h3>No recipes match your request</h3>
         </main>
       </div>
@@ -70,7 +65,7 @@ function HomePage({ findRecipes, userFilters, recipes, loading }) {
             icon="filters"
             onClick={handleOpen}
           />
-          <SearchBar handleSearch={handleSearch} />
+          <SearchBar />
         </div>
 
         {open ? (
@@ -94,7 +89,7 @@ function HomePage({ findRecipes, userFilters, recipes, loading }) {
 
       <main className={styles.mainContent}>
         <div>
-          <SearchBar handleSearch={handleSearch} />
+          <SearchBar />
           {userFilters.length > 0 ? <FiltersBar /> : null}
         </div>
         <Recipes />

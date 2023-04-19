@@ -43,7 +43,8 @@ const EmailInput = ({ isValid, setIsValid }) => {
         id={idEmail}
         value={state.email}
         onChange={handleEmail}
-        onMouseLeave={handleValid}
+        onMouseOut={handleValid}
+        onBlur={handleValid}
         onFocus={hideMessage}
       />
 

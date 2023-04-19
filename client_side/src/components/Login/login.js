@@ -36,9 +36,11 @@ const Login = ({
   };
 
   const handleSubmitLogin = (e) => {
+    console.log(e);
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
+    console.log("FORM DATA: ", data);
     userLogin(Object.fromEntries(data));
   };
 
@@ -73,7 +75,11 @@ const Login = ({
             onSubmit={handleSubmitLogin}
             method="POST"
           >
-            <EmailInput isValid={isValid.email} setIsValid={setIsValid} />
+            <EmailInput
+              isValid={isValid.email}
+              setIsValid={setIsValid}
+              submit={handleSubmitLogin}
+            />
             <PasswordInput
               label="Password:"
               isValid={isValid.password}
