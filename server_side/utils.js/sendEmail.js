@@ -28,6 +28,7 @@ const sendEmail = async (email, subject, payload, template) => {
 
     transporter.sendMail(options(), (err, info) => {
       if (err) {
+        console.log("Email NOT sent: ", err);
         return err;
       } else {
         console.log("Email sent: ", info.response);

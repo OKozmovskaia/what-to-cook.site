@@ -44,22 +44,24 @@ module.exports.resetPassword = async function resetPassword(ctx, next) {
     ctx.throw(401, "Authentication token invalid or expired");
 
   const user = await User.findOne({ _id: id });
+  const isOldPassword = await user.checkPassword(password);
+  if (isOldPassword)
+    ctx.throw(400, "You entered an Old Password. Generate a New one, please.");
+
   await user.setPassword(password);
   await user.save();
 
   sendEmail(
     user.email,
-    "Password Reset Successfully",
+    "Password changed successfully",
     { name: user.displayName },
     "/emailTemplate.js/successResetPassword.handlebars"
   );
 
-  await tokenFromDB.deleteOne();
-
   ctx.status = 200;
   ctx.body = {
     message: {
-      body: `Congratulations!Password Reset Successfully. Go to login page and enter your credentials`,
+      body: `Congratulations!Password changed successfully.`,
       success: true,
       error: false,
     },

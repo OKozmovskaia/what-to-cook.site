@@ -41,10 +41,6 @@ const PasswordReset = ({ resetPassword }) => {
     };
 
     resetPassword(data);
-
-    localStorage.removeItem("TOKEN");
-    localStorage.removeItem("USER_ID");
-    window.location.reload();
   };
 
   return (

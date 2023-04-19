@@ -36,11 +36,9 @@ const Login = ({
   };
 
   const handleSubmitLogin = (e) => {
-    console.log(e);
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
-    console.log("FORM DATA: ", data);
     userLogin(Object.fromEntries(data));
   };
 
