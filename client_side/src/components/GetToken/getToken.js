@@ -23,7 +23,5 @@ export default connect(
   createStructuredSelector({
     token: tokenSelector,
   }),
-  (dispatch) => ({
-    userLoad: (token) => dispatch(userLoad(token)),
-  })
+  { userLoad }
 )(GetToken);

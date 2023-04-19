@@ -22,7 +22,7 @@ const Login = ({
   userLoadSuccess,
   loading,
   redirectTo,
-  oauth,
+  userOAuth,
   forgotPassword,
 }) => {
   const [isValid, setIsValid] = useState({
@@ -43,7 +43,7 @@ const Login = ({
   };
 
   const handleOAuth = (provider) => {
-    oauth(provider);
+    userOAuth(provider);
   };
 
   const handleSubmitReset = (e) => {
@@ -131,9 +131,5 @@ export default connect(
     userLoadSuccess: userSuccessLoadSelector,
     redirectTo: userOAuthRedirectSelector,
   }),
-  (dispatch) => ({
-    userLogin: (data) => dispatch(userLogin(data)),
-    oauth: (provider) => dispatch(userOAuth(provider)),
-    forgotPassword: (data) => dispatch(forgotPassword(data)),
-  })
+  { userLogin, userOAuth, forgotPassword }
 )(Login);

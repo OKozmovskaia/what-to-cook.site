@@ -153,8 +153,4 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  saveRecipe: (recipe) => dispatch(saveRecipe(recipe)),
-  deleteRecipe: (id) => dispatch(deleteRecipe(id)),
-  saveProduct: (product) => dispatch(saveProduct(product)),
-}))(Recipe);
+export default connect(null, { saveRecipe, deleteRecipe, saveProduct })(Recipe);

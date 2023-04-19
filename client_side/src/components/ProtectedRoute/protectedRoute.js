@@ -36,7 +36,5 @@ export default connect(
     token: tokenSelector,
     userLoadSuccess: userSuccessLoadSelector,
   }),
-  (dispatch) => ({
-    userRemoveToken: () => dispatch(userRemoveToken()),
-  })
+  { userRemoveToken }
 )(ProtectedRoute);

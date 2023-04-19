@@ -5,7 +5,6 @@ import { cleanString } from "../../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../../redux/utils/toHoursAndMin";
 import {
   removeFilter,
-  updateRecipes,
   removeAllFilters,
 } from "../../../redux/actions/edamam_recipes";
 import { userFiltersSelector, filtersSelector } from "../../../redux/selectors";
@@ -20,18 +19,15 @@ const FiltersBar = ({
   userFilters,
   removeFilter,
   removeAllFilters,
-  updateRecipes,
 }) => {
   const handleRemove = (id) => (e) => {
     e.preventDefault();
     removeFilter(id);
-    updateRecipes();
   };
 
   const handleRemoveAll = (e) => {
     e.preventDefault();
     removeAllFilters();
-    updateRecipes();
   };
 
   return (
@@ -59,9 +55,5 @@ export default connect(
     filters: filtersSelector,
     userFilters: userFiltersSelector,
   }),
-  (dispatch) => ({
-    removeFilter: (category) => dispatch(removeFilter(category)),
-    removeAllFilters: () => dispatch(removeAllFilters()),
-    updateRecipes: () => dispatch(updateRecipes()),
-  })
+  { removeAllFilters, removeFilter }
 )(FiltersBar);

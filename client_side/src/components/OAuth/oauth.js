@@ -10,14 +10,14 @@ import {
 
 import Loader from "../Loader";
 
-const OAuth = ({ loadSuccess, loading, oauth_callback }) => {
+const OAuth = ({ loadSuccess, loading, userOAuthCallback }) => {
   const { provider } = useParams();
   const [params] = useSearchParams();
   const code = params.get("code");
 
   useEffect(() => {
-    if (!loadSuccess) oauth_callback(code, { provider });
-  }, [code, provider, oauth_callback, loadSuccess]);
+    if (!loadSuccess) userOAuthCallback(code, { provider });
+  }, [code, provider, userOAuthCallback, loadSuccess]);
 
   if (loading) return <Loader />;
 
@@ -42,8 +42,5 @@ export default connect(
     loading: userLoadingSelector,
     loadSuccess: userSuccessLoadSelector,
   }),
-  (dispatch) => ({
-    oauth_callback: (code, provider) =>
-      dispatch(userOAuthCallback(code, provider)),
-  })
+  { userOAuthCallback }
 )(OAuth);

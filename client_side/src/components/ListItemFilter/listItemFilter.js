@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-  addFilter,
-  updateRecipes,
-  removeFilter,
-} from "../../redux/actions/edamam_recipes";
+import { addFilter, removeFilter } from "../../redux/actions/edamam_recipes";
 import { filtersSelector, userFiltersSelector } from "../../redux/selectors";
 import { cleanString } from "../../redux/utils/cleanString";
 import { toHoursAndMin } from "../../redux/utils/toHoursAndMin";
@@ -18,7 +14,6 @@ const ListItemFilter = ({
   userFilters,
   addFilter,
   removeFilter,
-  updateRecipes,
 }) => {
   const defaultCheck = userFilters.includes(id) ? true : false;
   const [isChecked, setIsChecked] = useState(defaultCheck);
@@ -30,10 +25,8 @@ const ListItemFilter = ({
 
     if (e.target.checked) {
       addFilter(id);
-      updateRecipes();
     } else {
       removeFilter(id);
-      updateRecipes();
     }
   };
 
@@ -57,9 +50,5 @@ export default connect(
     filters: filtersSelector,
     userFilters: userFiltersSelector,
   }),
-  (dispatch) => ({
-    addFilter: (id) => dispatch(addFilter(id)),
-    removeFilter: (id) => dispatch(removeFilter(id)),
-    updateRecipes: () => dispatch(updateRecipes()),
-  })
+  { addFilter, removeFilter }
 )(ListItemFilter);

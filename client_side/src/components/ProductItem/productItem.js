@@ -8,7 +8,7 @@ import {
 import Button from "../Button";
 import styles from "./productItem.module.css";
 
-const ProductItem = ({ product, id, update, remove }) => {
+const ProductItem = ({ product, id, updateProduct, deleteProduct }) => {
   const [state, setState] = useState({
     ...product,
   });
@@ -18,7 +18,7 @@ const ProductItem = ({ product, id, update, remove }) => {
 
   const [isEdit, setIsEdit] = useState(false);
   const handleChecked = () => {
-    update({ product: { ...state, checked: !state.checked, _id: id } });
+    updateProduct({ product: { ...state, checked: !state.checked, _id: id } });
     setState({
       ...state,
       checked: !state.checked,
@@ -44,7 +44,7 @@ const ProductItem = ({ product, id, update, remove }) => {
   };
 
   const handleSave = () => {
-    update({ product: { ...state, _id: id } });
+    updateProduct({ product: { ...state, _id: id } });
     setIsEdit(false);
   };
 
@@ -85,12 +85,9 @@ const ProductItem = ({ product, id, update, remove }) => {
         </span>
       )}
 
-      <Button iconStyle icon="bin" onClick={() => remove(id)} />
+      <Button iconStyle icon="bin" onClick={() => deleteProduct(id)} />
     </li>
   );
 };
 
-export default connect(null, (dispatch) => ({
-  update: (data) => dispatch(updateProduct(data)),
-  remove: (id) => dispatch(deleteProduct(id)),
-}))(ProductItem);
+export default connect(null, { updateProduct, deleteProduct })(ProductItem);

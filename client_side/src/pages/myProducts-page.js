@@ -13,10 +13,10 @@ import Loader from "../components/Loader";
 import ProductItem from "../components/ProductItem/";
 import styles from "./page.module.css";
 
-function MyProductsPage({ getAllProducts, productsList, loading }) {
+function MyProductsPage({ getAllUserProducts, productsList, loading }) {
   useEffect(() => {
-    getAllProducts();
-  }, [getAllProducts]);
+    getAllUserProducts();
+  }, [getAllUserProducts]);
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
 
@@ -61,7 +61,5 @@ export default connect(
     productsList: userProductsListSelector,
     loading: userProductsLoadingSelector,
   }),
-  (dispatch) => ({
-    getAllProducts: () => dispatch(getAllUserProducts()),
-  })
+  { getAllUserProducts }
 )(MyProductsPage);

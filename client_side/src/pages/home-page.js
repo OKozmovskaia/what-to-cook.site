@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import isDeepEqual from "fast-deep-equal";
 
-import {
-  loadRecipesByQuery,
-  updateFilters,
-} from "../redux/actions/edamam_recipes";
+import { findRecipes } from "../redux/actions/edamam_recipes";
 import {
   userFiltersSelector,
   recipesSelector,
@@ -25,14 +22,7 @@ import Loader from "../components/Loader";
 import styles from "./page.module.css";
 import Button from "../components/Button";
 
-function HomePage({
-  findRecipes,
-  userFilters,
-  recipes,
-  loading,
-  loaded,
-  updateFilters,
-}) {
+function HomePage({ findRecipes, userFilters, recipes, loading }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -51,8 +41,6 @@ function HomePage({
   const handleOpen = () => {
     setOpen(!open);
   };
-
-  if (loaded) updateFilters();
 
   if (Object.keys(recipes).length < 1 && loading) return <Loader />;
 
@@ -123,8 +111,5 @@ export default connect(
     loading: recipesLoadingSelector,
     loaded: recipesLoadedSelector,
   }),
-  (dispatch) => ({
-    findRecipes: (query) => dispatch(loadRecipesByQuery(query)),
-    updateFilters: () => dispatch(updateFilters()),
-  })
+  { findRecipes }
 )(HomePage);

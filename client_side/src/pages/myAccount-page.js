@@ -79,7 +79,5 @@ export default connect(
     numberRecipes: numberRecipesSelector,
     numberProducts: numberProductsSelector,
   }),
-  (dispatch) => ({
-    userRemoveToken: () => dispatch(userRemoveToken()),
-  })
+  { userRemoveToken }
 )(MyAccountPage);

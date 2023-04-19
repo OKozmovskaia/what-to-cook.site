@@ -79,7 +79,5 @@ export default connect(
     loading: userLoadingSelector,
     userLoadSuccess: userSuccessLoadSelector,
   }),
-  (dispatch) => ({
-    userCreate: (data) => dispatch(userCreate(data)),
-  })
+  { userCreate }
 )(Signup);

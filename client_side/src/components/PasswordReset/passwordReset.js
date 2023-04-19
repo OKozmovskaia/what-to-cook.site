@@ -79,6 +79,4 @@ const PasswordReset = ({ resetPassword }) => {
   );
 };
 
-export default connect(null, (dispatch) => ({
-  resetPassword: (data) => dispatch(resetPassword(data)),
-}))(PasswordReset);
+export default connect(null, { resetPassword })(PasswordReset);

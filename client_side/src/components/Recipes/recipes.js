@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-  loadMoreRecipes,
-  updateRecipes,
-} from "../../redux/actions/edamam_recipes";
+import { loadMoreRecipes } from "../../redux/actions/edamam_recipes";
 
 import {
   recipesListSelector,
@@ -23,17 +20,12 @@ const Recipes = ({
   recipes,
   recipesObject,
   nextChunk,
-  loadMore,
-  updateRecipes,
+  loadMoreRecipes,
   loading,
 }) => {
-  useEffect(() => {
-    updateRecipes();
-  }, [nextChunk, updateRecipes]);
-
   const handleLoadMore = (link) => (e) => {
     e.preventDefault();
-    loadMore(link);
+    loadMoreRecipes(link);
   };
 
   return (
@@ -66,8 +58,5 @@ export default connect(
     nextChunk: recipesLoadMoreSelector,
     loading: recipesLoadingSelector,
   }),
-  (dispatch) => ({
-    loadMore: (link) => dispatch(loadMoreRecipes(link)),
-    updateRecipes: () => dispatch(updateRecipes()),
-  })
+  { loadMoreRecipes }
 )(Recipes);

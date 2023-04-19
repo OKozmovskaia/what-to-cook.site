@@ -15,10 +15,15 @@ import ListItem from "../components/ListItem";
 import Recipe from "../components/Recipes/Recipe";
 import styles from "./page.module.css";
 
-function MyRecipesPage({ getAllRecipes, recipesObject, recipesList, loading }) {
+function MyRecipesPage({
+  getAllUserRecipes,
+  recipesObject,
+  recipesList,
+  loading,
+}) {
   useEffect(() => {
-    getAllRecipes();
-  }, [getAllRecipes]);
+    getAllUserRecipes();
+  }, [getAllUserRecipes]);
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
 
@@ -69,7 +74,5 @@ export default connect(
     recipesList: userRecipesListSelector,
     loading: userRecipesLoadingSelector,
   }),
-  (dispatch) => ({
-    getAllRecipes: () => dispatch(getAllUserRecipes()),
-  })
+  { getAllUserRecipes }
 )(MyRecipesPage);

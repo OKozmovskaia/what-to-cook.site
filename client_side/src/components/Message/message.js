@@ -38,7 +38,5 @@ export default connect(
   createStructuredSelector({
     message: messageSelector,
   }),
-  (dispatch) => ({
-    clearMessage: () => dispatch(clearMessage()),
-  })
+  { clearMessage }
 )(Message);

@@ -6,6 +6,10 @@ import {
   REMOVE_ALL_FILTERS,
   UPDATE_RECIPES,
   UPDATE_FILTERS,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+  SET_MESSAGE,
 } from "../constants";
 import {
   filtredRecipesSelector,
@@ -13,43 +17,72 @@ import {
   newFiltersSelector,
 } from "../selectors";
 
-export const loadRecipesByQuery = (query) => ({
-  type: LOAD_RECIPES,
-  callAPI: `/api/find-recipes?q=${query}`,
-});
+export const findRecipes = (query) => async (dispatch, getState) => {
+  dispatch({ type: LOAD_RECIPES + REQUEST });
 
-export const loadMoreRecipes = (link) => ({
-  type: LOAD_MORE_RECIPES,
-  callAPI: `/api/load-more`,
-  postData: link,
-});
+  try {
+    const res = await fetch(`/api/find-recipes?q=${query}`);
+    const data = await res.json();
 
-export const updateRecipes = () => async (dispatch, getState) => {
+    if (!res.ok) throw data;
+
+    dispatch({ type: LOAD_RECIPES + SUCCESS, data });
+
+    const updateFilters = newFiltersSelector(getState());
+    dispatch({ type: UPDATE_FILTERS, updateFilters });
+
+    const updateRecipes = filtredRecipesSelector(getState());
+    dispatch({ type: UPDATE_RECIPES, updateRecipes });
+  } catch (data) {
+    dispatch({ type: LOAD_RECIPES + FAILURE, data });
+    if (data.message) dispatch({ type: SET_MESSAGE, data: data.message });
+  }
+};
+
+export const loadMoreRecipes = (link) => async (dispatch, getState) => {
+  dispatch({ type: LOAD_MORE_RECIPES + REQUEST });
+
+  try {
+    const res = await fetch(`/api/load-more`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(link),
+    });
+    const data = await res.json();
+
+    if (!res.ok) throw data;
+
+    dispatch({ type: LOAD_MORE_RECIPES + SUCCESS, data });
+
+    const updateFilters = newFiltersSelector(getState());
+    dispatch({ type: UPDATE_FILTERS, updateFilters });
+
+    const updateRecipes = filtredRecipesSelector(getState());
+    dispatch({ type: UPDATE_RECIPES, updateRecipes });
+  } catch (data) {
+    dispatch({ type: LOAD_MORE_RECIPES + FAILURE, data });
+    if (data.message) dispatch({ type: SET_MESSAGE, data: data.message });
+  }
+};
+
+export const addFilter = (id) => (dispatch, getState) => {
+  dispatch({ type: ADD_FILTER, newFilter: id });
   const updateRecipes = filtredRecipesSelector(getState());
-  await dispatch({ type: UPDATE_RECIPES, updateRecipes });
+  dispatch({ type: UPDATE_RECIPES, updateRecipes });
 };
 
-export const updateFilters = () => async (dispatch, getState) => {
-  const updateFilters = newFiltersSelector(getState());
-  await dispatch({ type: UPDATE_FILTERS, updateFilters });
-};
-
-export const addFilter = (id) => ({
-  type: ADD_FILTER,
-  newFilter: id,
-});
-
-export const removeFilter = (id) => async (dispatch, getState) => {
+export const removeFilter = (id) => (dispatch, getState) => {
   const userFilters = userFiltersSelector(getState());
   const newFilter = userFilters.filter((i) => i !== id);
+  dispatch({ type: REMOVE_FILTER, newFilter });
 
-  await dispatch({
-    type: REMOVE_FILTER,
-    newFilter,
-  });
+  const updateRecipes = filtredRecipesSelector(getState());
+  dispatch({ type: UPDATE_RECIPES, updateRecipes });
 };
 
-export const removeAllFilters = () => ({
-  type: REMOVE_ALL_FILTERS,
-  newFilter: [],
-});
+export const removeAllFilters = () => (dispatch, getState) => {
+  dispatch({ type: REMOVE_ALL_FILTERS, newFilter: [] });
+
+  const updateRecipes = filtredRecipesSelector(getState());
+  dispatch({ type: UPDATE_RECIPES, updateRecipes });
+};
