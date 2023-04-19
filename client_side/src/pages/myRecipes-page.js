@@ -14,6 +14,7 @@ import Loader from "../components/Loader";
 import ListItem from "../components/ListItem";
 import Recipe from "../components/Recipes/Recipe";
 import styles from "./page.module.css";
+import Button from "../components/Button/button";
 
 function MyRecipesPage({
   getAllUserRecipes,
@@ -26,6 +27,18 @@ function MyRecipesPage({
   }, [getAllUserRecipes]);
 
   const isPageWide = useMediaQuery("(max-width: 740px)");
+
+  const refs = recipesList.reduce((acc, item) => {
+    acc[item[0]] = React.createRef();
+    return acc;
+  }, {});
+
+  const handleScroll = (id) => {
+    refs[id].current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   if (recipesList.length < 1 && loading) return <Loader />;
   if (recipesList.length < 1 && !loading) {
@@ -51,7 +64,9 @@ function MyRecipesPage({
         <aside className={styles.sidebar}>
           <ul>
             {recipesList.map((i) => (
-              <ListItem key={i[0]} id={i[0]} item={i[1].label} />
+              <Button key={i[0]} onClick={() => handleScroll(i[0])} noStyle>
+                <ListItem id={i[0]} item={i[1].label} />
+              </Button>
             ))}
           </ul>
         </aside>
@@ -60,7 +75,9 @@ function MyRecipesPage({
       <main className={styles.mainContent}>
         <div className={styles.recipesContainer}>
           {recipesList.map((i) => (
-            <Recipe key={i[0]} id={i[0]} recipes={recipesObject} />
+            <div ref={refs[i[0]]} key={i[0]}>
+              <Recipe id={i[0]} recipes={recipesObject} />
+            </div>
           ))}
         </div>
       </main>
