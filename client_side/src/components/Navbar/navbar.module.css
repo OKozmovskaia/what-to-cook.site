@@ -40,3 +40,9 @@
   width: 100%;
   z-index: 10;
 }
+
+@media print {
+  .container {
+    display: none;
+  }
+}

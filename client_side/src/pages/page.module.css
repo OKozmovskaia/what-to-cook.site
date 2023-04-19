@@ -27,7 +27,7 @@
   align-self: flex-start;
 }
 
-.outerRecipes ul {
+ul {
   padding-left: 0;
 }
 
@@ -77,5 +77,11 @@
 
   .outerRecipes ul {
     font-size: 0.8em;
+  }
+}
+
+@media print {
+  .sidebar {
+    display: none;
   }
 }

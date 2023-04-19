@@ -12,6 +12,7 @@ import {
 import Loader from "../components/Loader";
 import ProductItem from "../components/ProductItem/";
 import styles from "./page.module.css";
+import Button from "../components/Button/button";
 
 function MyProductsPage({ getAllUserProducts, productsList, loading }) {
   useEffect(() => {
@@ -44,13 +45,12 @@ function MyProductsPage({ getAllUserProducts, productsList, loading }) {
       {!isPageWide && <aside className={styles.sidebar}></aside>}
 
       <main className={styles.mainContent}>
-        <div className={styles.outerRecipes}>
-          <ul>
-            {productsList.map((i) => (
-              <ProductItem key={i[0]} id={i[0]} product={i[1]} />
-            ))}
-          </ul>
-        </div>
+        <Button iconStyle icon="print" onClick={() => window.print()} />
+        <ul>
+          {productsList.map((i) => (
+            <ProductItem key={i[0]} id={i[0]} product={i[1]} />
+          ))}
+        </ul>
       </main>
     </div>
   );

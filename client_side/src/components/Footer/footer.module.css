@@ -19,3 +19,9 @@
     margin: 0.3em;
   }
 }
+
+@media print {
+  .footerContainer {
+    display: none;
+  }
+}
