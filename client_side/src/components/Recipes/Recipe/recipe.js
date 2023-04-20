@@ -29,11 +29,6 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
     setOpen(!open);
   };
 
-  const dish = cleanString(JSON.stringify(dishType));
-  const meal = cleanString(JSON.stringify(mealType));
-  const cuisine = cleanString(JSON.stringify(cuisineType));
-  const time = toHoursAndMin(totalTime);
-
   const handleSave = () => {
     saveRecipe({ recipe: recipes[id] });
     handleOpen();
@@ -74,11 +69,12 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
               width="300"
               onError={imageOnError}
             />
-            <h4>{label}</h4>
+            {label ? <h4>{label}</h4> : <h4>Recipe without title</h4>}
+
             <p>
               Cook time:
               {totalTime > 0 ? (
-                <span> {time}</span>
+                <span> {toHoursAndMin(totalTime)}</span>
               ) : (
                 <span> not mentioned</span>
               )}
@@ -95,11 +91,24 @@ const Recipe = ({ id, recipes, saveRecipe, deleteRecipe, saveProduct }) => {
             <div className={styles.flexBox}>
               <img src={image} alt="recipe-img" onError={imageOnError} />
               <div className={styles.content}>
-                <h2>{label}</h2>
+                {label ? <h2>{label}</h2> : <h2>Recipe without label</h2>}
+
                 <p>
-                  <span className={styles.badge}>{cuisine}</span>
-                  <span className={styles.badge}>{dish}</span>
-                  <span className={styles.badge}>{meal}</span>
+                  {cuisineType ? (
+                    <span className={styles.badge}>
+                      {cleanString(JSON.stringify(cuisineType))}
+                    </span>
+                  ) : null}
+                  {dishType ? (
+                    <span className={styles.badge}>
+                      {cleanString(JSON.stringify(dishType))}
+                    </span>
+                  ) : null}
+                  {mealType ? (
+                    <span className={styles.badge}>
+                      {cleanString(JSON.stringify(mealType))}
+                    </span>
+                  ) : null}
                 </p>
                 <p>
                   Cook time:

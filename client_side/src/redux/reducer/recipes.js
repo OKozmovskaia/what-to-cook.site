@@ -45,6 +45,7 @@ const recipes = (state = initialState, action) => {
         ...state,
         entities: idAsKey(data.recipes),
         filters: {},
+        userFilters: [],
         loadMore: data.nextChunk,
         searchQuery: data.searchQuery,
         loading: false,

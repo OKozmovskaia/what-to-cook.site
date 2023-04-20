@@ -60,6 +60,12 @@ export const recipesListSelector = createSelector(
 
 // FILTERS SELECTORS
 
+const cleanFiltersSelector = createSelector(filtersSelector, (list) =>
+  Object.fromEntries(
+    Object.entries(list).filter((item) => item[1].value !== undefined)
+  )
+);
+
 const groupByCategory = (recipes, category) => {
   return recipes.reduce((acc, item) => {
     const id = uuidv4();
@@ -88,7 +94,7 @@ const filtersCreateSelector = createSelector(
 );
 
 export const newFiltersSelector = createSelector(
-  filtersSelector,
+  cleanFiltersSelector,
   filtersCreateSelector,
   (prevFilters, newFilters) =>
     Object.fromEntries(
@@ -102,6 +108,8 @@ export const newFiltersSelector = createSelector(
 );
 
 const sortObjectByNestedValue = (obj) => {
+  if (!obj) return;
+
   return Object.fromEntries(
     Object.entries(obj).sort((x, y) =>
       x[1].label === "totalTime"
@@ -111,36 +119,44 @@ const sortObjectByNestedValue = (obj) => {
   );
 };
 
-export const dishTypeListSelector = createSelector(filtersSelector, (list) =>
-  Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "dishType"
-      ? sortObjectByNestedValue({ ...acc, [key]: value })
-      : acc;
-  }, {})
+export const dishTypeListSelector = createSelector(
+  cleanFiltersSelector,
+  (list) =>
+    Object.entries(list).reduce((acc, [key, value]) => {
+      return value.label === "dishType"
+        ? sortObjectByNestedValue({ ...acc, [key]: value })
+        : acc;
+    }, {})
 );
 
-export const mealTypeListSelector = createSelector(filtersSelector, (list) =>
-  Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "mealType"
-      ? sortObjectByNestedValue({ ...acc, [key]: value })
-      : acc;
-  }, {})
+export const mealTypeListSelector = createSelector(
+  cleanFiltersSelector,
+  (list) =>
+    Object.entries(list).reduce((acc, [key, value]) => {
+      return value.label === "mealType"
+        ? sortObjectByNestedValue({ ...acc, [key]: value })
+        : acc;
+    }, {})
 );
 
-export const cuisineTypeListSelector = createSelector(filtersSelector, (list) =>
-  Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "cuisineType"
-      ? sortObjectByNestedValue({ ...acc, [key]: value })
-      : acc;
-  }, {})
+export const cuisineTypeListSelector = createSelector(
+  cleanFiltersSelector,
+  (list) =>
+    Object.entries(list).reduce((acc, [key, value]) => {
+      return value.label === "cuisineType"
+        ? sortObjectByNestedValue({ ...acc, [key]: value })
+        : acc;
+    }, {})
 );
 
-export const cookingTimeListSelector = createSelector(filtersSelector, (list) =>
-  Object.entries(list).reduce((acc, [key, value]) => {
-    return value.label === "totalTime"
-      ? sortObjectByNestedValue({ ...acc, [key]: value })
-      : acc;
-  }, {})
+export const cookingTimeListSelector = createSelector(
+  cleanFiltersSelector,
+  (list) =>
+    Object.entries(list).reduce((acc, [key, value]) => {
+      return value.label === "totalTime"
+        ? sortObjectByNestedValue({ ...acc, [key]: value })
+        : acc;
+    }, {})
 );
 
 // Recipe always has 1 value for every possible category
@@ -149,7 +165,7 @@ export const cookingTimeListSelector = createSelector(filtersSelector, (list) =>
 
 export const filtredRecipesSelector = createSelector(
   recipesSelector,
-  filtersSelector,
+  cleanFiltersSelector,
   userFiltersSelector,
   (recipes, filters, userFilters) =>
     Object.entries(recipes).reduce((acc, [id, recipe]) => {

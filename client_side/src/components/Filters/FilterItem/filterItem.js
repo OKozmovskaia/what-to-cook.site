@@ -27,8 +27,7 @@ const FilterItem = ({ category }) => {
       {open ? (
         <ul className={styles.filterContent}>
           {Object.entries(category).map((i) => {
-            const id = i[0];
-            return <ListItemFilter key={id} id={id} />;
+            return <ListItemFilter key={i[0]} id={i[0]} />;
           })}
         </ul>
       ) : null}
