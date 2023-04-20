@@ -31,7 +31,7 @@ const Recipes = ({
   return (
     <div className={styles.scrollContainer}>
       <p>
-        {recipes.length} recipes matching your request. To found more scroll
+        {recipes.length} recipes matching your request. To find more, scroll
         down.
       </p>
       <div className={styles.recipesContainer}>

@@ -31,9 +31,8 @@ function MyProductsPage({ getAllUserProducts, productsList, loading }) {
           <h4>
             Go to <Link to="/">Home page</Link>
             <br></br>
-            and choose your first tasty recipe.<br></br>
-            Inside of the recipe card you could save any ingridients as your
-            product.
+            and choose your first recipe.<br></br>
+            Inside of the recipe card you could save any foods.
           </h4>
         </main>
       </div>

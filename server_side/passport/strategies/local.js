@@ -7,7 +7,7 @@ module.exports = new LocalStrategy(
     try {
       const user = await User.findOne({ email });
       if (!user) {
-        return done(null, false, "No account found with this email");
+        return done(null, false, "No account with this email");
       }
 
       const isValidPassword = await user.checkPassword(password);

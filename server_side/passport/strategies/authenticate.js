@@ -7,7 +7,11 @@ module.exports = async function authenticate(
   done
 ) {
   if (!email) {
-    return done(null, false, "There is no email or your email is private");
+    return done(
+      null,
+      false,
+      "No account with this email OR your email is private"
+    );
   }
 
   try {

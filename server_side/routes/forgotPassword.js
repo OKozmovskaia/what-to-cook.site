@@ -6,7 +6,7 @@ const sendEmail = require("../utils.js/sendEmail");
 module.exports.forgotPassword = async function forgotPassword(ctx, next) {
   const email = ctx.request.body.email;
   const user = await User.findOne({ email });
-  if (!user) ctx.throw(401, "User with this email doesn't exist");
+  if (!user) ctx.throw(401, "No account with this e-mail");
 
   const prevSession = await Session.findOne({ user: user._id });
   if (prevSession) await prevSession.deleteOne();
@@ -26,7 +26,7 @@ module.exports.forgotPassword = async function forgotPassword(ctx, next) {
   ctx.status = 200;
   ctx.body = {
     message: {
-      body: `Check your email. We've sent password reset instructions.`,
+      body: `We've sent password reset instructions. Check your email.`,
       success: true,
       error: false,
     },
@@ -38,22 +38,22 @@ module.exports.resetPassword = async function resetPassword(ctx, next) {
 
   const tokenFromDB = await Session.findOne({ user: id });
 
-  if (!tokenFromDB) ctx.throw(401, "Authentication token invalid or expired");
+  if (!tokenFromDB) ctx.throw(401, "Authentication token invalid");
 
   if (tokenFromDB.token !== token)
-    ctx.throw(401, "Authentication token invalid or expired");
+    ctx.throw(401, "Authentication token invalid");
 
   const user = await User.findOne({ _id: id });
   const isOldPassword = await user.checkPassword(password);
   if (isOldPassword)
-    ctx.throw(400, "You entered an Old Password. Generate a New one, please.");
+    ctx.throw(400, "You entered an Old Password. Generate a New one.");
 
   await user.setPassword(password);
   await user.save();
 
   sendEmail(
     user.email,
-    "Password changed successfully",
+    "Congratulations! Your password changed.",
     { name: user.displayName },
     "/emailTemplate.js/successResetPassword.handlebars"
   );
@@ -61,7 +61,7 @@ module.exports.resetPassword = async function resetPassword(ctx, next) {
   ctx.status = 200;
   ctx.body = {
     message: {
-      body: `Congratulations!Password changed successfully.`,
+      body: `Congratulations!Password changed.`,
       success: true,
       error: false,
     },

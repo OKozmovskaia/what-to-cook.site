@@ -24,7 +24,7 @@ app.use(async (ctx, next) => {
       ctx.response.status = 401;
       ctx.body = {
         message: {
-          body: `Please, use another credentials, your creadentials is already exists`,
+          body: `User with this email is already registred.`,
           error: true,
           success: false,
         },

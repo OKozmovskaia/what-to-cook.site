@@ -65,12 +65,12 @@ const MyAccountPage = ({
         <div className={styles.infoBoxesContainer}>
           <Link to="/my_recipes">
             <div className={styles.infoBox}>
-              You saved {numberRecipes} recipes.<br></br> Look them.
+              You saved {numberRecipes} recipes.<br></br> Check them out.
             </div>
           </Link>
           <Link to="/my_products">
             <div className={styles.infoBox}>
-              You saved {numberProducts} products.<br></br> Check them.
+              You saved {numberProducts} foods.<br></br> Check them out.
             </div>
           </Link>
         </div>

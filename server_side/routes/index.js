@@ -24,8 +24,7 @@ router.use(async (ctx, next) => {
 
   const session = await Session.findOne({ token }).populate("user");
   if (!session) {
-    console.log("Authentication token invalid or expired");
-    ctx.throw(401);
+    ctx.throw(401, "Authentication token invalid");
   }
 
   session.lastVisit = new Date();
@@ -105,7 +104,7 @@ router.post("/sign-up", async (ctx) => {
     token,
     id: user.id,
     message: {
-      body: "Congratulations! Account successfully created.",
+      body: "Congratulations! Account is created.",
       success: true,
       error: false,
     },
@@ -170,7 +169,7 @@ router.post("/save-recipe", mustBeAuthenticated, async (ctx, next) => {
 
   ctx.body = {
     message: {
-      body: `Recipe "${recipe.label.toUpperCase()}" is saved successfully`,
+      body: `Recipe "${recipe.label.toUpperCase()}" is saved.`,
       success: true,
       error: false,
     },
@@ -201,7 +200,7 @@ router.get(
     ctx.body = {
       recipes,
       message: {
-        body: "You removed 1 recipe",
+        body: "Recipe is removed",
         success: true,
         error: false,
       },
@@ -322,7 +321,7 @@ router.get(
     ctx.body = {
       userProduct,
       message: {
-        body: `Product is deleted`,
+        body: `Product is removed`,
         success: true,
         error: false,
       },
