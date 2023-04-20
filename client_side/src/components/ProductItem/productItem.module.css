@@ -20,6 +20,7 @@
   display: flex;
   gap: 1em;
   flex-grow: 1;
+  align-items: center;
 }
 
 .editContainer button {
@@ -30,6 +31,10 @@
   flex-grow: 1;
   width: 100px;
   line-height: 1.4em;
+}
+
+.productTitleChecked {
+  text-decoration: line-through;
 }
 
 input[type="checkbox"] {

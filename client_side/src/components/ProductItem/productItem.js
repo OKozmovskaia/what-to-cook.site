@@ -7,6 +7,7 @@ import {
 
 import Button from "../Button";
 import styles from "./productItem.module.css";
+import cn from "classnames";
 
 const ProductItem = ({ product, id, updateProduct, deleteProduct }) => {
   const [state, setState] = useState({
@@ -58,7 +59,7 @@ const ProductItem = ({ product, id, updateProduct, deleteProduct }) => {
         onChange={handleChecked}
       />
       {isEdit ? (
-        <span className={styles.editContainer}>
+        <form onSubmit={handleSave} className={styles.editContainer}>
           <input
             type="text"
             placeholder={state.title}
@@ -75,11 +76,17 @@ const ProductItem = ({ product, id, updateProduct, deleteProduct }) => {
             value={state.quantity}
             onChange={handleQuantity}
           />
-          <Button icon="save" iconStyle onClick={handleSave} />
-        </span>
+          <Button icon="save" iconStyle submit />
+        </form>
       ) : (
         <span className={styles.editContainer}>
-          <div className={styles.productTitle}>{state.title}</div>{" "}
+          <div
+            className={cn(styles.productTitle, {
+              [styles.productTitleChecked]: state.checked,
+            })}
+          >
+            {state.title}
+          </div>{" "}
           <div className={styles.productQuantity}>{state.quantity}</div>
           <Button icon="pen" iconStyle onClick={handleEdit} />
         </span>
