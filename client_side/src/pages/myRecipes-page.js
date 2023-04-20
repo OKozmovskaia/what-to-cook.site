@@ -36,7 +36,7 @@ function MyRecipesPage({
   const handleScroll = (id) => {
     refs[id].current.scrollIntoView({
       behavior: "smooth",
-      block: "start",
+      block: "center",
     });
   };
 
@@ -51,7 +51,7 @@ function MyRecipesPage({
             {" "}
             Go to <Link to="/">Home page</Link>
             <br></br>
-            and choose your first tasty recipe.
+            and choose your first recipe.
           </h4>
         </main>
       </div>
