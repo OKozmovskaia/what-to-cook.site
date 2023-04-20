@@ -17,7 +17,10 @@ const EmailInput = ({ isValid, setIsValid }) => {
   };
 
   const handleValid = () => {
-    if (!state.email) return;
+    if (!state.email || state.email === "") {
+      setIsValid((prevState) => ({ ...prevState, email: false }));
+      return;
+    }
     if (regex.test(state.email)) {
       setIsValid((prevState) => ({ ...prevState, email: true }));
     } else {

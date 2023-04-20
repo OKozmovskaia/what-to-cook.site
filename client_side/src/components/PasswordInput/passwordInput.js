@@ -18,7 +18,10 @@ const PasswordInput = ({ isValid, setIsValid, label }) => {
   };
 
   const handleValid = () => {
-    if (!state.password) return;
+    if (!state.password || state.password === "") {
+      setIsValid((prevState) => ({ ...prevState, password: false }));
+      return;
+    }
     if (regex.test(state.password)) {
       setIsValid((prevState) => ({ ...prevState, password: true }));
     } else {

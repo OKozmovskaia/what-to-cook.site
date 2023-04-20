@@ -17,7 +17,10 @@ const UserNameInput = ({ isValid, setIsValid }) => {
   };
 
   const handleValid = () => {
-    if (!state.username) return;
+    if (!state.username || state.username === "") {
+      setIsValid((prevState) => ({ ...prevState, username: false }));
+      return;
+    }
     if (regex.test(state.username)) {
       setIsValid((prevState) => ({ ...prevState, username: true }));
     } else {
@@ -32,7 +35,7 @@ const UserNameInput = ({ isValid, setIsValid }) => {
 
   return (
     <div className={styles.container}>
-      <label htmlFor={idUsername}>Name: </label>
+      <label htmlFor={idUsername}>Login: </label>
 
       <input
         className={
@@ -53,7 +56,7 @@ const UserNameInput = ({ isValid, setIsValid }) => {
           <span className={isValid ? styles.success : styles.error}>
             {isValid
               ? `Welcome, ${state.username}`
-              : "Name must be between 2 and 25 characters long"}
+              : "Login must be 1 word between 2 and 25 characters long"}
           </span>
         ) : null}
       </div>
