@@ -60,6 +60,7 @@ function HomePage({ findRecipes, userFilters, recipes, loading }) {
               backgroundColor: "var(--yellow)",
               borderRadius: "50%",
               flexShrink: 0,
+              border: "6px solid var(--yellow)",
             }}
             iconStyle
             icon="filters"

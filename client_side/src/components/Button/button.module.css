@@ -25,11 +25,21 @@
 }
 
 .icon {
+  display: block;
+  position: relative;
   width: 2.1em;
   height: 2.1em;
   color: var(--yellow);
   background-color: transparent;
   border-radius: 5px;
+}
+
+.icon svg {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .dropDown {
@@ -79,4 +89,11 @@
 
 .currentColor {
   color: currentColor !important;
+}
+
+@media only screen and (max-width: 740px) {
+  .icon {
+    width: 35px;
+    height: 35px;
+  }
 }

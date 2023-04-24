@@ -3,19 +3,22 @@
   margin-top: 3em;
 }
 
+.iconContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .iconContainer button {
-  height: 60px;
-  width: 60px;
   background-color: var(--yellow);
   margin: 1em;
   border-radius: 50%;
-  border: 5px solid var(--yellow);
+  border: 8px solid var(--yellow);
 }
 
 @media only screen and (max-width: 740px) {
   .iconContainer button {
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     margin: 0.3em;
   }
 }
