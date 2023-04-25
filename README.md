@@ -8,6 +8,10 @@ What-To-Cook is a fullstack project with **React-Redux** architecture on a clien
 
 It's a personal pet project, that allows to learn, test and implement JavaScript features.
 
+## Architecture Design
+
+![](./client_side/public/architecture_design.png)
+
 ## Main Functionality
 
 1. Finding recipes with query. For this task [Edamam API](https://www.edamam.com/) used. It was necessary to take into account limitations of API: every request returns just 1 portion of data (20 pieces or less), structure and type of requesting data.
